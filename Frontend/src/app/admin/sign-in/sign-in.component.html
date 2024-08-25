@@ -4,15 +4,25 @@
       <div class="row no-gutters">
         <div class="col-md-5">
           <div class="card-body">
+            <div class="alert alert-danger" *ngIf="error">
+              <p>{{ error }}</p>
+            </div>
             <h4 class="login-card-desscription">✈ Airfare Calculation</h4>
             <div class="pt-5">
-              <form class="d-flex flex-column justify-content-center">
+              <form
+                class="d-flex flex-column justify-content-center"
+                #authForm="ngForm"
+                (ngSubmit)="onSubmit(authForm)"
+              >
                 <div class="mb-2">
                   <label for="username" class="sr-only">Username</label>
                   <input
                     class="form-control"
                     type="text"
                     placeholder="Username"
+                    ngModel
+                    name="email"
+                    required
                   />
                 </div>
                 <div class="mb-3">
@@ -21,6 +31,9 @@
                     class="form-control"
                     type="password"
                     placeholder="Password"
+                    ngModel
+                    name="password"
+                    required
                   />
                 </div>
                 <button class="btn btn-block login-btn mb-4">Sign In</button>

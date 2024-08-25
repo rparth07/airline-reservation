@@ -14,8 +14,6 @@ export class FlightOperatorService {
   }
 
   addFlightOperator(flightOperator: FlightOperator) {
-    console.log(flightOperator);
-
     this.http
       .post<FlightOperator>(
         DomainConstants.URL + 'Admin/Operator',

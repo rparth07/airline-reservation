@@ -1,6 +1,21 @@
 <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar pt-3 d-flex">
   <div class="container-fluid d-flex iq-navbar">
+    <div
+      *ngIf="isVisible"
+      class="sidebar-toggle mt-3 float-left"
+      (click)="toggleSidebar()"
+    >
+      <i class="icon">
+        <svg width="20px" height="20px" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"
+          ></path>
+        </svg>
+      </i>
+    </div>
     <a
+      *ngIf="isVisible"
       class="navbar-brand float-left d-flex align-items-center mb-md-0 me-md-auto text-decoration-none"
       routerLink="home"
     >
@@ -8,7 +23,7 @@
       <h4 class="logo-title">Airline System</h4>
     </a>
 
-    <button
+    <!-- <button
       class="navbar-toggler float-right"
       type="button"
       data-bs-toggle="collapse"
@@ -22,37 +37,34 @@
         <span class="navbar-toggler-bar bar2"></span>
         <span class="navbar-toggler-bar bar3"></span>
       </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </button> -->
+    <div class="navbar-collapse flex-grow-1" id="navbarSupportedContent">
       <ul
         class="mb-2 navbar-nav ms-auto align-items-md-end align-items-sm-end navbar-list mb-lg-0"
       >
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" (click)="openAdminProfileOption()">
           <a
             class="py-0 nav-link d-flex align-items-center"
             id="navbarDropdown"
             role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
           >
             <img src="../../assets/images/user.png" />
-            <div class="caption d-none d-md-block d-sm-block">
+            <div class="caption d-md-block d-sm-block">
               <h6 class="mb-0 caption-title">Admin Name</h6>
             </div>
           </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
+          <ul *ngIf="isAdminVisible" class="admin-profile-option">
             <li>
-              <a class="dropdown-item" routerLink="home">Profile</a>
+              <a class="dropdown-item" routerLink="admin-profile">Profile</a>
             </li>
 
             <li>
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" routerLink="home">Logout</a>
+              <a class="dropdown-item" routerLink="login" (click)="logout()"
+                >Logout</a
+              >
             </li>
           </ul>
         </li>

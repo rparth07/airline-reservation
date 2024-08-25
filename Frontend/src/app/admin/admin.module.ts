@@ -9,12 +9,15 @@ import { FlightOperatorComponent } from './flight-operator/flight-operator.compo
 import { AddFlightOperatorComponent } from './add-flight-operator/add-flight-operator.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddAirportComponent } from './add-airport/add-airport.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { FlightsComponent } from './flights/flights.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './sign-in/auth.guard';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { FlightsComponent } from './flights/flights.component';
     AddFlightOperatorComponent,
     AdminProfileComponent,
     AddAirportComponent,
+    SidebarComponent,
     FlightsComponent,
     AddFlightComponent,
     AdminHomeComponent,
@@ -38,6 +42,7 @@ import { FlightsComponent } from './flights/flights.component';
     SharedModule,
   ],
   exports: [AdminComponent],
+
   bootstrap: [AdminComponent],
 })
 export class AdminModule {}

@@ -103,7 +103,6 @@ export class SearchService {
 
   getMulticityDataFromQuery(query: Params) {
     let data: MulticitySearchWidget;
-    console.log('active multicity=', query);
 
     let itinerary: string[] = query['itinerary'].split('_');
     data = {

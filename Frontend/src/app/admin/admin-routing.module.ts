@@ -10,58 +10,66 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightOperatorComponent } from './flight-operator/flight-operator.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddAirportComponent } from './add-airport/add-airport.component';
+import { AuthGuard } from './sign-in/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'flight-operator', pathMatch: 'full' },
-  {
-    path: 'flight-operator',
-    component: FlightOperatorComponent,
-  },
-  {
-    path: 'flight-operator/create',
-    component: AddFlightOperatorComponent,
-  },
-  {
-    path: 'admin-profile',
-    component: AdminProfileComponent,
-  },
   {
     path: '',
-    component: AdminHomeComponent,
-  },
-  {
-    path: 'flights',
-    component: FlightsComponent,
-  },
-  {
-    path: 'flights/add-flights',
-    component: AddFlightComponent,
-    redirectTo: 'login',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      { path: 'home', component: AdminHomeComponent },
+      {
+        path: 'admin-profile',
+        component: AdminProfileComponent,
+      },
+
+      {
+        path: 'flight-operator',
+        component: FlightOperatorComponent,
+      },
+      {
+        path: 'flight-operator/create',
+        component: AddFlightOperatorComponent,
+      },
+
+      {
+        path: 'flights',
+        component: FlightsComponent,
+      },
+      {
+        path: 'flights/add-flights',
+        component: AddFlightComponent,
+      },
+
+      {
+        path: 'airport',
+        component: AirportComponent,
+      },
+      {
+        path: 'airport/create',
+        component: AddAirportComponent,
+      },
+      {
+        path: 'flights',
+        component: FlightsComponent,
+      },
+      {
+        path: 'flights/add-flights',
+        component: AddFlightComponent,
+      },
+    ],
   },
   {
     path: 'login',
     component: SignInComponent,
-  },
-  {
-    path: 'airport',
-    component: AirportComponent,
-  },
-  {
-    path: 'airport/create',
-    component: AddAirportComponent,
-  },
-  {
-    path: 'flights',
-    component: FlightsComponent,
-  },
-  {
-    path: 'flights/add-flights',
-    component: AddFlightComponent,
-  },
-  {
-    path: 'admin/flight-operator',
-    component: FlightOperatorComponent,
-    children: [{ path: 'create', component: AddFlightOperatorComponent }],
+    data: {
+      isSidebarHidden: true,
+    },
   },
 ];
 

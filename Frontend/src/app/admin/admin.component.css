@@ -6,6 +6,34 @@ body {
   background-color: #72bdef21;
 }
 
-.home-content {
+/* .main-content {
   margin: 0;
+} */
+
+/* .sidebar.sidebar-mini +  */
+.main-content {
+  /* margin: 0; */
+  margin-left: 6.8rem;
+  transition: all 300ms ease;
+}
+/* .sidebar + */
+.main-content-margin-left {
+  margin-left: 16.2rem;
+  transition: all 400ms ease;
+}
+
+@media (max-width: 1199.98px) {
+  .main-content-margin-left {
+    margin-left: 0;
+    transition: all 400ms ease;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sidebar + .main-content .nav .navbar-brand {
+    display: none;
+  }
 }

@@ -1,0 +1,184 @@
+<div class="conatiner-fluid content-inner mt-1 py-0">
+  <div class="mt-5">
+    <div class="row ms-5 justify-content-around">
+      <div class="col-10 col-md-10 shadow card mb-5 rounded">
+        <div class="mx-2 mt-2">
+          <h2>Flights</h2>
+          <div class="row justify-content-between">
+            <div class="col-4 col-md-4 pe-0 mb-2">
+              <form class="d-flex search-box d-inline">
+                <input
+                  id="search"
+                  class="form-control form-inline me-2"
+                  type="search"
+                  placeholder="Search..."
+                  aria-label="Search"
+                  autocomplete="off"
+                />
+                <button type="submit" id="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+              <div class="suggestions scrollable"></div>
+            </div>
+
+            <div class="col-5">
+              <div class="add-flight">
+                <input
+                  type="file"
+                  id="fileLoader"
+                  name="file"
+                  accept=".csv"
+                  title="Load File"
+                  hidden
+                  #csvFile
+                  (change)="addCSVFile($event)"
+                />
+                <button
+                  id="add-flight-file"
+                  type="button"
+                  class="btn text-light primary-color"
+                  (click)="csvFile.click()"
+                >
+                  Add CSV
+                </button>
+
+                <button
+                  type="button"
+                  id="add-flight-btn"
+                  class="btn text-light primary-color"
+                  (click)="openModal()"
+                >
+                  Add flight
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-around">
+            <div class="col">
+              <table
+                class="caption-top mx-auto my-table table table-hover table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl table-responsive-xxl"
+              >
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th
+                      scope="col"
+                      class="table-header"
+                      data-name="flightNumber"
+                    >
+                      Flight Number
+                    </th>
+                    <th scope="col" class="table-header" data-name="sourceCity">
+                      Source City
+                    </th>
+                    <th
+                      scope="col"
+                      class="table-header"
+                      data-name="destinationCity"
+                    >
+                      Destination City
+                    </th>
+                    <th scope="col" class="table-header" data-name="distance">
+                      Distance
+                    </th>
+                    <th scope="col" class="table-header" data-name="startTime">
+                      Start Time
+                    </th>
+                    <th scope="col" class="table-header" data-name="endTime">
+                      End Time
+                    </th>
+                    <th scope="col" class="table-header">Operating Days</th>
+                    <th
+                      scope="col"
+                      class="table-header"
+                      data-name="flightOperator"
+                    >
+                      Flight Operator
+                    </th>
+                    <th scope="col" class="ps-3">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="flightData">
+                  <tr
+                    *ngFor="
+                      let flight of currentPageData$ | async;
+                      let i = index
+                    "
+                  >
+                    <th scope="col">
+                      {{ pageSize * selectedPageNumber + i + 1 }}
+                    </th>
+                    <td>{{ flight.flightNumber }}</td>
+                    <td>{{ flight.sourceCity }}</td>
+                    <td>{{ flight.destinationCity }}</td>
+                    <td>{{ flight.distance }}</td>
+                    <td>{{ flight.sourceDepartureTime }}</td>
+                    <td>{{ flight.destinationArrivalTime }}</td>
+                    <td>
+                      {{ flight.operatingDays }}
+                    </td>
+                    <td>{{ flight.flightOperatorName }}</td>
+
+                    <td>
+                      <i class="material-icons ms-2" (click)="openModal(flight)"
+                        >border_color</i
+                      >
+                      <i
+                        class="material-icons ms-md-2 ms-lg-3 ms-sm-2 ms-xl-2"
+                        (click)="onDeleteFlight(flight.flightNumber)"
+                        >delete</i
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- pagination section -->
+          <div class="row justify-content-center">
+            <div class="col-9">
+              <nav aria-label=" navigation example mx-auto">
+                <ul class="pagination justify-content-center">
+                  <li
+                    class="page-item page-list"
+                    (click)="
+                      selectedPageNumber > 0 &&
+                        onPageChange(selectedPageNumber - 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo; Previous</span>
+                    </a>
+                  </li>
+                  <li
+                    class="page-item list-item"
+                    *ngFor="let page of totalPages"
+                    [ngClass]="page == selectedPageNumber ? 'active' : ''"
+                    (click)="onPageChange(page)"
+                  >
+                    <a class="page-link"> {{ page + 1 }}</a>
+                  </li>
+                  <li
+                    class="page-item"
+                    (click)="
+                      selectedPageNumber < totalPages.length - 1 &&
+                        onPageChange(selectedPageNumber + 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">Next &raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- //// -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

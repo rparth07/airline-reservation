@@ -1,0 +1,55 @@
+<div
+  class="row pb-4 justify-content-center"
+  [ngModelGroup]="passengerGroupName"
+>
+  <div class="col-6 input-box">
+    <div><label for="name">Name</label></div>
+    <input
+      class="form-control mt-2 search-box-input"
+      name="name"
+      id="name"
+      placeholder="Ex: Chandler Bing"
+      ngModel
+      required
+      #name="ngModel"
+    />
+    <span
+      class="position-absolute error-section"
+      [hidden]="!name.touched || name.valid"
+      >Please enter your name</span
+    >
+  </div>
+  <div class="col-3 input-box">
+    <div><label for="name">Age</label></div>
+    <input
+      type="number"
+      [min]="minAge"
+      [max]="maxAge"
+      class="form-control mt-2 search-box-input"
+      name="age"
+      id="age"
+      placeholder="Enter Age"
+      #age="ngModel"
+      ngModel
+      required
+    />
+    <span
+      class="help-block position-absolute error-section"
+      [hidden]="!age.touched || age.valid"
+      >Invalid Age</span
+    >
+  </div>
+  <div class="col-3 input-box">
+    <div><label for="name">Gender</label></div>
+    <ng-select
+      [items]="gender"
+      class="mt-2 search-box-input"
+      [searchable]="false"
+      placeholder="Enter Gender"
+      name="gender"
+      [(ngModel)]="selectedGender"
+      required
+    >
+    </ng-select>
+  </div>
+</div>

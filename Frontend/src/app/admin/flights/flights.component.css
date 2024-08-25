@@ -1,0 +1,59 @@
+.add-flight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-flight button {
+  margin-left: 5px;
+}
+
+@media (min-width: 1400px) {
+  table {
+    overflow-x: scroll;
+  }
+}
+
+.primary-color {
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.primary-color:hover {
+  background-color: #3a57e8de;
+  border: none;
+}
+
+.search-box button {
+  display: flex;
+  padding: 10.5px 10px;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+.my-container {
+  width: 100%;
+  padding: 3rem;
+}
+
+td {
+  align-items: center;
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+::placeholder {
+  margin-left: 3px;
+}
+
+.my-table thead {
+  cursor: pointer;
+}
+.form-inline {
+  width: 50%;
+}

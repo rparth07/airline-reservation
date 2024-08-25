@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./CSS/multicity-trip.css" />
+    <link rel="stylesheet" href="./CSS/oneway-trip.css" />
+    <link rel=" icon" type="image/jpg" href="./Images/airplane.png" />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <script src="./JS/jquery.js" defer></script>
+    <script type="module" src="./JS/multicity-trip.js" defer></script>
+    <script type="module" src="./JS/oneway-trip.js" defer></script>
+
+    <title>MultiCity Trip · Airline Fare Calculator</title>
+  </head>
+  <body>
+    <!-- Just an image -->
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="./index.html">
+        <img src="./Images/airplane.png" width="60" height="60" alt="AirWays" />
+        Airline Fare Calculator
+      </a>
+    </nav>
+
+    <div class="background">
+      <img src="./Images/background.svg" alt="background-img" />
+    </div>
+
+    <div class="my-container">
+      <div class="row mr-ml-0 mt-2 search-widget justify-content-center">
+        <div class="col-md-2 col-sm-6 col-xs-12 input-box">
+          <label for="tripType" class="form-label">Trip Type </label>
+          <select id="tripType" class="form-select form-select-border">
+            <option>Oneway</option>
+            <option>Round-trip</option>
+            <option selected>Multicity</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 input-box-no-witdth-limit">
+          <label for="from-city" class="form-label">From</label>
+          <div class="from-city">
+            <div class="ml-2">
+              <span id="fromCity">Delhi-Bengaluru</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-1 input-box">
+          <label for="travelClass" class="form-label">Class</label>
+          <select id="travelClass" class="form-select form-select-border">
+            <option selected>Economy</option>
+            <option>Business</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="travellers" class="form-label text-light"
+            >Passengers</label
+          >
+
+          <div class="traveller">
+            <div class="ml-2">
+              <span id="travellersCount"></span>,Travellers
+            </div>
+          </div>
+          <div class="card d-none travellers-card">
+            <div class="card-body travellers-card-body">
+              <div class="row mr-ml-0 mb-2">
+                <div class="col-5 d-flex align-items-center">
+                  <span>Adults</span>
+                </div>
+                <div class="col-3 offset-1">
+                  <div class="counter-div">
+                    <button class="btn" id="increment-adult">+</button>
+                    <span id="counting-adult" class="d-flex align-items-center"
+                      >1</span
+                    >
+                    <button class="btn" id="decrement-adult">-</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mr-ml-0 mb-2">
+                <div class="col-5 d-flex align-items-center">
+                  <span>Child</span>
+                </div>
+                <div class="col-3 offset-1">
+                  <div class="counter-div">
+                    <button class="btn" id="increment-child">+</button>
+                    <span id="counting-child" class="d-flex align-items-center"
+                      >1</span
+                    >
+                    <button class="btn" id="decrement-child">-</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mr-ml-0 mb-2">
+                <div class="col-5 d-flex align-items-center">
+                  <span>Infant</span>
+                </div>
+                <div class="col-3 offset-1">
+                  <div class="counter-div">
+                    <button class="btn" id="increment-infant">+</button>
+                    <span id="counting-infant" class="d-flex align-items-center"
+                      >0</span
+                    >
+                    <button class="btn" id="decrement-infant" disabled>
+                      -
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1 d-flex align-items-end input-box">
+          <button id="search-button" class="btn">
+            <span>Search</span>
+          </button>
+        </div>
+
+        <div class="card d-none from-city-card">
+          <div class="row mr-ml-m0 p-2">
+            <div class="city-selection col">
+              <div class="row mr-ml-0">
+                <div class="col-md-1 box-design">
+                  <span>Trip</span>
+                </div>
+
+                <div class="col box-design pr-2">
+                  <span>From</span>
+                  <input
+                    class="source-search-input form-control"
+                    type="text"
+                    name="sourceCity"
+                    id="sourceCity"
+                    placeholder="SourceCity"
+                    value="Rajkot"
+                  />
+                </div>
+                <div class="col col-sm-6 col-xs-12 reverse-icon-multicity">
+                  <i class="fa fa-exchange" aria-hidden="true"></i>
+                </div>
+                <div class="col box-design">
+                  <span>To</span>
+                  <input
+                    class="destination-search-input form-control"
+                    type="text"
+                    name="destinationCity"
+                    id="destinationCity"
+                    placeholder="DestinationCity"
+                    value="Mumbai"
+                  />
+                </div>
+                <div class="col box-design">
+                  <label for="depatureDate" class="form-label">Departure</label>
+                  <input
+                    class="mr-2 form-control departureDate"
+                    type="date"
+                    id="departureDate"
+                    value=""
+                    required
+                  />
+                </div>
+
+                <div class="col-md-1 justify-content-center">
+                  <button class="btn remove-city-button mt-3" hidden>
+                    <img src="./Images/cancel.png" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-7 offset-5">
+            <button class="btn m-2" id="add-city-button">+ Add City</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- multicity itinerary block -->
+    <div class="d-flex justify-content-center row mr-ml-0 m-4 itinerary">
+      <div class="col-md-auto">
+        <div class="card border-0 itinerary-card">
+          <div class="d-flex flex-column">
+            <ul
+              class="d-flex flex-row mr-ml-0 justify-content multicity-list p-0 m-0"
+            >
+              <li class="d-flex flex-column p-4 multicity-item">
+                <span class="d-flex justify-content-center"
+                  >Delhi - Bengaluru</span
+                >
+                <span class="d-flex justify-content-center">28-Feb-2022</span>
+              </li>
+              <li class="d-flex flex-column p-4 multicity-item">
+                <span class="d-flex justify-content-center"
+                  >Bengaluru - Chennai</span
+                >
+                <span class="d-flex justify-content-center">2-Mar-2022</span>
+              </li>
+              <li class="d-flex flex-column p-4 multicity-item">
+                <span class="d-flex justify-content-center"
+                  >Bengaluru - Mumbai</span
+                >
+                <span class="d-flex justify-content-center">3-Mar-2022</span>
+              </li>
+              <li class="d-flex flex-column p-4 multicity-item">
+                <span class="d-flex justify-content-center"
+                  >Jaipur - Lukhnow</span
+                >
+                <span class="d-flex justify-content-center">5-Mar-2022</span>
+              </li>
+              <li class="d-flex flex-column p-4 multicity-item">
+                <span class="d-flex justify-content-center"
+                  >Lukhnow - Delhi</span
+                >
+                <span class="d-flex justify-content-center">7-Mar-2022</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center row mr-ml-0 m-3">
+      <div class="col-md-auto flight-list">
+        <!-- header for flight list -->
+        <div class="d-flex justify-content-center row mr-ml-0">
+          <div class="col">
+            <div class="card">
+              <div
+                class="card-body d-flex flex-column justify-content-between pl-3 pr-3 pt-1 pb-1"
+              >
+                <div class="p-1 flightinfo-header">
+                  <div class="d-flex flex-row mr-ml-0 justify-content-between">
+                    <div
+                      class="d-flex flex-column pl-2 pr-2 pt-0 pb-0 col-md-3"
+                    >
+                      <span class="d-flex justify-content-center"
+                        >Departure</span
+                      >
+                    </div>
+                    <div
+                      class="d-flex flex-column pl-2 pr-2 pt-0 pb-0 col-md-3"
+                    >
+                      <span class="d-flex justify-content-center"
+                        >Duration</span
+                      >
+                    </div>
+                    <div
+                      class="d-flex flex-column pl-2 pr-2 pt-0 pb-0 col-md-3"
+                    >
+                      <span class="d-flex justify-content-center">Arrival</span>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center pl-2 pr-2 pt-0 pb-0 col-md-3"
+                    >
+                      <span>Price</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- list of flights -->
+        <ul class="p-0 pt-2">
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="d-flex justify-content-center row mr-ml-0 flight-details mb-2"
+          >
+            <div class="col">
+              <div class="card">
+                <div
+                  class="card-body d-flex flex-column justify-content-between p-3"
+                >
+                  <div class="flight-operator">
+                    <span>
+                      <span id="operator-icon">✈</span>
+                      <span id="operator-name">IndiGo</span>
+                    </span>
+                  </div>
+                  <div class="p-1 flight-info">
+                    <div
+                      class="d-flex flex-row mr-ml-0 justify-content-between"
+                    >
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center"
+                          >02 h 45 m</span
+                        >
+                        <span
+                          class="time-stop-sperator d-flex justify-content-center"
+                        ></span>
+                        <span
+                          class="flights-layover-info d-flex justify-content-center"
+                          >Non stop</span
+                        >
+                      </div>
+                      <div class="d-flex flex-column p-2 col-md-3">
+                        <span class="d-flex justify-content-center">11:35</span>
+                        <span class="d-flex justify-content-center"
+                          >Bengaluru</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-center p-2 col-md-3">
+                        <span class="align-items-center">₹700</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+:root {
+  --primary-color: #3a57e8;
+}
+
+.input-box {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 0px 11px;
+}
+
+.input-box select,
+.input-box input,
+.input-box input {
+  border: none;
+  outline: 0px;
+}
+
+.fa {
+  margin-top: 20px;
+}
+
+.container {
+  max-width: 1600px;
+}
+
+#search-button {
+  width: 156px;
+  font-size: 18px;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 10%;
+}
+button:focus,
+button:hover {
+  outline: none;
+}
+
+.traveller {
+  cursor: pointer;
+}
+.counter-div {
+  display: inline-flex;
+  margin-left: 50%;
+}
+.counter-div button {
+  margin: 0px 8px;
+  background: var(--primary-color);
+}
+
+.card {
+  border-radius: 5px;
+  width: 20rem;
+  position: absolute;
+  top: 111%;
+  left: -1%;
+  border: 1px solid;
+  z-index: 1;
+}
+
+.multiCity-card {
+  border-radius: 5px;
+  width: 20rem;
+  position: absolute;
+  right: -32%;
+  border: 1px solid;
+  z-index: 1;
+}
+.row {
+  margin-right: 0px;
+}
+
+ul {
+  list-style: none;
+}
+
+.background img {
+  width: 100%;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  z-index: -1;
+}
+
+.title {
+  color: #fff;
+  line-height: 2.8rem;
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin: 2rem 0;
+}
+
+.container > ul li {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border-radius: 6rem;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  font-weight: 700;
+}
+
+ul li a {
+  color: #777777;
+  padding: 0.5rem 1rem;
+}
+
+a:hover {
+  color: #777777;
+  text-decoration: none;
+}
+
+ul .active {
+  color: #007bff;
+  background-color: rgba(64, 133, 224, 0.233);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+.form-control {
+  border: 0;
+  border-bottom: 1px solid #777777;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.reverse-icon {
+  box-shadow: #0000001a 0 0 10px;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  right: -1.9rem;
+  top: 1rem;
+  z-index: 1;
+}
+
+.reverse-icon img {
+  margin: 0.3rem;
+  width: 70%;
+}
+
+.upside-float {
+  font-size: 0.8rem;
+  display: inline-flex;
+  font-weight: 700;
+  color: #777777;
+  position: absolute;
+  padding: 0px 4px;
+  left: 1.5rem;
+  top: -0.7rem;
+  background-color: #fff;
+}
+
+select {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+.widget {
+  background-color: #fff;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 5rem 0rem;
+  box-shadow: #00000026 0px 0px 15px;
+}
+
+.suggestion {
+  position: absolute;
+  background: white;
+  border: 1px solid;
+  padding: 1rem;
+  padding-left: 5px;
+  overflow-y: scroll;
+  max-height: 10rem;
+  margin-top: 4rem;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.input-border {
+  border: 1px solid #dee2e6;
+}
+
+.input-border:focus-within {
+  border: 1px solid black;
+}
+.input-border:focus{
+  border: 1px solid black;
+}
+
+.search-container {
+  margin-top: 2rem;
+  margin-bottom: -6.7rem;
+}
+
+.search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 1rem 3rem;
+  outline: 0rem;
+  border: 0rem;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.navbar {
+  padding: 0rem 1rem;
+}
+
+.navbar-brand {
+  padding: 0;
+}

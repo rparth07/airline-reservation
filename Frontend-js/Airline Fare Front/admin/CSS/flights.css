@@ -1,0 +1,22 @@
+.add-flight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-flight button {
+  margin-left: 5px;
+}
+
+.cancel-margin {
+  margin-left: -1.5rem;
+}
+
+.form-select-border {
+  border: 1px solid #ced4da;
+}
+
+@media (min-width: 1400px) {
+  table {
+    overflow-x: scroll;
+  }
+}

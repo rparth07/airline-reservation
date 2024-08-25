@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel=" icon" type="image/jpg" href="./Images/airplane.png" />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <script src="./JS/jquery.js" defer></script>
+    <script type="module" src="./JS/script.js" defer></script>
+
+    <link rel="stylesheet" href="./CSS/style.css" />
+
+    <title>Airline Fare Calculator</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="./index.html">
+        <img
+          src="./Images/airplane.png"
+          width="60"
+          height="60"
+          alt="Airplane"
+        />
+        Airline Fare Calculator
+      </a>
+    </nav>
+    <div class="container">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <h2 class="title">Find Flights</h2>
+        <div class="background">
+          <img src="./Images/background.svg" alt="background-img" />
+        </div>
+        <div class="container widget">
+          <ul class="nav ml-3">
+            <li>
+              <a data-toggle="tab" href="#one-way-round" class="active oneway"
+                >One-way</a
+              >
+            </li>
+            <li>
+              <a data-toggle="tab" href="#one-way-round" class="round-trip"
+                >Round-trip</a
+              >
+            </li>
+            <li>
+              <a data-toggle="tab" href="#multiCity" class="multicity"
+                >Multicity</a
+              >
+            </li>
+          </ul>
+          <div class="mt-5 ml-3 tab-content">
+            <div class="tab-pane fade in active show" id="one-way-round">
+              <div class="row ml-1 mt-3 mb-3">
+                <div
+                  class="col-lg-2 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">From</span>
+                  <input
+                    type="text"
+                    class="source-search-input form-control mt-4 border-bottom"
+                  />
+                  <span class="reverse-icon">
+                    <img src="./Images/swap.png" alt="reverse icon" />
+                  </span>
+                </div>
+                <div
+                  class="col-lg-2 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">To</span>
+                  <input
+                    type="text"
+                    class="destination-search-input form-control mt-4 border-bottom"
+                  />
+                </div>
+                <div
+                  class="col-lg-2 col-md-3 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">Departure</span>
+                  <input
+                    type="date"
+                    id="departureDate"
+                    class="form-control mt-4 border-bottom p-0 departureDate"
+                  />
+                </div>
+                <div
+                  class="col-lg-2 col-md-3 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">Return</span>
+                  <input
+                    type="date"
+                    id="returnDate"
+                    class="form-control mt-4 border-bottom p-0 arrivalDate"
+                    disabled
+                  />
+                </div>
+                <div
+                  class="col-lg-1 col-md-2 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <label for="travelClass" class="form-label upside-float"
+                    >Class</label
+                  >
+                  <select id="travelClass" class="mt-4 form-select border-0">
+                    <option selected>Economy</option>
+                    <option>Business</option>
+                  </select>
+                </div>
+                <div
+                  class="col-lg-2 col-md-2 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <label for="travellers" class="upside-float form-label"
+                    >Passengers</label
+                  >
+                  <div class="traveller mt-4">
+                    <div class="ml-2">
+                      <span id="travellersCount"></span>,Travellers
+                    </div>
+                  </div>
+                  <div class="card d-none travellers-card pr-4">
+                    <div class="card-body">
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          <span>Adults</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button id="increment-adult" class="text-light btn">
+                              +
+                            </button>
+                            <span id="counting-adult" class="pt-2">1</span>
+                            <button id="decrement-adult" class="text-light btn">
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          <span>Child</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button id="increment-child" class="text-light btn">
+                              +
+                            </button>
+                            <span id="counting-child" class="pt-2">1</span>
+                            <button id="decrement-child" class="text-light btn">
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          <span>Infant</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button
+                              id="increment-infant"
+                              class="text-light btn"
+                            >
+                              +
+                            </button>
+                            <span id="counting-infant" class="pt-2">0</span>
+                            <button
+                              id="decrement-infant"
+                              class="text-light btn"
+                              disabled
+                            >
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-center search-container"
+              >
+                <span class="search">Search</span>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="multiCity">
+              <div class="row ml-1 mt-3 mb-3">
+                <div
+                  class="col-lg-3 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">From</span>
+                  <input
+                    type="text"
+                    class="source-search-input form-control mt-4 border-bottom"
+                  />
+                  <span class="reverse-icon">
+                    <img src="./Images/swap.png" alt="reverse icon" />
+                  </span>
+                </div>
+                <div
+                  class="col-lg-3 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">To</span>
+                  <input
+                    type="text"
+                    class="destination-search-input form-control mt-4 border-bottom"
+                  />
+                </div>
+
+                <div
+                  class="col-lg-2 col-md-3 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">Departure</span>
+                  <input
+                    type="date"
+                    id="departureDate"
+                    class="form-control mt-4 border-bottom p-0 departureDate"
+                  />
+                </div>
+                <div
+                  class="col-lg-1 col-md-2 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <label for="travelClass" class="form-label upside-float"
+                    >Class</label
+                  >
+                  <select id="travelClass" class="mt-4 form-select border-0">
+                    <option selected>Economy</option>
+                    <option>Business</option>
+                  </select>
+                </div>
+                <div
+                  class="col-lg-2 col-md-2 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <label for="travellers" class="upside-float form-label"
+                    >Passengers</label
+                  >
+                  <div class="traveller mt-4">
+                    <div class="ml-2">
+                      <span id="travellersCount">4</span>,Travellers
+                    </div>
+                  </div>
+                  <div class="card d-none travellers-card pr-4">
+                    <div class="card-body">
+                      <div class="row mr-ml-0 mb-2">
+                        <div class="col-5">
+                          <span>Adults</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button id="increment-adult" class="text-light btn">
+                              +
+                            </button>
+                            <span id="counting-adult" class="pt-2">1</span>
+                            <button id="decrement-adult" class="text-light btn">
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mr-ml-0 mb-2">
+                        <div class="col-5 d-flex align-items-center">
+                          <span>Child</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button id="increment-child" class="text-light btn">
+                              +
+                            </button>
+                            <span id="counting-child" class="pt-2">1</span>
+                            <button id="decrement-child" class="text-light btn">
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mr-ml-0 mb-2">
+                        <div class="col-5 d-flex align-items-center">
+                          <span>Infant</span>
+                        </div>
+                        <div class="col-3 offset-2">
+                          <div class="counter-div">
+                            <button
+                              id="increment-infant"
+                              class="text-light btn"
+                            >
+                              +
+                            </button>
+                            <span id="counting-infant" class="pt-2">0</span>
+                            <button
+                              id="decrement-infant"
+                              class="text-light btn"
+                              disabled
+                            >
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-1 mt-3 mb-3">
+                <div
+                  class="col-lg-3 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">From</span>
+                  <input
+                    type="text"
+                    class="source-search-input form-control mt-4 border-bottom"
+                  />
+                  <span class="reverse-icon">
+                    <img src="./Images/swap.png" alt="reverse icon" />
+                  </span>
+                </div>
+                <div
+                  class="col-lg-3 col-md-5 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">To</span>
+                  <input
+                    type="text"
+                    class="destination-search-input form-control mt-4 border-bottom"
+                  />
+                </div>
+
+                <div
+                  class="col-lg-2 col-md-3 m-2 p-2 d-flex flex-column input-border rounded"
+                >
+                  <span class="upside-float">Departure</span>
+                  <input
+                    type="date"
+                    id="departureDate"
+                    class="form-control mt-4 border-bottom p-0 departureDate"
+                  />
+                </div>
+                <button
+                  id="addAnotherCity"
+                  type="button"
+                  class="m-3 btnAddCity border bg-light border-primary text-primary rounded"
+                >
+                  + Add Another City
+                </button>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-center search-container"
+              >
+                <span class="search">Search</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="img-container d-flex align-items-center justify-content-center mt-4"
+    >
+      <img src="./Images/welcome.png" alt="welcome image" />
+    </div>
+  </body>
+</html>

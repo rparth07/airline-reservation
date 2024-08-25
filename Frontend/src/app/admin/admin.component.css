@@ -1,0 +1,11 @@
+:root {
+  --primary-color: #3a57e8;
+}
+
+body {
+  background-color: #72bdef21;
+}
+
+.home-content {
+  margin: 0;
+}

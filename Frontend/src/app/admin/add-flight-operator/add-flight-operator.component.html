@@ -1,0 +1,84 @@
+<div class="modal-header">
+  <h2 class="mt-2">{{ operator ? "Update" : "Add" }} Flight Operator</h2>
+</div>
+<form class="ps-4 pe-4 pb-4 form-design" #operatorUpdate="ngForm">
+  <div class="row mt-3">
+    <label for="companyName" class="form-label">Name</label>
+    <input
+      type="text"
+      placeholder="Flight Operator Name"
+      class="form-control"
+      id="companyName"
+      name="companyName"
+      required
+      [ngModel]="operator?.companyName"
+      [readonly]="operator"
+    />
+  </div>
+  <div class="row mt-3">
+    <label for="baseFare" class="form-label">Base Fare </label>
+    <input
+      type="number"
+      min="1"
+      placeholder="Base Fare (₹)"
+      class="form-control"
+      id="baseFare"
+      name="baseFare"
+      required
+      [ngModel]="operator?.baseFare"
+    />
+  </div>
+  <div class="row mt-3">
+    <label for="convenience" class="form-label">Convenience Charge</label>
+    <input
+      type="number"
+      class="form-control"
+      id="convenience"
+      min="300"
+      name="convenience"
+      placeholder="Convenience Charges (₹)"
+      required
+      [ngModel]="operator?.convenience"
+    />
+  </div>
+  <div class="row mt-3">
+    <label for="tax" class="form-label">Tax </label>
+    <input
+      type="number"
+      min="0"
+      class="form-control"
+      id="tax"
+      name="tax"
+      placeholder="Tax (%)"
+      max="100"
+      required
+      [ngModel]="operator?.tax"
+    />
+  </div>
+</form>
+
+<div class="modal-footer">
+  <div>
+    <button
+      type="submit"
+      class="btn btn-primary text-light"
+      [disabled]="!operatorUpdate.valid"
+      (click)="
+        operator
+          ? onUpdate(operatorUpdate, operator)
+          : addOperator(operatorUpdate);
+        closeModal()
+      "
+    >
+      {{ operator ? "Update" : "Add" }}
+    </button>
+    <button
+      type="reset"
+      class="btn btn-danger cancel-button text-light"
+      id="cancel"
+      (click)="closeModal()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

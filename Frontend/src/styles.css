@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+:root {
+  --primary-color: #3a57e8;
+}
+
+/* ng-select height and border override */
+.ng-select.search-box-input .ng-select-container {
+  height: 38px;
+}
+.ng-select.common-input .ng-select-container {
+  height: 38px;
+}
+.ng-select.trip-input .ng-select-container {
+  border: none;
+}
+.hide-arrow .ng-arrow-wrapper {
+  display: none;
+}
+/* ---- */
+
+body div {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* remove focus border globally */
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+/* error border on invalid select */
+.ng-select.is-invalid .ng-select-container {
+  border: 2px solid #f00;
+}
+
+/* override border behavior after ng-select once opened*/
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  border-color: none;
+  box-shadow: none;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.primary-color {
+  background-color: var(--primary-color);
+  border: none;
+}

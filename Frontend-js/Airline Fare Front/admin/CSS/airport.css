@@ -1,0 +1,12 @@
+.add-airport {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-airport button {
+  margin-left: 5px;
+}
+
+.cancel-btn-margin {
+  margin-left: -0.2rem;
+}

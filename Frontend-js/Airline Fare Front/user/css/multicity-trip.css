@@ -1,0 +1,61 @@
+body {
+  background-color: azure;
+}
+
+/* make itinerary always visible on top */
+.itinerary {
+  position: sticky;
+  top: 7.1em;
+  z-index: 3;
+}
+
+.summary {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+}
+
+.itinerary-card {
+  box-shadow: 0 3px 30px 0 #0000001a;
+}
+
+.multicity-item {
+  border: 0;
+  border-radius: 0.25rem;
+}
+.active-itinerary {
+  background: #008cff;
+  color: #fff;
+}
+
+.time-stop-sperator {
+  border-top: 3px solid #51e2c2;
+}
+
+.active-flight {
+  border: 2px solid #008cff;
+  border-radius: 0.25rem;
+}
+
+.flightinfo-header {
+  background: #d5e5fd8c;
+}
+
+.mr-ml-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.from-city-date {
+  text-indent: -500px;
+  width: 100px;
+}
+
+.reverse-icon-multicity {
+  max-width: 1%;
+  padding: 0px;
+  margin-top: 5px;
+}
+.flight-list {
+  width: 50rem;
+}

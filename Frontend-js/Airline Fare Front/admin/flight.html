@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel=" icon"
+      type="image/jpg"
+      href="./Images/airplane.png"
+    />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+     defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+     defer></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+     defer></script>
+
+    <script src="./JS/jquery.js" defer></script>
+    <script src="./JS/script.js" defer></script>
+    <script type="module" src="./JS/flights.js"></script>
+    
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <link rel="stylesheet" href="./CSS//flights.css" />
+    <title>Flight · Airline System</title>
+  </head>
+
+  <body>
+    <aside class="sidebar sidebar-default">
+      <div
+        class="p-3 sidebar-header w-100 d-flex align-items-center justify-content-start flex-column flex-shrink-0"
+      >
+        <a
+          href="./index.html"
+          class="d-flex justify-content-start align-items-center mb-md-0 me-md-auto text-decoration-none"
+        >
+          <img
+            src="./Images/airplane.png"
+          />
+
+          <h4 class="logo-title">Airline System</h4>
+        </a>
+        <div class="sidebar-toggle" data-toggle="sidebar" >
+          <i class="icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.25 12.2744L19.25 12.2744"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </i>
+        </div>
+      </div>
+
+      <div class="sidebar-body pt-0">
+        <div class="sidebar-list">
+          <ul class="navbar-nav" id="sidebar-menu">
+            <li class="nav-item">
+              <a
+                href="./index.html"
+                class="d-flex align-items-center justify-content-start nav-link text-dark"
+              >
+                <img
+                  class="ml-3 mr-2 ml-md-4"
+                  src="./Images/home.png"
+                />
+                <span class="item-name">Home</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="./flight-operator.html"
+                class="d-flex align-items-center justify-content-start nav-link text-dark"
+              >
+                <img
+                  class="ml-3 mr-2 ml-md-4"
+                  src="./Images/operator.png"
+                />
+                <span class="item-name">Operator</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="./airport.html"
+                class="d-flex align-items-center justify-content-start nav-link text-dark"
+              >
+                <img
+                  class="ml-3 mr-2 ml-md-4"
+                  src="./Images/airport.png"
+                />
+                <span class="item-name">Airport</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="./flight.html"
+                class="d-flex align-items-center justify-content-start nav-link active text-dark"
+              >
+                <img
+                  class="ml-3 mr-2 ml-md-4"
+                  src="./Images/airplane-take-off.png"
+                />
+                <span class="item-name">Flight</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="position-relative">
+        <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar pt-3">
+          <div class="container-fluid navbar-inner">
+            <div
+              class="sidebar-toggle mt-3 float-left"
+              data-toggle="sidebar"
+              
+            >
+              <i class="icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"
+                  ></path>
+                </svg>
+              </i>
+            </div>
+            <a
+              href="./index.html"
+              class="navbar-brand float-left d-lg-flex d-xl-none d-xxl-none d-md-flex d-sm-flex align-items-center mb-md-0 me-md-auto text-decoration-none ml-3"
+            >
+              <img
+                src="./Images/airplane.png"
+              />
+              <h4 class="logo-title">Airline System</h4>
+            </a>
+            <button
+              class="navbar-toggler float-right"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon">
+                <span class="mt-2 navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul
+                class="mb-2 navbar-nav ms-auto align-items-md-end align-items-sm-end navbar-list mb-lg-0"
+              >
+                <li class="nav-item dropdown">
+                  <a
+                    class="py-0 nav-link d-flex align-items-center"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="./Images/user.png"
+                    />
+                    <div class="caption d-none d-md-block d-sm-block">
+                      <h6 class="mb-0 caption-title">Admin Name</h6>
+                    </div>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="./admin-profile.html"
+                        >Profile</a
+                      >
+                    </li>
+
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="./singin.html">Logout</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="conatiner-fluid content-inner mt-1 py-0">
+        <div class="mt-5">
+          <div class="row ml-5 justify-content-around">
+
+            <div class="col-10 shadow card mb-5 rounded">
+              <div class="mx-2 mt-2">
+                <h2>Flights</h2>
+                <div class="row justify-content-between">
+                  <div class="col-4 col-md-6">
+                    <form class="form-inline search-box">
+                      <input
+                        id="search"
+                        class="form-control"
+                        type="search"
+                        placeholder="Search..."
+                        aria-label="Search"
+                        autocomplete="off"
+                      />
+                      <button type="submit" id="searchButton"><i class="fa fa-search"></i></button>
+                    </form>
+                    <div class="suggestions scrollable"></div>
+                  </div>
+    
+                  <div class="col-5">
+                    <div class="add-flight">
+                      <input type="file" id="fileLoader" name="files" title="Load File" hidden/>
+                      <button id="add-flight-file" type="button" class="btn text-light primary-color">
+                        Add CSV
+                      </button>
+                      <button
+                        type="button"
+                        id="add-flight-btn"
+                        class="btn text-light primary-color"
+                      >
+                        Add flight
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-around">
+                  <div class="col">
+                    <table id="myTable" class="caption-top mx-auto table table-hover table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl table-responsive-xxl">
+    
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col"  class="table-header" data-name="flightNumber">Flight Number</th>
+                          <th scope="col" class="table-header" data-name="sourceCity">Source City</th>
+                          <th scope="col" class="table-header" data-name="destinationCity">Destination City</th>
+                          <th scope="col" class="table-header" data-name="distance">Distance</th>
+                          <th scope="col" class="table-header" data-name="startTime">Start Time</th>
+                          <th scope="col" class="table-header" data-name="endTime">End Time</th>
+                          <th scope="col" class="table-header">Operating Days</th>
+                          <th scope="col" class="table-header" data-name="flightOperator">Flight Operator</th>
+                          <th scope="col" class="ps-3">Actions</th>
+                        </tr>
+                      </thead>
+    
+                      <tbody id="flightData"></tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-9">
+                    <nav aria-label=" navigation example mx-auto">
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item page-list" id="previous">
+                          <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo; Previous</span>
+                          </a>
+                        </li>
+                        <li class="page-item" id="next">
+                          <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo; Next</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<div class="row mr-ml-0" [ngModelGroup]="groupName">
+  <div class="col-md-5 input-box" [ngStyle]="{ color: labelHeadingColor }">
+    <span>From</span>
+    <ng-select
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.sourceCity"
+      name="sourceCity"
+      class="mt-2 search-box-input"
+      placeholder="Select city"
+      required
+      #sourceCity="ngModel"
+      [ngClass]="{ 'is-invalid': sourceCity.touched && !sourceCity.valid }"
+      (change)="onValueChanged(); isDuplicateCityEntered()"
+    >
+    </ng-select>
+    <span
+      class="help-block position-absolute"
+      [hidden]="!sourceCity.touched || sourceCity.valid"
+      >Invalid value</span
+    >
+  </div>
+
+  <div
+    class="col-md-2 col-sm-6 col-xs-12 reverse-icon"
+    [ngStyle]="{ color: labelHeadingColor }"
+    (click)="onInterchange()"
+  >
+    <i class="fa fa-exchange" aria-hidden="true"></i>
+  </div>
+  <div
+    class="col-md-5 input-box position-relative"
+    [ngStyle]="{ color: labelHeadingColor }"
+  >
+    <span>To</span>
+    <ng-select
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.destinationCity"
+      name="destinationCity"
+      class="mt-2 search-box-input"
+      placeholder="Select city"
+      required
+      #destinationCity="ngModel"
+      [ngClass]="{
+        'is-invalid': destinationCity.touched && !destinationCity.valid
+      }"
+      (change)="onValueChanged(); isDuplicateCityEntered()"
+    >
+    </ng-select>
+    <span
+      class="help-block position-absolute"
+      [hidden]="!destinationCity.touched || destinationCity.valid"
+      >Invalid value</span
+    >
+    <div *ngIf="isDuplicateCity" class="error-section d-flex">
+      <span class="red-text error-msg-text">Same as source airport</span>
+    </div>
+  </div>
+</div>

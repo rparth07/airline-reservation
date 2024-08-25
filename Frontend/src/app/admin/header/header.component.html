@@ -1,0 +1,62 @@
+<nav class="nav navbar navbar-expand-lg navbar-light iq-navbar pt-3 d-flex">
+  <div class="container-fluid d-flex iq-navbar">
+    <a
+      class="navbar-brand float-left d-flex align-items-center mb-md-0 me-md-auto text-decoration-none"
+      routerLink="home"
+    >
+      <img src="../../assets/images/airplane.png" />
+      <h4 class="logo-title">Airline System</h4>
+    </a>
+
+    <button
+      class="navbar-toggler float-right"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon">
+        <span class="mt-2 navbar-toggler-bar bar1"></span>
+        <span class="navbar-toggler-bar bar2"></span>
+        <span class="navbar-toggler-bar bar3"></span>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul
+        class="mb-2 navbar-nav ms-auto align-items-md-end align-items-sm-end navbar-list mb-lg-0"
+      >
+        <li class="nav-item dropdown">
+          <a
+            class="py-0 nav-link d-flex align-items-center"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img src="../../assets/images/user.png" />
+            <div class="caption d-none d-md-block d-sm-block">
+              <h6 class="mb-0 caption-title">Admin Name</h6>
+            </div>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdown"
+          >
+            <li>
+              <a class="dropdown-item" routerLink="home">Profile</a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="home">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

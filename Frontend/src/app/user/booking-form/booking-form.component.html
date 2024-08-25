@@ -1,0 +1,50 @@
+<ng-template #bookingModal modal fade>
+  <div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLongTitle">
+      Add Passenger Details
+    </h3>
+  </div>
+  <form (ngSubmit)="onSubmit(bookingForm)" #bookingForm="ngForm">
+    <div class="modal-body justify-content-center">
+      <div class="row justify-content-center">
+        <div
+          class="col-10 mr-ml-0 mt-2"
+          *ngFor="let passengerType of paxType | keyvalue"
+        >
+          <app-passenger
+            *ngIf="passengerType.value"
+            [passengerType]="passengerType.key | titlecase"
+            [passengerCount]="passengerType.value"
+          ></app-passenger>
+        </div>
+
+        <div class="input-box col-10 pb-4">
+          <div class="col-5 input-box">
+            <label for="phone_no">Phone Number</label>
+            <input
+              type="text"
+              mask="00000 00000"
+              placeholder="Ex: 00000 00000"
+              class="form-control search-box-input"
+              name="phone_no"
+              id="phone_no"
+              ngModel
+              required
+              #phoneNumber="ngModel"
+            />
+            <span
+              class="help-block position-absolute error-section"
+              [hidden]="!phoneNumber.touched || phoneNumber.valid"
+              >Invalid phone number</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" [disabled]="!bookingForm.valid">
+        Book Now
+      </button>
+    </div>
+  </form>
+</ng-template>

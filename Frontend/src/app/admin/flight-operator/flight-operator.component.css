@@ -1,0 +1,8 @@
+.add-operator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-operator button {
+  margin-left: 5px;
+}

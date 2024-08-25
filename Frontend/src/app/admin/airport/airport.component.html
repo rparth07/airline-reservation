@@ -1,0 +1,151 @@
+<div class="conatiner-fluid content-inner mt-1 py-0">
+  <div class="mt-5">
+    <div class="row ms-5 me-5 justify-content-around">
+      <div class="col-7 col-md-10 shadow card mb-5 rounded">
+        <div class="mx-2 mt-2">
+          <h2>Airport</h2>
+          <div class="row justify-content-between">
+            <div class="col-2 col-md-2 pe-0">
+              <form class="d-flex form-inline search-box">
+                <input
+                  id="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Search..."
+                  aria-label="Search"
+                  autocomplete="off"
+                />
+                <button type="submit" id="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+              <div class="suggestions scrollable"></div>
+            </div>
+
+            <div class="col-5 ps-0">
+              <div class="add-airport">
+                <input
+                  type="file"
+                  id="fileLoader"
+                  name="files"
+                  title="Load File"
+                  hidden
+                  accept=".csv"
+                  #fileUpload
+                  (change)="addCsv($event)"
+                />
+                <button
+                  id="add-airport-file"
+                  type="button"
+                  class="btn text-light primary-color"
+                  (click)="fileUpload.click()"
+                >
+                  Add CSV
+                </button>
+                <button
+                  type="button"
+                  class="btn text-light primary-color"
+                  id="add-airport-btn"
+                  (click)="openUpdateAirportModal()"
+                >
+                  Add Airport
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-around">
+            <div class="col">
+              <table
+                id="myTable"
+                class="table table-hover mx-auto caption-top table-responsive-md table-responsive-sm"
+              >
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" class="table-header" data-name="name">
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      class="table-header"
+                      data-name="abbrivation"
+                    >
+                      Abbreviation
+                    </th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="airportData">
+                  <tr
+                    *ngFor="
+                      let airport of currentPageData$ | async;
+                      let i = index
+                    "
+                  >
+                    <th scope="col">
+                      {{ pageSize * selectedPageNumber + i + 1 }}
+                    </th>
+                    <td>{{ airport.airportName }}</td>
+                    <td>{{ airport.abbreviation }}</td>
+                    <td>
+                      <a class="ms-2" (click)="openUpdateAirportModal(airport)"
+                        ><i class="material-icons">border_color</i></a
+                      >
+                      <a
+                        class="ms-md-2 ms-lg-2 ms-sm-1"
+                        (click)="deleteAirport(airport.abbreviation)"
+                        ><i class="material-icons">delete</i></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- pagination section -->
+          <div class="row justify-content-center">
+            <div class="col-9">
+              <nav aria-label=" navigation example mx-auto">
+                <ul class="pagination justify-content-center">
+                  <li
+                    class="page-item page-list"
+                    (click)="
+                      selectedPageNumber > 0 &&
+                        onPageChange(selectedPageNumber - 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo; Previous</span>
+                    </a>
+                  </li>
+                  <li
+                    class="page-item list-item"
+                    *ngFor="let page of totalPages"
+                    [ngClass]="page == selectedPageNumber ? 'active' : ''"
+                    (click)="onPageChange(page)"
+                  >
+                    <a class="page-link"> {{ page + 1 }}</a>
+                  </li>
+                  <li
+                    class="page-item"
+                    (click)="
+                      selectedPageNumber < totalPages.length - 1 &&
+                        onPageChange(selectedPageNumber + 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">Next &raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- //// -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+:root {
+  --primary-color: #3a57e8;
+}
+
+body {
+  background-color: #72bdef21;
+}
+
+nav {
+  background-color: #ffffff;
+  width: 100%;
+}
+
+#navbarSupportedContent {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.logo-title {
+  color: #000;
+  margin-bottom: 0;
+}
+
+.nav-link {
+  text-transform: capitalize;
+  padding: 0.625rem;
+  padding-left: 1rem;
+}
+
+.nav-link.active:hover {
+  color: #ffffff !important;
+}
+
+.nav-link.active {
+  background-color: var(--primary-color);
+  box-shadow: 0 10px 20px -10px rgba(var(--primary-color), 0.4);
+  color: #ffffff !important;
+  display: flex;
+  white-space: nowrap;
+  border-radius: 5px;
+}
+
+.navbar-nav li {
+  padding-left: 1rem;
+  display: relative;
+  align-items: center;
+}
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.dropdown-menu li {
+  padding-right: 1rem;
+}
+
+.dropdown-item:active {
+  border-radius: 5px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+::placeholder {
+  margin-left: 3px;
+}
+
+@media (max-width: 1199.98px) {
+  .navbar .navbar-brand {
+    transform: translateX(1.8rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-content .nav .navbar-brand {
+    display: none;
+  }
+}

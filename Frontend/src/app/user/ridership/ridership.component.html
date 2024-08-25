@@ -1,0 +1,25 @@
+<span>
+  <label for="travelers" class="{{ classToAdd }}">Passengers</label>
+  <div
+    class="travelers"
+    [ngClass]="{ 'mt-2': classToAdd !== 'upside-float' }"
+    (click)="togglePassengerCounter(false)"
+    #passengerBox
+  >
+    <span id="travelers" class="p-2">{{ passengers }}</span>
+    Travelers
+    <input
+      type="number"
+      name="ridership"
+      [ngModel]="passengerCountByType"
+      hidden
+    />
+  </div>
+  <app-ridership-counter-card
+    (ridershipCountChange)="onRidershipCountChange($event)"
+    (isPassengersValidated)="togglePassengerCounter($event)"
+    [hidden]="hidePassengerCounter"
+    [typeOfPassengers]="passengerCountByType"
+    (valueChange)="onValueChange()"
+  ></app-ridership-counter-card>
+</span>

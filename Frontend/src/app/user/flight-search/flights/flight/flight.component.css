@@ -1,0 +1,17 @@
+.time-stop-sperator {
+  border-top: 3px solid #51e2c2;
+}
+
+.from-city-date {
+  text-indent: -500px;
+  width: 100px;
+}
+
+.active-flight {
+  border: 2px solid #008cff;
+  border-radius: 0.25rem;
+}
+
+.bold-text {
+  font-weight: 600;
+}

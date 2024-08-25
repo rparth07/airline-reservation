@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel=" icon" type="image/jpg" href="./Images/airplane.png" />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <script src="./JS/jquery.js" defer></script>
+    <script src="./JS/script.js" defer></script>
+
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <title>Airline System</title>
+  </head>
+
+  <body>
+    <main class="home-content">
+      <div class="position-relative">
+        <nav
+          class="nav navbar navbar-expand-lg navbar-light iq-navbar pt-3 d-flex"
+        >
+          <div class="container-fluid iq-navbar">
+            <a
+              href="./index.html"
+              class="navbar-brand float-left d-flex align-items-center mb-md-0 me-md-auto text-decoration-none"
+            >
+              <img src="./Images/airplane.png" />
+              <h4 class="logo-title">Airline System</h4>
+            </a>
+
+            <button
+              class="navbar-toggler float-right"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon">
+                <span class="mt-2 navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul
+                class="mb-2 navbar-nav ms-auto align-items-md-end align-items-sm-end navbar-list mb-lg-0"
+              >
+                <li class="nav-item dropdown">
+                  <a
+                    class="py-0 nav-link d-flex align-items-center"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="./Images/user.png" />
+                    <div class="caption d-none d-md-block d-sm-block">
+                      <h6 class="mb-0 caption-title">Admin Name</h6>
+                    </div>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="./admin-profile.html"
+                        >Profile</a
+                      >
+                    </li>
+
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="./singin.html">Logout</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="d-flex justify-content-center mt-2 text-dark">
+        <h1>Welcome to Airline System</h1>
+      </div>
+      <div class="operation-card container text-dark border rounded">
+        <h2 class="upside-float">Functions</h2>
+        <ul class="d-flex justify-content-between mt-5 mr-5">
+          <li>
+            <a
+              href="./flight-operator.html"
+              class="d-flex flex-column align-items-center justify-content-center"
+            >
+              <img src="./Images/Home/operator.png" />
+              <span class="text-dark"><h5>Flight Operator</h5></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="./airport.html"
+              class="d-flex flex-column align-items-center justify-content-center"
+            >
+              <img src="./Images/Home/airport.png" />
+              <span class="text-dark"><h5>Airport</h5></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="./flight.html"
+              class="d-flex flex-column align-items-center justify-content-center"
+            >
+              <img src="./Images/Home/airplane.png" />
+              <span class="text-dark"><h5>Flight</h5></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

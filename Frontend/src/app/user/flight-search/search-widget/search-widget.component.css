@@ -1,0 +1,91 @@
+.text-style {
+  text-transform: capitalize;
+}
+.my-container {
+  max-width: 90rem;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border-radius: 2px;
+  border-radius: 10px;
+  position: sticky;
+  top: 1%;
+  background: #3b77dc;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+.input-box {
+  padding: 0px;
+  padding-bottom: 1rem;
+  margin: 0px 10px;
+  color: #ffffff;
+}
+
+.input-box.color-dark {
+  color: #000000;
+}
+
+.input-box select {
+  height: 38px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.mr-ml-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.search-button {
+  font-size: 18px;
+  background-color: #2139b1;
+  border-radius: 10px;
+  height: 38px;
+  margin-top: 10%;
+  padding: 0rem 3rem;
+}
+.search-button:hover {
+  background-color: #081763;
+}
+@media only screen and (max-width: 1400px) {
+  .input-box {
+    max-width: 9.666667%;
+  }
+}
+
+.date-box {
+  width: 10rem;
+}
+
+.from-city {
+  cursor: pointer;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(206, 212, 218);
+  border-image: initial;
+  border-radius: 5px;
+}
+
+.add-city-button {
+  font-size: 18px;
+  background-color: #3674e7;
+  border-radius: 10px;
+  height: 35px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn {
+  box-shadow: none !important;
+}

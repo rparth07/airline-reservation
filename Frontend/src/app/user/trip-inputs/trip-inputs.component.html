@@ -1,0 +1,49 @@
+<div class="d-flex flex-md-wrap p-2 row ms-3">
+  <div class="col-lg-6 col-md-12 row ps-0 mb-md-3 mb-sm-3 mb-xs-3 me-3">
+    <app-trip-direction class="d-flex flex-nowrap me-1 align-items-center">
+    </app-trip-direction>
+  </div>
+  <div
+    class="col-lg-2 col-md-3 col-sm-3 h-100 ms-md-2 ms-lg-2 me-2 p-2 d-flex flex-column input-border rounded"
+    *ngIf="!isMultiCity"
+    (click)="enableReturnDateInputBox()"
+  >
+    <span class="upside-float">Return</span>
+    <input
+      *ngIf="!isOneWay"
+      type="date"
+      id="returnDate"
+      [(ngModel)]="returnDate"
+      name="returnDate"
+      [min]="returnDate"
+      class="form-control mt-auto border-bottom departureDate"
+    />
+    <p *ngIf="isOneWay" class="mb-08">Tap to add a return date</p>
+  </div>
+  <div
+    class="col-lg-1 col-md-3 col-sm-3 h-100 w-auto ms-md-2 ms-lg-2 me-2 p-2 d-flex flex-nowrap flex-column input-border rounded"
+  >
+    <span class="upside-float">Class</span>
+    <ng-select
+      id="flightClass"
+      [(ngModel)]="selectedClass"
+      name="flightClass"
+      class="common-input disable-clear-all"
+      [clearable]="false"
+      [searchable]="false"
+    >
+      <ng-option class="p-2" *ngFor="let class of classes" [value]="class">{{
+        class
+      }}</ng-option>
+    </ng-select>
+  </div>
+
+  <div
+    class="col-lg-2 col-md-3 col-sm-3 h-100 ms-lg-2 ms-md-2 p-2 d-flex flex-column input-border rounded"
+  >
+    <app-ridership
+      class="passenger-count"
+      [addClass]="'upside-float'"
+    ></app-ridership>
+  </div>
+</div>

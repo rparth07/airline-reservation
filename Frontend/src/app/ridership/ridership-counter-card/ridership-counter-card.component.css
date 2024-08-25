@@ -1,0 +1,24 @@
+.travelers-card {
+  position: absolute;
+  width: 20rem;
+  border: 1px solid #000;
+  z-index: 1;
+}
+.counter-div button {
+  margin: 0px 8px;
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.counter-div button:hover,
+.counter-div button:focus {
+  outline: none;
+  color: #fff;
+  background-color: #364aad;
+  outline: none;
+  box-shadow: none;
+}
+
+span {
+  text-transform: capitalize;
+}

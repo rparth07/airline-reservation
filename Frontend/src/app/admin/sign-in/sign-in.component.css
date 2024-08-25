@@ -1,0 +1,55 @@
+:root {
+  --primary-color: #3a57e8;
+}
+
+body {
+  background: radial-gradient(#b3b5d8, #4b6a98);
+  min-height: 100vh;
+}
+
+main {
+  min-height: inherit;
+}
+
+.login-card {
+  border: 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
+  overflow: hidden;
+}
+
+.login-card-img {
+  border-radius: 0;
+  width: 100%;
+}
+
+.card-body {
+  padding: 151px 70px 60px;
+}
+
+.login-card-description {
+  font-size: 25px;
+  color: #000;
+  font-weight: normal;
+  margin-bottom: 23px;
+}
+
+.login-btn {
+  border: none;
+  padding: 0.5rem 3rem;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background-color: #3a57e8de;
+  color: #fff;
+}
+
+@media (max-width: 422px) {
+  .card-body {
+    padding: 35px 24px;
+  }
+}

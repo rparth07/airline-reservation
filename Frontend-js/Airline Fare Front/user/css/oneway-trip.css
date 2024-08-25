@@ -1,0 +1,227 @@
+:root {
+  --primary-color: #3a57e8;
+}
+
+label {
+  margin-bottom: 0rem;
+}
+
+.fa {
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.navbar {
+  padding: 0rem 1rem;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.my-container {
+  max-width: 90rem;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border-radius: 2px;
+  border-radius: 10px;
+  position: sticky;
+  top: 1%;
+  background: #3b77dc;
+  z-index: 10;
+  width: 100%;
+}
+
+.background img {
+  width: 100%;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  z-index: -1;
+}
+
+.input-box {
+  max-width: 12.666667%;
+  padding: 0px;
+  padding-bottom: 1rem;
+  margin: 0px 10px;
+  color: #fff;
+}
+
+.input-box-no-witdth-limit {
+  padding: 0px;
+  margin: 0px 10px;
+  color: #fff;
+}
+
+input {
+  border-radius: 5px;
+}
+
+.input-box select {
+  height: 38px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+#search-button {
+  width: 156px;
+  font-size: 18px;
+  background-color: #00000088;
+  border-radius: 10px;
+  height: 38px;
+  color: #fff;
+}
+
+#search-button:hover {
+  background-color: #000;
+}
+
+#add-city-button {
+  font-size: 18px;
+  background-color: #3674e7;
+  border-radius: 10px;
+  height: 35px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+#add-city-button:hover {
+  background-color: #2e61c0;
+}
+
+button:focus,
+button:hover {
+  outline: none;
+  box-shadow: none;
+}
+
+.traveller {
+  cursor: pointer;
+  background: #fff;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  color: #000;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.from-city {
+  cursor: pointer;
+  background: #fff;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ced4da;
+  color: #000;
+  border-radius: 5px;
+}
+
+.counter-div {
+  display: inline-flex;
+  margin-left: 50%;
+}
+
+.counter-div button {
+  margin: 0px 8px;
+  background: var(--primary-color);
+  color: #fff;
+}
+.counter-div button:hover,
+.counter-div button:focus {
+  outline: none;
+  color: #fff;
+  background-color: #364aad;
+  outline: none;
+  box-shadow: none;
+}
+
+.travellers-card {
+  width: 20rem;
+  position: absolute;
+  top: 85%;
+  border: 1px solid #000;
+  z-index: 1;
+}
+.travellers-card-body {
+  padding: 1rem;
+  padding-bottom: 0rem;
+  color: #000000;
+}
+
+.from-city-card {
+  border: 1px solid #000;
+  color: #000000;
+}
+
+.source-search-input {
+  width: inherit;
+}
+
+.destination-search-input {
+  width: inherit;
+}
+
+.source-suggestions,
+.destination-suggestions {
+  position: absolute;
+  top: 85%;
+  border: 1px solid #000;
+  width: 100%;
+  display: none;
+  background-color: #fff;
+  color: #000;
+  z-index: 1;
+}
+
+.source-suggestions li,
+.destination-suggestions li {
+  border-top: 1px solid #666;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.source-suggestions li:hover,
+.destination-suggestions li:hover {
+  background-color: #2e61c0;
+  color: #fff;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  height: 8rem;
+}
+
+.reverse-icon {
+  max-width: 1%;
+  padding: 0px;
+  margin-top: 5px;
+  color: #fff;
+}
+.form-select-border {
+  border: 1px solid #ced4da;
+}
+@media only screen and (max-width: 1400px) {
+  .input-box {
+    max-width: 9.666667%;
+  }
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .source-suggestions,
+  .destination-suggestions {
+    position: absolute;
+    top: 132%;
+    border: 1px solid #000;
+    width: 150%;
+    display: none;
+    background-color: #fff;
+    color: #000;
+  }
+}

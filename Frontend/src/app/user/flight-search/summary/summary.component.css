@@ -1,0 +1,38 @@
+.summary {
+  position: sticky;
+  bottom: 3px;
+  z-index: 3;
+  align-items: center;
+}
+
+.flight-info {
+  overflow: hidden;
+  box-sizing: border-box;
+  border-right: 1px solid #9d989866;
+}
+
+.flight-info > div > img {
+  height: 36px;
+  width: 36px;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.continue-button {
+  font-size: 18px;
+  background-color: #2139b1;
+  border-radius: 10px;
+  height: 38px;
+  padding: 0rem 3rem;
+}
+
+.continue-button:hover {
+  background-color: #081763;
+}
+
+.flight-price {
+  position: absolute;
+  bottom: 10px;
+}

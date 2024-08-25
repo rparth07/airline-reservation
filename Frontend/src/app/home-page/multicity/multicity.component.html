@@ -1,0 +1,44 @@
+<form #form="ngForm" (ngSubmit)="redirect(form)">
+  <app-trip-inputs [isMultiCity]="true"></app-trip-inputs>
+  <div class="d-flex flex-md-wrap align-items-center p-2 row ms-3">
+    <div
+      class="d-flex flex-nowrap col-lg-6 col-md-12 row ps-0 mb-md-3 mb-sm-3 mb-xs-3 me-3"
+      *ngFor="let multicityControl of multicityList; let i = index"
+    >
+      <app-trip-direction
+        class="d-flex flex-nowrap me-1 mb-4"
+        [isShown]="true"
+        [isCancelVisible]="i >= 1"
+        [multicityControl]="multicityControl"
+        [name]="'tripDirection' + i.toString()"
+        [index]="i"
+      >
+      </app-trip-direction>
+      <div
+        class="col-lg-2 col-md-3 col-sm-3 me-4 ms-2 p-2 d-flex flex-column justify-content-center rounded"
+        *ngIf="i >= 1"
+      >
+        <button class="btn remove-city-button" (click)="removeTrip(i)">
+          <img src="../../assets/images/cancel.png" alt="cancel" />
+        </button>
+      </div>
+
+      <div class="d-flex flex-column p-2 rounded w-50 ms-4" *ngIf="i < 1">
+        <button
+          id="addAnotherCity"
+          type="button"
+          class="bg-light border border-primary btnAddCity p-1 p-2 pb-3 pt-2 pt-3 rounded text-primary"
+          (click)="addTrip()"
+          [hidden]="tripCount >= 5"
+        >
+          + Add Another Flight
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="d-flex align-items-center justify-content-center search-container"
+  >
+    <button class="btn search mb-1" type="submit">Search</button>
+  </div>
+</form>

@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+:root {
+  --primary-color: #3a57e8;
+}
+
+.ng-select.search-box-input .ng-select-container {
+  height: 38px;
+}
+.ng-select.common-input .ng-select-container {
+  height: 38px;
+}
+.ng-select.trip-input .ng-select-container {
+  border: none;
+}
+.hide-arrow .ng-arrow-wrapper {
+  display: none;
+}
+
+body div {
+  -webkit-user-select: none;
+  -ms-user-select: none; 
+  user-select: none; 
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}

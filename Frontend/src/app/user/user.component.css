@@ -1,0 +1,56 @@
+.container {
+  max-width: 1600px;
+}
+
+.background img {
+  height: fit-content;
+  width: 100%;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  z-index: -1;
+}
+
+/* :host {
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  } */
+
+.error-section {
+  width: auto;
+  box-shadow: 0 2px 7px 0 rgb(0 0 0 / 30%);
+  z-index: 1;
+  background-color: #ffd3d4;
+  position: absolute;
+  top: 77%;
+  left: 0;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.red-text {
+  color: #eb2026 !important;
+}
+
+.error-msg-text {
+  width: auto;
+  font-size: 13px;
+}
+
+.error-section:after {
+  bottom: 100%;
+  left: 20%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #ffd3d4;
+  border-width: 8px;
+}

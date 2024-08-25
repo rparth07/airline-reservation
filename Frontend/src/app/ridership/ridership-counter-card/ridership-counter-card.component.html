@@ -1,0 +1,38 @@
+<div class="card travelers-card pr-4 mt-2 text-dark">
+  <div class="card-body">
+    <div
+      class="row mb-2 mr-0"
+      *ngFor="let passenger of typeOfPassengers | keyvalue"
+    >
+      <div class="col-4 align-items-center d-flex">
+        <span>{{ passenger.key }}</span>
+      </div>
+      <div class="col-6 offset-2 pe-0">
+        <div class="counter-div pe-0">
+          <button
+            type="button"
+            id="increment-adult"
+            class="text-light btn"
+            type="button"
+            (click)="onIncrement(passenger.key)"
+          >
+            +
+          </button>
+          <span id="counting-adult" class="pt-2 me-1">{{
+            passenger.value
+          }}</span>
+          <button
+            type="button"
+            id="decrement-adult"
+            class="btn"
+            type="button"
+            (click)="onDecrement(passenger.key)"
+            [disabled]="passenger.value <= 0"
+          >
+            -
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

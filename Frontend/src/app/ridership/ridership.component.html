@@ -1,0 +1,26 @@
+<span>
+  <label for="travelers" class="{{ classToAdd }}">Passengers</label>
+  <!-- class="upside-float" -->
+
+  <div
+    class="travelers"
+    [ngClass]="{ 'mt-2': classToAdd !== 'upside-float' }"
+    (click)="togglePassengerCounter()"
+    #passengerBox
+  >
+    <span id="travelers" class="p-2">{{ passengers }}</span>
+    Travelers
+    <input
+      type="number"
+      name="ridership"
+      [ngModel]="passengerCountByType"
+      hidden
+    />
+  </div>
+  <app-ridership-counter-card
+    [hidden]="hidePassengerCounter"
+    (setPassengers)="setPassenger($event)"
+    (countOfRiderByType)="setRiderCountByType($event)"
+    [typeOfPassengers]="passengerCountByType"
+  ></app-ridership-counter-card>
+</span>

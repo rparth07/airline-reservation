@@ -1,0 +1,32 @@
+<div class="row" [ngModelGroup]="name">
+  <div class="input-box date-box col-md-4 d-flex flex-column">
+    <label for="depatureDate" class="form-label">Departure</label>
+    <input
+      class="mr-2 form-control departureDate"
+      type="date"
+      id="departureDate"
+      required
+      [(ngModel)]="tripDate.departureDate"
+      (ngModelChange)="tripDate.returnDate = tripDate.departureDate"
+      (change)="syncDate()"
+      name="departureDate"
+      [min]="tripDate.departureDate"
+    />
+  </div>
+  <div
+    id="return-date-box"
+    class="input-box col-md-4 date-box d-flex flex-column"
+    *ngIf="!isMultiCity"
+  >
+    <label for="arrivalDate" class="form-label">Return</label>
+    <input
+      class="form-control arrivalDate"
+      type="date"
+      id="arrivalDate"
+      [(ngModel)]="tripDate.returnDate"
+      name="returnDate"
+      [min]="tripDate.departureDate"
+      [disabled]="isReturnDateDisable"
+    />
+  </div>
+</div>

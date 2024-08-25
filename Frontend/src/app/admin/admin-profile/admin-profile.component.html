@@ -1,0 +1,121 @@
+<!-- <div class="conatiner-fluid content-inner mt-1 py-0">
+  <div class="m-0"> -->
+<div class="admin-profile p-4">
+  <div class="row justify-content-center">
+    <!-- <div class="col-md-8 col-lg-5 col-sm-10 mb-3"> -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-transparent text-center">
+        <img
+          class="profile-img rounded-circle"
+          src="../../../assets/images/admin.jpg"
+          alt="Admin Image"
+        />
+        <h3>Admin</h3>
+      </div>
+      <div class="card-body">
+        <p class="mb-0">
+          <strong class="pr-1">Name: </strong>
+          Mr. Chandler Bing
+        </p>
+        <p class="mb-0">
+          <strong class="pr-1">Email:</strong>
+          chandlerBing106@gmail.com
+        </p>
+        <p class="mb-0">
+          <strong class="pr-1">Contact:</strong>
+          +91 5656568412
+        </p>
+        <button
+          class="btn btn-primary primary-color text-light"
+          id="changePassword"
+          (click)="open(changePassword)"
+        >
+          Change Password
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- </div>  -->
+</div>
+<ng-template
+  class="shadow rounded justify-content-around"
+  #changePassword
+  let-modal
+  modal-lg
+  fade
+>
+  <!-- <div class="row bg-model-row"> -->
+  <div class="modal-header">
+    <h3 class="modal-title" id="ModalTitle">Change Password</h3>
+  </div>
+
+  <form class="ps-4 pe-4 pb-4 form-design" #changePasswordForm="ngForm">
+    <div class="mt-3">
+      <label for="currentPassword" class="form-label">Current Password</label>
+      <input
+        type="password"
+        placeholder="Current Password"
+        class="form-control"
+        id="currentPassword"
+        name="currentPassword"
+        ngModel
+        required
+      />
+    </div>
+    <div class="mt-3">
+      <label for="newPassword" class="form-label">New Password</label>
+      <input
+        type="password"
+        placeholder="New Password"
+        class="form-control"
+        id="newPassword"
+        name="newPassword"
+        ngModel
+        #newPassword
+        required
+      />
+    </div>
+    <div class="mt-3">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        class="form-control"
+        id="confirmPassword"
+        name="confirmPassword"
+        [ngClass]="{ 'ng-invalid': confirmPassword.value != newPassword.value }"
+        ngModel
+        #confirmPassword
+        required
+      />
+    </div>
+  </form>
+
+  <div class="modal-footer">
+    <div class="row mt-1 mb-3 pl-4 pr-4">
+      <div>
+        <button
+          type="submit"
+          class="btn btn-primary primary-color text-light"
+          [disabled]="
+            !changePasswordForm.valid ||
+            confirmPassword.value != newPassword.value
+          "
+          (click)="onChangePassword(changePasswordForm); modal.close()"
+        >
+          Submit
+        </button>
+        <button
+          type="reset"
+          class="btn btn-danger cancel-button text-light"
+          id="cancel"
+          (click)="modal.close()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</ng-template>
+<!-- </div> -->

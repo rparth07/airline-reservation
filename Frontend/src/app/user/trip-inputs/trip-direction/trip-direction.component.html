@@ -1,0 +1,69 @@
+<span class="d-flex w-100" *ngIf="isDataAvailable" [ngModelGroup]="groupName">
+  <div
+    class="me-2 col-4 p-2 d-flex flex-column input-border rounded position-relative"
+    [ngClass]="{ 'is-invalid': sourceCity.touched && !sourceCity.valid }"
+  >
+    <span class="upside-float">From</span>
+    <ng-select
+      id="sourceCity"
+      class="common-input trip-input border-bottom hide-arrow"
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.sourceCity"
+      (change)="isDuplicateCityEntered()"
+      name="sourceCity"
+      placeholder="Select Source"
+      #sourceCity="ngModel"
+      required
+    >
+    </ng-select>
+    <span class="reverse-icon" (click)="onInterchange()">
+      <img src="../../assets/images/swap.png" alt="reverse icon" />
+    </span>
+  </div>
+  <div
+    class="ms-2 col-4 p-2 d-flex flex-column input-border rounded position-relative"
+    [ngClass]="{
+      'is-invalid': destinationCity.touched && !destinationCity.valid
+    }"
+  >
+    <span class="upside-float">To</span>
+    <ng-select
+      id="destinationCity"
+      class="common-input trip-input border-bottom hide-arrow"
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.destinationCity"
+      (change)="isDuplicateCityEntered()"
+      name="destinationCity"
+      placeholder="Select Destination"
+      #destinationCity="ngModel"
+      required
+    >
+    </ng-select>
+
+    <div *ngIf="isDuplicateCity" class="error-section d-flex top-80">
+      <span class="red-text error-msg-text"
+        >From &amp; To airports cannot be the same</span
+      >
+    </div>
+  </div>
+
+  <div
+    class="col-4 h-100 me-2 ms-3 p-2 d-flex flex-column input-border rounded"
+  >
+    <span class="upside-float">Departure</span>
+    <input
+      type="date"
+      id="departureDate"
+      [(ngModel)]="departureDate"
+      (ngModelChange)="departureDate = $event"
+      (change)="setCurrentDate()"
+      name="departureDate"
+      [min]="currentDate"
+      class="form-control mt-auto border-bottom departureDate"
+    />
+  </div>
+</span>

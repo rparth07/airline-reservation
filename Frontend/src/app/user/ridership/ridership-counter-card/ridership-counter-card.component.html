@@ -1,0 +1,59 @@
+<div class="card travelers-card pr-4 mt-2 text-dark">
+  <div class="card-body">
+    <div
+      class="row mb-2 mr-0"
+      *ngFor="let passenger of typeOfPassengers | keyvalue"
+    >
+      <div class="col-4 align-items-center d-flex">
+        <span>{{ passenger.key }}</span>
+      </div>
+      <div class="col-6 offset-2 pe-0">
+        <div class="counter-div pe-0">
+          <button
+            type="button"
+            id="decrement-adult"
+            class="btn"
+            type="button"
+            (click)="onDecrement(passenger.key); setPassengerValidation()"
+            [disabled]="
+              passenger.key == 'adult'
+                ? passenger.value <= 1
+                : passenger.value <= 0
+            "
+          >
+            -
+          </button>
+          <span id="counting-adult" class="pt-2 me-1">{{
+            passenger.value
+          }}</span>
+
+          <button
+            type="button"
+            id="increment-adult"
+            class="text-light btn"
+            type="button"
+            (click)="onIncrement(passenger.key); setPassengerValidation()"
+            [disabled]="passenger.value >= 9"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+    <b>
+      <small *ngIf="isValidPassenger === false" class="m-2 text-danger">
+        Infant count can not exceed adult count
+      </small>
+    </b>
+    <div class="button-container mt-2">
+      <button
+        type="button"
+        class="btn btn-primary mt-2 w-100"
+        [disabled]="!isValidPassenger"
+        (click)="setPassenger()"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+</div>

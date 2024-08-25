@@ -1,0 +1,41 @@
+<div class="row mr-ml-0" *ngIf="isDataAvailable" [ngModelGroup]="name">
+  <div class="col-md-5 input-box">
+    <span>From</span>
+    <ng-select
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.sourceCity"
+      (change)="cityChanged()"
+      name="sourceCity"
+      class="mt-2 search-box-input"
+      placeholder="Select city"
+    >
+    </ng-select>
+
+    <div class="source-suggestions scrollable"></div>
+  </div>
+
+  <div
+    class="col-md-2 col-sm-6 col-xs-12 reverse-icon"
+    (click)="onInterchange()"
+  >
+    <i class="fa fa-exchange" aria-hidden="true"></i>
+  </div>
+  <div class="col-md-5 input-box">
+    <span>To</span>
+    <ng-select
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.destinationCity"
+      (change)="cityChanged()"
+      name="destinationCity"
+      class="mt-2 search-box-input"
+      placeholder="Select city"
+    >
+    </ng-select>
+
+    <div class="destination-suggestions scrollable"></div>
+  </div>
+</div>

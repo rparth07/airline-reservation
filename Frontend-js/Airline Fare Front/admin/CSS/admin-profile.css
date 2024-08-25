@@ -1,0 +1,66 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  color: #000;
+}
+
+.admin-profile .card {
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.admin-profile .card .card-header .profile-img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 10px auto;
+  border: 10px solid #ccc;
+  border-radius: 50%;
+}
+
+.admin-profile .card h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.admin-profile .table th,
+.admin-profile .table td {
+  font-size: 14px;
+  padding: 5px 10px;
+  color: #fff;
+}
+
+.bg-model {
+  width: 100%;
+  height: 100%;
+  background-color: #000000b3;
+  position: fixed;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  display: none;
+}
+
+.bg-model-row {
+  margin-right: 14.18rem;
+}
+.model-content {
+  width: 590px;
+  height: 24rem;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .model-content {
+    width: 450px;
+  }
+}
+
+@media (max-width: 500px) {
+  .model-content {
+    width: 300px;
+  }
+}

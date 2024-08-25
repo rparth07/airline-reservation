@@ -1,0 +1,49 @@
+<div class="container">
+  <div
+    class="d-flex flex-nowrap flex-column align-items-center justify-content-center"
+  >
+    <h2 class="title">Find Flights</h2>
+    <div class="container widget">
+      <ul class="nav ms-5">
+        <li>
+          <a
+            class="oneway"
+            [ngClass]="{ active: isOneWay }"
+            (click)="changeToOneWay()"
+            >One-way</a
+          >
+        </li>
+        <li>
+          <a
+            class="round-trip"
+            [ngClass]="{ active: !isMulticity && !isOneWay }"
+            (click)="changeToRoundTrip()"
+            >Round-trip</a
+          >
+        </li>
+        <li>
+          <a
+            class="multicity"
+            [ngClass]="{ active: isMulticity }"
+            (click)="changeToMulticity()"
+            >Multicity</a
+          >
+        </li>
+      </ul>
+
+      <div class="me-3 ms-3 mt-5">
+        <div id="one-way-round" *ngIf="!isMulticity" class="ms-2">
+          <app-one-way-round [tripType]="isOneWay"></app-one-way-round>
+        </div>
+        <div id="multiCity" *ngIf="isMulticity">
+          <app-multicity></app-multicity>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="image-container d-flex align-items-center justify-content-center mt-5"
+>
+  <img src="../../assets/images/welcome.png" alt="welcome image" />
+</div>

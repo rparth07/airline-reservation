@@ -1,0 +1,8 @@
+<form (ngSubmit)="redirect(form)" #form="ngForm">
+  <app-trip-inputs [tripType]="isOneWay"></app-trip-inputs>
+  <div
+    class="d-flex align-items-center justify-content-center search-container"
+  >
+    <button class="btn search mb-1" type="submit">Search</button>
+  </div>
+</form>

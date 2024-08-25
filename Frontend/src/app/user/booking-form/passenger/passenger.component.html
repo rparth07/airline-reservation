@@ -1,0 +1,11 @@
+<div class="mb-3">
+  <h5>{{ passengerType }}</h5>
+  <hr />
+  <div *ngFor="let passengerNumber of passengerLoop; let i = index">
+    <app-passenger-detail
+      [maxAge]="maxAge"
+      [minAge]="minAge"
+      [passengerGroupName]="passengerType + '_' + i.toString()"
+    ></app-passenger-detail>
+  </div>
+</div>

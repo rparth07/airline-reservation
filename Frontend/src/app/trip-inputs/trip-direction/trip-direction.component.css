@@ -1,0 +1,36 @@
+div {
+  height: fit-content;
+}
+
+.reverse-icon {
+  box-shadow: #0000001a 0 0 10px;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  right: -1.9rem;
+  top: 1rem;
+  z-index: 1;
+}
+
+.reverse-icon img {
+  margin: 0.3rem;
+  width: 70%;
+}
+
+.duplicate {
+  position: absolute;
+  top: 26rem;
+  left: 27rem;
+  border: 1px solid red;
+  color: red;
+  background-color: #ffd3d4;
+  padding: 0rem 1rem;
+  box-shadow: #00000026 12px 6px 15px;
+  z-index: 2;
+}

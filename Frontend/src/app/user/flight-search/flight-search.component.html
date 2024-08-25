@@ -1,0 +1,31 @@
+<!--here we need to pass form-->
+<app-search-widget
+  (clearResultEvent)="clearResultEvent($event)"
+></app-search-widget>
+
+<!--here we need to pass result-->
+<div *ngIf="isEmptyResponse" class="">
+  <h1>Try Again!</h1>
+</div>
+<div *ngIf="!clearResults">
+  <app-trip-list
+    *ngIf="isMulticityTrip"
+    [tripList]="multicityResponse"
+  ></app-trip-list>
+
+  <div class="row d-flex justify-content-center" *ngIf="!isMulticityTrip">
+    <app-flights
+      class="col-6"
+      [flightInfoList]="isRoundTrip ? roundTripResponse[0] : oneWayResponse"
+      [selectedFlightIndex]="0"
+    ></app-flights>
+    <app-flights
+      class="col-6"
+      *ngIf="isRoundTrip"
+      [flightInfoList]="roundTripResponse[1]"
+      [selectedFlightIndex]="1"
+    ></app-flights>
+  </div>
+
+  <app-summary></app-summary>
+</div>

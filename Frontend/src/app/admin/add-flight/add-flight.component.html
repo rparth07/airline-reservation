@@ -1,0 +1,213 @@
+<div class="modal-header primary-color text-light">
+  <h5 class="modal-title" id="exampleModalLongTitle">
+    {{ flight ? "Update" : "Add" }} Flight Details
+  </h5>
+</div>
+<div class="modal-body">
+  <div class="row mr-ml-0 mt-1 sreach-widget justify-content-center">
+    <div class="col input-box from-city-card">
+      <div class="from-city-card">
+        <form class="form-design ps-4 pe-4 pb-4" #flightForm="ngForm">
+          <div class="row mt-3">
+            <div class="col-3">
+              <label for="flightNo" class="form-label">No.</label>
+              <input
+                type="text"
+                class="form-control"
+                id="flightNo"
+                placeholder="Flight No."
+                required
+                [ngModel]="flight?.flightNumber"
+                name="flightNumber"
+                [readonly]="flight"
+              />
+            </div>
+            <div class="col-6">
+              <label for="flightOperator" class="form-label">Operator</label>
+              <input
+                type="text"
+                class="form-control"
+                id="flightOperator"
+                placeholder="Operator Name"
+                required
+                [ngModel]="flight?.flightOperatorName"
+                name="flightOperatorName"
+                [readonly]="flight"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-5">
+              <label for="TotalSeatBusiness" class="form-label"
+                >Business Class Seat</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="totalSeatBusiness"
+                placeholder="Total Seats"
+                required
+                [ngModel]="flight?.totalSeatBusiness"
+                name="totalSeatBusiness"
+                [readonly]="flight"
+              />
+            </div>
+            <div class="col-5">
+              <label for="seatingFormatBusiness" class="form-label d-block"
+                >Business Class Seating Format
+              </label>
+              <select
+                id="seatingFormatBusiness"
+                class="form-select form-select-border"
+                ngModel
+                name="seatingFormatBusiness"
+                [disabled]="!flight"
+              >
+                <option selected="" value="0">1 x 1</option>
+                <option value="1">2 x 2</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-5">
+              <label for="TotalSeatEconomy" class="form-label"
+                >Economy Class Seat</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="totalSeatEconomy"
+                placeholder="Total Seats"
+                required
+                [ngModel]="flight?.totalSeatEconomy"
+                name="totalSeatEconomy"
+                [readonly]="flight"
+              />
+            </div>
+            <div class="col-5">
+              <label for="seatingFormatEconomy" class="form-label d-block"
+                >Economy Class Seating Format
+              </label>
+              <select
+                id="seatingFormatEconomy"
+                class="form-select form-select-border"
+                ngModel
+                name="seatingFormatEconomy"
+                [disabled]="!flight"
+              >
+                <option selected="" value="0">2 x 2</option>
+                <option value="1">3 x 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-4">
+              <label for="operatingDays" class="form-label"
+                >Operating Days</label
+              >
+              <select
+                id="operatingDays"
+                class="form-select form-select-border w-75"
+                [ngModel]="flight?.operatingDays"
+                name="operatingDays"
+              >
+                <option selected="" value="0">MON-SUN</option>
+                <option value="1">MON-FRI</option>
+                <option value="2">SAT-SUN</option>
+              </select>
+            </div>
+            <div class="col-4 offset-1">
+              <label for="distance" class="form-label">Distance(KM)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="distance"
+                min="50"
+                placeholder="Total Distance"
+                required
+                [ngModel]="flight?.distance"
+                name="distance"
+                [readonly]="flight"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <label for="sourceCity" class="form-label">Source City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sourceCity"
+                placeholder="City Name"
+                required
+                [ngModel]="flight?.sourceCity"
+                name="sourceCity"
+                [readonly]="flight"
+              />
+            </div>
+            <div class="col-4">
+              <label for="depatureTime" class="form-label"
+                >Departure Time</label
+              >
+              <input
+                type="time"
+                class="form-control"
+                id="depatureTime"
+                required
+                [ngModel]="flight?.sourceDepartureTime"
+                name="sourceDepartureTime"
+                [readonly]="flight"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <label for="destinationCity" class="form-label"
+                >Destination City</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="destinationCity"
+                placeholder="City Name"
+                required
+                [ngModel]="flight?.destinationCity"
+                name="destinationCity"
+                [readonly]="flight"
+              />
+            </div>
+            <div class="col-4">
+              <label for="arrivalTime" class="form-label">Arrival Time</label>
+              <input
+                type="time"
+                class="form-control"
+                id="arrivalTime"
+                required
+                [ngModel]="flight?.destinationArrivalTime"
+                name="destinationArrivalTime"
+                [readonly]="flight"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="closeModal()">
+    Cancel
+  </button>
+  <button
+    type="submit"
+    class="btn primary-color text-light"
+    [disabled]="!flightForm.valid"
+    (click)="
+      flight ? onUpdate(flightForm, flight) : addUpdate(flightForm);
+      closeModal()
+    "
+  >
+    Save
+  </button>
+</div>

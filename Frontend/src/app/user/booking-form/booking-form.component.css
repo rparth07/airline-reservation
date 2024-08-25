@@ -1,0 +1,31 @@
+.booking-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.error-section {
+  width: auto;
+  box-shadow: 0 2px 7px 0 rgb(0 0 0 / 30%);
+  z-index: 1;
+  background-color: #ffd3d4;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: #eb2026 !important;
+  width: auto;
+  font-size: 13px;
+}
+.error-section:after {
+  bottom: 100%;
+  left: 20%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #ffd3d4;
+  border-width: 8px;
+}

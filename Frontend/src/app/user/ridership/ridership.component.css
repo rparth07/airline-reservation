@@ -1,0 +1,25 @@
+.upside-float {
+  font-size: 0.8rem;
+  display: inline-flex;
+  font-weight: 700;
+  color: #777777;
+  position: relative;
+  padding: 0px 4px;
+  left: 1.5rem;
+  top: -1.15rem;
+  background-color: #fff;
+  max-width: fit-content;
+  height: fit-content;
+}
+
+.travelers {
+  cursor: pointer;
+  background: #fff;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  color: #000;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}

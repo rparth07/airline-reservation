@@ -1,0 +1,60 @@
+<span class="d-flex w-100" *ngIf="isDataAvailable" [ngModelGroup]="name">
+  <div
+    class="me-2 col-4 p-2 d-flex flex-column input-border rounded position-relative"
+  >
+    <span class="upside-float">From</span>
+    <ng-select
+      id="sourceCity"
+      class="common-input trip-input border-bottom hide-arrow"
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.sourceCity"
+      (change)="valueChanged(); isDuplicateCityEntered(); focusInputChanged()"
+      name="sourceCity"
+      placeholder="Select Source"
+      #selectCity="ngModel"
+    >
+    </ng-select>
+    <span class="reverse-icon" (click)="onInterchange()">
+      <img src="../../assets/images/swap.png" alt="reverse icon" />
+    </span>
+  </div>
+
+  <div class="ms-2 col-4 p-2 d-flex flex-column input-border rounded">
+    <span class="upside-float">To</span>
+    <ng-select
+      id="destinationCity"
+      class="common-input trip-input border-bottom hide-arrow"
+      [items]="cities"
+      bindLabel="airportName"
+      bindValue="abbreviation"
+      [(ngModel)]="citiesToInterchange.destinationCity"
+      (change)="valueChanged(); isDuplicateCityEntered()"
+      name="destinationCity"
+      placeholder="Select Destination"
+      #selectCity="ngModel"
+    >
+    </ng-select>
+  </div>
+  <p *ngIf="isDuplicateCity" class="duplicate">
+    Duplicate airport is not allowed.
+  </p>
+
+  <div
+    class="col-4 h-100 me-2 ms-3 p-2 d-flex flex-column input-border rounded"
+  >
+    <span class="upside-float">Departure</span>
+    <input
+      type="date"
+      id="departureDate"
+      [ngModel]="currentDate | date: dateFormat"
+      (ngModelChange)="currentDate = $event"
+      (change)="setCurrentDate()"
+      name="departureDate"
+      min="{{ currentDate | date: dateFormat }}"
+      class="form-control mt-auto border-bottom departureDate"
+      name="departureDate"
+    />
+  </div>
+</span>

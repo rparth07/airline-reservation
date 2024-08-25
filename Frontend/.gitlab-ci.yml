@@ -1,0 +1,29 @@
+image: node:lts
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm i
+    - npm run build
+  only:
+    - master
+  artifacts:
+    name: Arieline-Reservation-$CI_PIPELINE_ID-$CI_COMMIT_REF_SLUG
+    paths:
+      - dist/airline-reservation
+
+deploy:
+  stage: deploy
+  script:
+    - npm i -g netlify-cli
+    - netlify deploy --dir=dist/airline-reservation --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  only:
+    - master

@@ -1,0 +1,30 @@
+.trip {
+  z-index: 3;
+}
+
+.trip-card {
+  box-shadow: 0 3px 30px 0 #0000001a;
+}
+
+.active-trip {
+  background: #008cff;
+  color: #fff;
+}
+
+.trip-item {
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  align-items: center;
+}
+
+.itinerary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.bold-text {
+  font-weight: 600;
+}

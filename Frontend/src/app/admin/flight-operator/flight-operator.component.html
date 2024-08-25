@@ -1,0 +1,171 @@
+<div class="conatiner-fluid content-inner mt-1 py-0">
+  <div class="mt-5">
+    <div class="row ml-5 mr-5 justify-content-around">
+      <div class="col-md-11 col-sm-12 shadow card mb-5 rounded">
+        <div class="mx-2 mt-2">
+          <div><h2>Flight Operator</h2></div>
+          <div class="row justify-content-between">
+            <div class="col-6 col-md-6">
+              <form class="form-inline search-box">
+                <input
+                  id="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Search..."
+                  aria-label="Search"
+                  autocomplete="off"
+                />
+                <button type="submit" id="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+              <div class="suggestions scrollable"></div>
+            </div>
+
+            <div class="col-5">
+              <div class="add-operator">
+                <input
+                  type="file"
+                  id="fileLoader"
+                  name="files"
+                  title="Load File"
+                  #fileUpload
+                  accept=".csv"
+                  (change)="onFileSelected($event)"
+                  hidden
+                />
+                <button
+                  id="add-operator-file"
+                  type="button"
+                  class="btn btn-primary text-light primary-color"
+                  (click)="fileUpload.click()"
+                >
+                  Add CSV
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary text-light primary-color"
+                  id="add-operator-btn"
+                  (click)="openModal()"
+                >
+                  Add Operator
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-around">
+            <div class="col">
+              <table
+                id="myTable"
+                class="table table-hover mx-auto caption-top table-responsive-md table-responsive-sm"
+              >
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col" class="table-header">#</th>
+                    <th
+                      scope="col"
+                      class="table-header"
+                      data-name="companyName"
+                    >
+                      Name
+                    </th>
+                    <th scope="col" class="table-header" data-name="baseFare">
+                      {{ "Base Fare" }}
+                    </th>
+                    <th scope="col" class="table-header" data-name="convince">
+                      {{ "Convenience Fees " }}
+                    </th>
+                    <th scope="col" class="table-header" data-name="tax">
+                      Tax (%)
+                    </th>
+                    <th scope="col" class="ps-3 table-header-action">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody id="operatorData">
+                  <tr
+                    *ngFor="
+                      let operator of currentPageData$ | async;
+                      let i = index
+                    "
+                  >
+                    <th scope="col">
+                      {{ pageSize * selectedPageNumber + i + 1 }}
+                    </th>
+                    <td>{{ operator.companyName }}</td>
+                    <td>
+                      {{
+                        operator.baseFare | decimalFormatter | custom_currency
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        operator.convenience
+                          | decimalFormatter
+                          | custom_currency
+                      }}
+                    </td>
+                    <td>{{ operator.tax | decimalFormatter }}</td>
+                    <td>
+                      <i class="material-icons" (click)="openModal(operator)"
+                        >border_color</i
+                      >
+                      <i
+                        class="material-icons"
+                        (click)="onDelete(operator.companyName)"
+                        >delete</i
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- pagination section -->
+          <div class="row justify-content-center">
+            <div class="col-9">
+              <nav aria-label=" navigation example mx-auto">
+                <ul class="pagination justify-content-center">
+                  <li
+                    class="page-item page-list"
+                    (click)="
+                      selectedPageNumber > 0 &&
+                        onPageChange(selectedPageNumber - 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo; Previous</span>
+                    </a>
+                  </li>
+                  <li
+                    class="page-item list-item"
+                    *ngFor="let page of totalPages"
+                    [ngClass]="page == selectedPageNumber ? 'active' : ''"
+                    (click)="onPageChange(page)"
+                  >
+                    <a class="page-link"> {{ page + 1 }}</a>
+                  </li>
+                  <li
+                    class="page-item"
+                    (click)="
+                      selectedPageNumber < totalPages.length - 1 &&
+                        onPageChange(selectedPageNumber + 1)
+                    "
+                  >
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">Next &raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- //// -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,10 +15,9 @@ export class AddAirportComponent implements OnInit {
   constructor(
     private airportService: AirportService,
     private activeModal: NgbActiveModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.airport);
   }
 
   addAirport(form: NgForm) {

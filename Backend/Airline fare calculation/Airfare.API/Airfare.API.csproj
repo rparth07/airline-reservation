@@ -32,5 +32,4 @@
     <ProjectReference Include="..\Airfare.Data\Airfare.Data.csproj" />
     <ProjectReference Include="..\Service\Airfare.Service.csproj" />
   </ItemGroup>
-
 </Project>

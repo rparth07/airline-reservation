@@ -6,12 +6,13 @@ import { User } from './user.model';
 
 export interface AuthResponseData {
   kind: string;
-  idToken: string;
+  localId: string;
   email: string;
+  displayName: string;
+  idToken: string;
+  registered?: boolean;
   refreshToken: string;
   expiresIn: string;
-  localId: string;
-  registered?: boolean;
 }
 
 @Injectable({
@@ -20,12 +21,12 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCynI9pfUkP6d0BofRKKocvNmISBqmNxDY',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDzoiepBqiJPxQEcS0Z0adAXd_Ve2_SvJk',
         {
           email: email,
           password: password,

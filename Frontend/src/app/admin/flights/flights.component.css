@@ -54,6 +54,14 @@ th {
 .my-table thead {
   cursor: pointer;
 }
+
 .form-inline {
   width: 50%;
+}
+
+#searchButton {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: .375rem .75rem;
 }

@@ -1,3 +1,5 @@
+import { AppSetting } from "src/app/shared/app-setting";
+
 export const DomainConstants = {
   TripType: {
     ONE_WAY: 'oneway',
@@ -30,5 +32,5 @@ export const DomainConstants = {
     1: 'MON-FRI',
     2: 'SAT-SUN',
   },
-  URL: 'http://localhost:5031/API/',
+  URL: AppSetting.URL,
 };

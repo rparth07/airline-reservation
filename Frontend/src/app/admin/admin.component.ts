@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   ActivationEnd,
@@ -13,11 +13,11 @@ import { AdminService } from './admin.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
 })
-export class AdminComponent implements OnInit {
-  toggle: string = 'main-content-margin-left';
+export class AdminComponent implements OnInit, AfterViewInit {
+  toggle: string = '';
   isSidebarHidden!: boolean;
   isHeaderHidden!: boolean;
-  constructor(private adminService: AdminService, private router: Router) {
+  constructor(private adminService: AdminService, private router: Router, private cdRef: ChangeDetectorRef) {
     this.router.events.subscribe((response) => {
       this.isSidebarHidden = true;
       this.isHeaderHidden = true;
@@ -29,7 +29,6 @@ export class AdminComponent implements OnInit {
           this.isSidebarHidden = false;
         }
       }
-      console.log(response);
     });
   }
 
@@ -39,10 +38,19 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    // Some update logic
+    this.cdRef.detectChanges();  // Manually trigger change detection
+  }
+
   toggleSidebar(className: string) {
     const main = document.getElementsByTagName('main')![0];
     if (main !== null) {
-      main.classList.replace(this.toggle, className);
+      if (this.toggle) {
+        main.classList.replace(this.toggle, className);
+      } else {
+        main.classList.add(className);
+      }
     }
     this.toggle = className;
   }

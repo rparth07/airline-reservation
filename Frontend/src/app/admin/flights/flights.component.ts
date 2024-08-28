@@ -28,7 +28,7 @@ export class FlightsComponent implements OnInit {
     private flightService: FlightService,
     private modalService: NgbModal,
     private paginationService: PaginationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFlights();
@@ -55,7 +55,6 @@ export class FlightsComponent implements OnInit {
 
   onDeleteFlight(flightNumber: string) {
     this.flightService.deleteFlight(flightNumber).subscribe(() => {
-      console.log('Deleted');
     });
   }
 
@@ -77,7 +76,7 @@ export class FlightsComponent implements OnInit {
           flights.forEach((flight) => {
             flight.operatingDays =
               DomainConstants.OperatingDays[
-                flight.operatingDays as keyof object
+              flight.operatingDays as keyof object
               ];
           });
           return flights;

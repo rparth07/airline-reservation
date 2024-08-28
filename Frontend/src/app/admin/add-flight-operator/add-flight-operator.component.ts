@@ -16,12 +16,11 @@ export class AddFlightOperatorComponent implements OnInit {
   constructor(
     private flightOperatorService: FlightOperatorService,
     private activeModal: NgbActiveModal
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   addOperator(bookingForm: NgForm) {
-    console.log(bookingForm.value);
     if (bookingForm.valid)
       this.flightOperatorService.addFlightOperator(bookingForm.value);
   }

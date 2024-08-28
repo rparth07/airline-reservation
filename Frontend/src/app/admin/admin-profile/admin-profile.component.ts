@@ -8,9 +8,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./admin-profile.component.css'],
 })
 export class AdminProfileComponent implements OnInit {
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   open(content: any) {
     this.modalService.open(content, {
@@ -21,6 +21,5 @@ export class AdminProfileComponent implements OnInit {
   }
 
   onChangePassword(changePasswordForm: NgForm) {
-    console.log(changePasswordForm.value);
   }
 }

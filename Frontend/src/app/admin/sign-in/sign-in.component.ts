@@ -11,9 +11,9 @@ import { AuthResponseData, AuthService } from './auth.service';
 })
 export class SignInComponent implements OnInit {
   error!: string;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   onSubmit(form: NgForm) {
     // const admin = JSON.parse(localStorage.getItem('adminData') || '{}');
     // if (admin) {
@@ -30,7 +30,6 @@ export class SignInComponent implements OnInit {
     authenticationObservable = this.authService.login(email, password);
     authenticationObservable.subscribe(
       (userData) => {
-        console.log(userData);
         this.router.navigate(['../admin']);
       },
       (errorMessage) => {

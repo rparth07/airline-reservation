@@ -11,9 +11,10 @@ export class SidebarComponent implements OnInit {
   toggle: boolean = false;
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.adminService.moveMainContent.emit('main-content-margin-left');
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe((evt) => {
       this.resizePlugins();

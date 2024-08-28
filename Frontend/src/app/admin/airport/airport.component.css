@@ -110,3 +110,10 @@ th {
   overflow-y: scroll;
   height: fit-content;
 }
+
+#searchButton {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: .375rem .75rem;
+}

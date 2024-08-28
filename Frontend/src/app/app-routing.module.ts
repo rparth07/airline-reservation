@@ -6,7 +6,7 @@ import { UserComponent } from './user/user.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/user',
+    redirectTo: '/user/home',
     pathMatch: 'full',
   },
   {
@@ -26,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

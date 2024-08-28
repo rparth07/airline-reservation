@@ -1,3 +1,5 @@
+import { AppSetting } from "src/app/shared/app-setting";
+
 export const DomainConstants = {
-  URL: 'http://localhost:5031/API/',
+  URL: AppSetting.URL,
 };

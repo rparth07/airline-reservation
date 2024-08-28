@@ -6,3 +6,10 @@
 .add-operator button {
   margin-left: 5px;
 }
+
+#searchButton {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: .375rem .75rem;
+}

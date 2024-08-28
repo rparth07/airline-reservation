@@ -41,8 +41,6 @@ export class FlightService {
   }
 
   addFlight(flight: Flight) {
-    console.log(flight);
-
     return this.http
       .post(DomainConstants.URL + 'Admin/Airport/Flight', flight)
       .subscribe(

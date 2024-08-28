@@ -7,7 +7,7 @@ import { DomainConstants } from 'src/app/user/shared/domain-constants';
 
 @Injectable({ providedIn: 'root' })
 export class AirportService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addAirportCsvFile(form: FormData) {
     this.http.post(DomainConstants.URL + 'Admin/Airport', form).subscribe({
@@ -27,7 +27,6 @@ export class AirportService {
           };
           airports.push(airport);
         }
-        console.log(airports);
         return airports;
       })
     );
@@ -44,7 +43,6 @@ export class AirportService {
 
   updateAirport(oldAirport: Airport, newAirport: Airport) {
     const patch = compare(oldAirport, newAirport);
-    console.log('patch=', patch);
     this.http
       .patch<Airport>(
         DomainConstants.URL + 'Admin/Airport/' + oldAirport.abbreviation,

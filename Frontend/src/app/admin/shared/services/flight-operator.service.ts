@@ -5,7 +5,7 @@ import { FlightOperator } from '../../flight-operator/flight-operator';
 import { compare } from 'fast-json-patch';
 @Injectable()
 export class FlightOperatorService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   fetchFlightOperator() {
     return this.http.get<FlightOperator[]>(
@@ -14,15 +14,13 @@ export class FlightOperatorService {
   }
 
   addFlightOperator(flightOperator: FlightOperator) {
-    console.log(flightOperator);
-
     this.http
       .post<FlightOperator>(
         DomainConstants.URL + 'Admin/Operator',
         flightOperator
       )
       .subscribe({
-        next: (value) => console.log(value),
+        next: (val) => console.log(val),
         error: (err) => {
           console.log(err);
         },

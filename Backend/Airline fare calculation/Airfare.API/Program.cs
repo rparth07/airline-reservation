@@ -49,29 +49,19 @@ builder.Services.AddMvc(options =>
   options.Filters.Add(new UserFriendlyExceptionFilterAttribute());
 });
 
-
-
-//builder.Services.AddDbContext<AirfareContext>(options =>
-//{
-//  options.UseSqlServer(
-//      @"workstation id=Airfare.mssql.somee.com;packet size=4096;user id=krunal-ctrl_SQLLogin_1;pwd=hpbwq3n5oa;data source=Airfare.mssql.somee.com;persist security info=False;initial catalog=Airfare");
-//});
-
 builder.Services.AddDbContext<AirfareContext>(options =>
 {
-  //options.UseSqlServer(
-  //    @"workstation id=Airfare.mssql.somee.com;packet size=4096;user id=krunal-ctrl_SQLLogin_1;pwd=hpbwq3n5oa;data source=Airfare.mssql.somee.com;persist security info=False;initial catalog=Airfare");
-  options.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = AirfareData");
+  options.UseSqlServer(builder.Configuration.GetSection("ConnectionString").Value);
 });
+
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigin").Value;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseCors(builder =>
 {
-  builder.WithOrigins("http://localhost:4200").AllowAnyHeader();
-  builder.WithOrigins("http://localhost:4200").AllowAnyMethod();
-  builder.WithOrigins("https://tark-airline-reservation.netlify.app").AllowAnyHeader();
-  builder.WithOrigins("https://tark-airline-reservation.netlify.app").AllowAnyMethod();
+  builder.WithOrigins(allowedOrigin).AllowAnyHeader();
+  builder.WithOrigins(allowedOrigin).AllowAnyMethod();
 });
 
 

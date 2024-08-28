@@ -1,0 +1,51 @@
+<aside class="sidebar sidebar-default">
+  <div class="p-3 sidebar-header w-100 d-flex align-items-center justify-content-start flex-column flex-shrink-0">
+    <a href="/admin/home"
+      class="d-flex justify-content-start align-items-center mb-md-0 me-md-auto text-decoration-none">
+      <img src="../../../assets/images/airplane.png" />
+
+      <h4 class="logo-title">Airline System</h4>
+    </a>
+    <div class="sidebar-toggle" (click)="toggleSidebar()" data-toggle="sidebar">
+      <i class="icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </i>
+    </div>
+  </div>
+
+  <div class="sidebar-body pt-0">
+    <div class="sidebar-list">
+      <ul class="navbar-nav" id="sidebar-menu">
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="home" class="d-flex align-items-center justify-content-start nav-link text-dark">
+            <img class="ms-3 me-2 ms-md-4" src="../../../assets/images/home.png" />
+            <span class="item-name">Home</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="flight-operator" class="d-flex align-items-center justify-content-start nav-link text-dark">
+            <img class="ms-3 me-2 ms-md-4" src="../../../assets/images//operator.png" />
+            <span class="item-name">Operator</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="airport" class="d-flex align-items-center justify-content-start nav-link text-dark">
+            <img class="ms-3 me-2 ms-md-4" src="../../../assets/images/airport.png" />
+            <span class="item-name">Airport</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="flights" class="d-flex align-items-center justify-content-start nav-link text-dark">
+            <img class="ms-3 me-2 ms-md-4" src="../../../assets/images/airplane-take-off.png" />
+            <span class="item-name">Flight</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>

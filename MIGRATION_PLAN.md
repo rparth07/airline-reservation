@@ -14,8 +14,8 @@
 - [x] Validate locally: builds, search modes, connecting flights, booking, admin and PostgreSQL persistence.
 - [x] Provision Neon free project and test migration/seed against an isolated branch.
 - [x] Push validated code on a deployment branch and deploy Render free service in confirmed workspace.
-- [ ] Rebuild/redeploy Netlify against Render, account for cold starts, and label the demo.
-- [ ] Verify live browser flows and report resources, data counts, tests and limitations.
+- [x] Rebuild/redeploy Netlify against Render, account for cold starts, and label the demo.
+- [x] Verify live browser flows and report resources, data counts, tests and limitations.
 
 ## Target architecture
 Angular on existing Netlify site -> ASP.NET API on Render Free -> PostgreSQL on Neon Free.
@@ -45,3 +45,9 @@ A committed migration and idempotent seeder define the database. No hand-written
 - Render service srv-dbd5kvgae00c73cphtv0 is live at https://rparth07-airline-api.onrender.com. Readiness, all search modes and exact Netlify CORS origin passed.
 - Found and corrected HTTP creation Location headers behind Render TLS proxy; live admin CRUD, authentication, cleanup and synthetic booking all pass after redeploy.
 - Production frontend build points to Render. Netlify publish awaits authenticated dashboard access.
+
+- Netlify production deployment 6ada5e7d889884e4a02623f5 published on 23 October 2026 (India time) via user upload of .netlify/airline-frontend-ready.zip. Published bundle targets Render; browser homepage, round-trip and saved booking verified with no console errors.
+
+- Final public browser checks passed: homepage airports; round-trip selection; one-way connecting routes; multicity all-leg guard and selection; synthetic booking confirmation. No console errors in tested live flows. Live API checks also passed airport/operator/flight CRUD and cleanup, admin auth and anonymous-write rejection.
+- Verified builds, 12 frontend tests and 11 backend regression checks. Remaining warnings: existing nullable annotations, 619.7 kB initial Angular bundle, and legacy AutoMapper recursion advisory (depth mitigation applied). Render Free cold starts remain a hosting limitation.
+- Canonical manual deploy archive path: H:\Project\airline-reservation\.netlify\airline-frontend-ready.zip.

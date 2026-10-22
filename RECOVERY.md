@@ -9,7 +9,7 @@ real airport location identifiers. See DEMO_DATA.md and MIGRATION_PLAN.md.
 
 Live API readiness, search modes and Netlify CORS passed. Admin writes are
 protected by backend-issued tokens. Configure secrets only on the backend host.
-The production Netlify frontend has not yet been republished for this migration.
+The production Netlify frontend was republished as deployment 6ada5e7d889884e4a02623f5 on 23 October 2026 (India time). Public browser round-trip search and booking persistence passed.
 Original Somee investigation notes below are historical, not deployment instructions.
 
 ---

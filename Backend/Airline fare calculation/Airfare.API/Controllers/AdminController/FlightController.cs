@@ -49,8 +49,7 @@ namespace Airfare.API.Controllers
 
             FlightDetailsDto flightToReturn = _mapper.Map<FlightDetailsDto>(_flightDetailsService.AddFlight(flightDetailToAdd));
 
-            return CreatedAtRoute("GetFlight",
-                new { airportAbbrivation = flightToReturn.SourceCity, flightNumber = flightToReturn.FlightNumber },
+            return Created(Url.RouteUrl("GetFlight", new { airportAbbrivation = flightToReturn.SourceCity, flightNumber = flightToReturn.FlightNumber }),
                 flightToReturn);
         }
 

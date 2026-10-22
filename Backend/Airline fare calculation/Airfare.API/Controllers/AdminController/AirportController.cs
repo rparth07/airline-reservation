@@ -37,8 +37,7 @@ namespace Airfare.API.Controllers
     public IActionResult CreateAirport(AirportDto airportDto)
     {
       AirportDto airportToReturn = _mapper.Map<AirportDto>(_airportService.AddAirport(_mapper.Map<Airport>(airportDto)));
-      return CreatedAtRoute("GetAirport",
-          new { abbreviation = airportToReturn.Abbreviation },
+      return Created(Url.RouteUrl("GetAirport", new { abbreviation = airportToReturn.Abbreviation }),
           airportToReturn);
 
     }

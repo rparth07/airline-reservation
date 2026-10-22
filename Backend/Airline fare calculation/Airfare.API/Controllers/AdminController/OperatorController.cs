@@ -42,8 +42,7 @@ namespace Airfare.API.Controllers
                 _operatorService.AddOperator(_mapper.Map<FlightOperator>(flightOperator))
             );
 
-            return CreatedAtRoute("GetOperator",
-                new { operatorName = flightOperatorToReturn.CompanyName },
+            return Created(Url.RouteUrl("GetOperator", new { operatorName = flightOperatorToReturn.CompanyName }),
                 flightOperatorToReturn);
         }
 

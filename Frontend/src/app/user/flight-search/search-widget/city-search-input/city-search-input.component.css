@@ -6,3 +6,6 @@
   color: #fff;
   cursor: pointer;
 }
+
+:host > .row { display: grid; grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr); gap: 8px; margin: 0; }
+:host > .row > * { width: auto; max-width: none; min-width: 0; margin-left: 0; margin-right: 0; }

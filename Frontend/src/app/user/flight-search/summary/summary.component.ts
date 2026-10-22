@@ -27,7 +27,16 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get allLegsSelected(): boolean {
+    const tripType = this.route.snapshot.queryParamMap.get('tripType');
+    const flights = this.route.snapshot.data['flights'];
+    const expected = tripType === 'R' || tripType === 'M' ? flights?.length || 0 : 1;
+    return expected > 0 && Array.from({ length: expected }, (_, index) =>
+      this.summaryList[index]).every(flight => !!flight);
+  }
+
   onSubmit() {
+    if (!this.allLegsSelected) { return; }
     const paxTypeString = this.route.snapshot.queryParamMap.get('paxType');
     if (paxTypeString) {
       const paxType = this.searchService.getRidership(paxTypeString);

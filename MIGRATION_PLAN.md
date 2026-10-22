@@ -13,7 +13,7 @@
 - [x] Protect admin mutations, add health checks and safe configuration.
 - [x] Validate locally: builds, search modes, connecting flights, booking, admin and PostgreSQL persistence.
 - [x] Provision Neon free project and test migration/seed against an isolated branch.
-- [ ] Push validated code on a deployment branch and deploy Render free service in confirmed workspace.
+- [x] Push validated code on a deployment branch and deploy Render free service in confirmed workspace.
 - [ ] Rebuild/redeploy Netlify against Render, account for cold starts, and label the demo.
 - [ ] Verify live browser flows and report resources, data counts, tests and limitations.
 
@@ -34,10 +34,14 @@ A committed migration and idempotent seeder define the database. No hand-written
 
 - Added `scripts/verify-api.ps1` to test PostgreSQL readiness, all trip modes,
   connecting routes, authenticated admin create/update/delete, and demo booking.
-  It has not yet run against Neon because the private connection fields are empty.
+  PostgreSQL integration checks passed against Neon and live Render.
 - Render Blueprint passes the current official JSON schema; backend publish succeeds.
 - Local auth checks pass: valid login issues a token; invalid login and anonymous admin writes return 401.
 - AutoMapper's existing recursion advisory remains in its old package; mapping depth and
   JSON depth are bounded as mitigation. No commercial-license dependency was introduced.
 
 - Neon migration and seed completed. All API smoke checks passed, including authenticated admin writes and persistent booking. Browser booking confirmation verified. Frontend has 12 passing checks.
+
+- Render service srv-dbd5kvgae00c73cphtv0 is live at https://rparth07-airline-api.onrender.com. Readiness, all search modes and exact Netlify CORS origin passed.
+- Found and corrected HTTP creation Location headers behind Render TLS proxy; live admin CRUD, authentication, cleanup and synthetic booking all pass after redeploy.
+- Production frontend build points to Render. Netlify publish awaits authenticated dashboard access.

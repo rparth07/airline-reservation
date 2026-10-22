@@ -1,3 +1,4 @@
+import { timeout } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
@@ -17,6 +18,6 @@ export class FlightService {
     searchParams = searchParams.appendAll(queryParams);
     return this.http.get<
       OneWayResponse | RoundTripResponse | MulticityResponse
-    >(this.URL + searchParams);
+    >(this.URL + searchParams).pipe(timeout(90000));
   }
 }

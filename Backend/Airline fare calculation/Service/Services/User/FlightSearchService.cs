@@ -1,3 +1,4 @@
+using System.Globalization;
 using Airfare.Domain;
 using Airfare.Domain.Admin;
 using Airfare.Domain.RepositoryInterfaces.UserInterfaces;
@@ -58,7 +59,7 @@ namespace Airfare.Service.Services.User
     public IEnumerable<IEnumerable<IEnumerable<FlightDetails>>> GetFlightDetailsForRoundTrip(string itinerary, string paxType, string flightClass)
     {
       var details = itinerary.Split("_");
-      var returnDate = DateTime.Parse(details[1]);
+      var returnDate = ParseTravelDate(details[1]);
 
       ReservationDetails roundRequest = GetRequestObject(details[0], paxType, flightClass);
 
@@ -203,60 +204,49 @@ namespace Airfare.Service.Services.User
       ReservationDetails reservationDetailRequest = new ReservationDetails(
                                                        sourceAirport,
                                                        destinationAirport,
-                                                       DateTime.Parse(details[2]),
+                                                       ParseTravelDate(details[2]),
                                                        (FlightClass)Enum.Parse(typeof(FlightClass), flightClass),
-                                                       Convert.ToInt32(persons[0][2].ToString()),
-                                                       Convert.ToInt32(persons[1][2].ToString()),
-                                                       Convert.ToInt32(persons[2][2].ToString()));
+                                                       int.Parse(persons[0].Substring(2), CultureInfo.InvariantCulture),
+                                                       int.Parse(persons[1].Substring(2), CultureInfo.InvariantCulture),
+                                                       int.Parse(persons[2].Substring(2), CultureInfo.InvariantCulture));
 
       IsValidPassengerRequest(reservationDetailRequest.Infant, reservationDetailRequest.Adults, reservationDetailRequest.Children);
       return reservationDetailRequest;
     }
 
-    private List<List<FlightDetails>> GetConnectedFlights(List<string> flights, DateTime date, int window)
+    private static DateTime ParseTravelDate(string value)
     {
-      if (window == flights.Count - 1)
+      if (!DateTime.TryParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture,
+          DateTimeStyles.None, out var date))
+        throw new BadRequestException("Travel date must use dd/MM/yyyy.");
+      return date;
+    }
+
+    private List<List<FlightDetails>> GetConnectedFlights(List<string> flights, DateTime earliest, int window)
+    {
+      var connectedFlights = new List<List<FlightDetails>>();
+      if (window >= flights.Count - 1) return connectedFlights;
+      var candidates = _flightSearchRepository.GetFlightDetails(
+        earliest.Date, flights[window], flights[window + 1]);
+      if (candidates == null) return connectedFlights;
+
+      foreach (var candidate in candidates.OrderBy(flight => flight.SourceDepartureTime))
       {
-        return null;
-      }
-
-      List<FlightDetails> flightsToReturn = _flightSearchRepository.GetFlightDetails(date, flights[window], flights[window + 1]);
-      if (flightsToReturn.Count == 0 || flightsToReturn == null)
-      {
-        return new List<List<FlightDetails>>();
-      }
-
-      flightsToReturn.Sort(new Comparison<FlightDetails>((x, y) => TimeSpan.Compare(x.SourceDepartureTime, y.SourceDepartureTime)));
-
-      date = date.Add(flightsToReturn[0].DestinationArrivalTime)
-         .AddMinutes(45);
-
-      List<List<FlightDetails>> connectedFlights = new();
-      List<List<FlightDetails>> flightDetails = GetConnectedFlights(flights, date, ++window);
-
-      if (flightDetails == null)
-      {
-        connectedFlights = flightsToReturn
-            .Select(flightToReturn => new List<FlightDetails>() { flightToReturn })
-            .ToList();
-      }
-      else
-      {
-        flightDetails.ForEach(flightDetails =>
+        var departure = earliest.Date.Add(candidate.SourceDepartureTime);
+        if (departure < earliest) continue;
+        if (window == flights.Count - 2)
         {
-          flightsToReturn.ForEach(potentialFlight =>
-          {
-            var temp = new List<FlightDetails>(flightDetails);
-
-            if ((flightDetails[0].DestinationArrivalTime.TotalMinutes - potentialFlight.SourceDepartureTime.TotalMinutes) > 45)
-            {
-              temp.Insert(0, potentialFlight);
-              connectedFlights.Add(new List<FlightDetails>(temp));
-
-            }
-          });
-        });
-
+          connectedFlights.Add(new List<FlightDetails> { candidate });
+          continue;
+        }
+        var arrival = earliest.Date.Add(candidate.DestinationArrivalTime);
+        if (arrival < departure) arrival = arrival.AddDays(1);
+        foreach (var tail in GetConnectedFlights(flights, arrival.AddMinutes(45), window + 1))
+        {
+          var path = new List<FlightDetails> { candidate };
+          path.AddRange(tail);
+          connectedFlights.Add(path);
+        }
       }
       return connectedFlights;
     }

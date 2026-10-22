@@ -10,13 +10,11 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: 'home',
     component: HomePageComponent,
-    resolve: {
-      airportNames: AirportNameResolve,
-    },
   },
   {
     path: 'flights/booking',

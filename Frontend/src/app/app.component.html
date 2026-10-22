@@ -1,3 +1,6 @@
+<div class="alert alert-info text-center mb-0" role="note">
+  Demo only: fictional airlines, schedules, fares and bookings. No real tickets or payments. Use fabricated passenger details.
+</div>
 <ngx-ui-loader
   fgsColor="#3b77dc"
   pbColor="#3b77dc"
@@ -6,4 +9,15 @@
   [fgsSize]="100"
   [pbThickness]="6"
 ></ngx-ui-loader>
+<div *ngIf="showApiError" class="container alert alert-warning mt-3" role="alert">
+  {{ apiStatus.message }}
+  <button type="button" class="btn btn-link" (click)="apiStatus.message = ''">Dismiss</button>
+</div>
 <router-outlet></router-outlet>
+
+<section *ngIf="navigationFailed" class="container alert alert-warning mt-4" role="alert">
+  <h1>We couldn't load this page</h1>
+  <p>The reservation service may be unavailable. Try again, or return to flight search.</p>
+  <button type="button" class="btn btn-primary me-3" (click)="retryNavigation()">Try again</button>
+  <a routerLink="/user/home">Flight search</a>
+</section>

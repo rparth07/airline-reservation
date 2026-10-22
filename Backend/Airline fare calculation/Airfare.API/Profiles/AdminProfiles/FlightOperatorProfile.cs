@@ -10,18 +10,18 @@ namespace Airfare.API.Profiles.AdminProfiles
     {
         public FlightOperatorProfile()
         {
-            CreateMap<FlightOperator, FlightOperatorDto>();
+            CreateMap<FlightOperator, FlightOperatorDto>().MaxDepth(16);
 
-            CreateMap<FlightOperatorDto, FlightOperator>();
+            CreateMap<FlightOperatorDto, FlightOperator>().MaxDepth(16);
 
-            CreateMap<FlightOperator, FlightOperatorToUpdateDto>();
-            CreateMap<FlightOperatorToUpdateDto, FlightOperator>();
+            CreateMap<FlightOperator, FlightOperatorToUpdateDto>().MaxDepth(16);
+            CreateMap<FlightOperatorToUpdateDto, FlightOperator>().MaxDepth(16);
 
 
-            CreateMap<FlightOperatorDto, FlightOperatorToUpdateDto>();
-            CreateMap<FlightOperatorToUpdateDto, FlightOperatorDto>();
+            CreateMap<FlightOperatorDto, FlightOperatorToUpdateDto>().MaxDepth(16);
+            CreateMap<FlightOperatorToUpdateDto, FlightOperatorDto>().MaxDepth(16);
 
-            CreateMap<ParsedFlightOperator, FlightOperator>();
+            CreateMap<ParsedFlightOperator, FlightOperator>().MaxDepth(16);
 
         }
     }

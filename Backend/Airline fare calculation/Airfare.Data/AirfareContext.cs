@@ -38,6 +38,9 @@ namespace Airfare.Data
         entity.HasIndex(e => e.FlightNumber).IsUnique();
       });
 
+      modelBuilder.Entity<FlightDetailsDataModel>().Property(f => f.SourceDepartureTime).HasColumnType("time without time zone");
+      modelBuilder.Entity<FlightDetailsDataModel>().Property(f => f.DestinationArrivalTime).HasColumnType("time without time zone");
+      modelBuilder.Entity<FlightGraphDataModel>().HasIndex(f => new { f.SourceAirport, f.DestinationAirport }).IsUnique();
       modelBuilder.Entity<FlightOperatorDataModel>(entity =>
       {
         entity.HasIndex(e => e.CompanyName).IsUnique();
@@ -45,13 +48,5 @@ namespace Airfare.Data
     
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-      //optionsBuilder.EnableSensitiveDataLogging();
-      if (!optionsBuilder.IsConfigured)
-      {
-        optionsBuilder.UseSqlServer("Data Source=.");
-      }
-    }
   }
 }

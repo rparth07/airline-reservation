@@ -33,7 +33,7 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['../admin']);
       },
       (errorMessage) => {
-        console.log(errorMessage);
+        this.error = errorMessage;
       }
     );
     form.reset();

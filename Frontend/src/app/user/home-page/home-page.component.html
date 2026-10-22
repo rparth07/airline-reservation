@@ -3,7 +3,13 @@
     class="d-flex flex-nowrap flex-column align-items-center justify-content-center"
   >
     <h2 class="title">Find Flights</h2>
-    <div class="container widget">
+    <p *ngIf="loading" role="status">Starting the demo flight service. The first visit can take about a minute...</p>
+    <div *ngIf="airportError" class="alert alert-warning" role="alert">
+      <h3>Flight service is unavailable</h3>
+      <p>We couldn't load airports. Flight search and booking need a connection to the reservation service. Please try again.</p>
+      <button type="button" class="btn btn-primary" (click)="loadAirports()" [disabled]="loading">Try again</button>
+    </div>
+    <div *ngIf="airportsReady" class="container widget">
       <ul class="nav ms-5">
         <li>
           <a

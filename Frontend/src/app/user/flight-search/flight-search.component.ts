@@ -25,16 +25,11 @@ export class FlightSearchComponent implements OnInit {
     private route: ActivatedRoute,
     private flightSelectionService: FlightSelectionService
   ) {
-    this.route.params.subscribe((params: Params) => {
-      const currentRoute = params['tripType'];
-
+    this.route.data.subscribe(() => {
+      const currentRoute = this.route.snapshot.params['tripType'];
       this.isRoundTrip = currentRoute === DomainConstants.TripType.ROUND_TRIP;
-      this.isMulticityTrip =
-        currentRoute === DomainConstants.TripType.MULTICITY;
-      this.getDataFromSnapShot();
-    });
-
-    this.route.queryParams.subscribe((params: Params) => {
+      this.isMulticityTrip = currentRoute === DomainConstants.TripType.MULTICITY;
+      this.searchService.setCityList(this.route.snapshot.data['airportNames']);
       this.getDataFromSnapShot();
     });
   }
@@ -49,6 +44,10 @@ export class FlightSearchComponent implements OnInit {
 
   getDataFromSnapShot() {
     this.flightSelectionService.selectedFlightSummary = [];
+
+    const response = this.route.snapshot.data['flights'];
+    this.isEmptyResponse = !response || !response.length ||
+      ((this.isMulticityTrip || this.isRoundTrip) && response.some((leg: unknown[]) => !leg || !leg.length));
 
     if (this.isMulticityTrip) {
       this.multicityResponse = this.route.snapshot.data['flights'];

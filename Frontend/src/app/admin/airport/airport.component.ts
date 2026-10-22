@@ -39,7 +39,7 @@ export class AirportComponent implements OnInit {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      this.airportService.addAirportCsvFile(formData);
+      this.airportService.addAirportCsvFile(formData).subscribe({ next: () => this.getAirports(), error: () => {} });
     }
     event.target.value = '';
   }
@@ -54,7 +54,7 @@ export class AirportComponent implements OnInit {
   }
 
   deleteAirport(airportAbbreviation: string) {
-    this.airportService.deleteAirport(airportAbbreviation);
+    this.airportService.deleteAirport(airportAbbreviation).subscribe({ next: () => this.getAirports(), error: () => {} });
   }
 
   openUpdateAirportModal(airport?: Airport) {
@@ -71,6 +71,7 @@ export class AirportComponent implements OnInit {
     }
 
     modalRef.componentInstance.airport = this.updatableAirport;
+    modalRef.result.then(() => this.getAirports(), () => {});
   }
 
   onPageChange(pageNumber: number) {

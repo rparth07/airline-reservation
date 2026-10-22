@@ -1,3 +1,4 @@
+import { timeout } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomainConstants } from '../domain-constants';
@@ -7,6 +8,6 @@ export class DataStorageService {
   constructor(private http: HttpClient) {}
 
   fetchAirports() {
-    return this.http.get<Cities[]>(DomainConstants.URL + 'Admin/Airport');
+    return this.http.get<Cities[]>(DomainConstants.URL + 'Admin/Airport').pipe(timeout(90000));
   }
 }

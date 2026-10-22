@@ -52,7 +52,7 @@ export class FlightComponent implements OnInit {
   setNoOfStopsString(noOfConnectedFlights: number): string {
     return noOfConnectedFlights === 1
       ? 'non-stop'
-      : `${noOfConnectedFlights} stop`;
+      : `${noOfConnectedFlights - 1} stop${noOfConnectedFlights > 2 ? 's' : ''}`;
   }
 
   formatFlightData(flight: FlightInfo) {

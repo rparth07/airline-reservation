@@ -21,13 +21,13 @@ export class AddFlightComponent implements OnInit {
   ngOnInit(): void { }
 
   addUpdate(bookingForm: NgForm) {
-    if (bookingForm.valid) this.flightService.addFlight(bookingForm.value);
+    if (bookingForm.valid) this.flightService.addFlight(bookingForm.value).subscribe({ next: () => this.activeModal.close(), error: () => {} });
   }
 
   onUpdate(operatorUpdate: NgForm, oldFlight: Flight) {
     if (operatorUpdate.valid) {
       const newFlight = operatorUpdate.value;
-      this.flightService.patchFlight(newFlight, oldFlight);
+      this.flightService.patchFlight(newFlight, oldFlight).subscribe({ next: () => this.activeModal.close(), error: () => {} });
     }
   }
 

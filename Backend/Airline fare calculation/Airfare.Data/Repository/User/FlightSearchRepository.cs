@@ -28,34 +28,14 @@ namespace Airfare.Data.Repository.User
 
         public List<FlightDetails> GetFlightDetails(DateTime date, string sourceCity, string destinationCity)
         {
-            AirportDataModel sourceAirport = _context.AirportData
-                .Include("ArrivalFlights")
-                .Include("ArrivalFlights.FlightOperator")
-                .Include("ArrivalFlights.SourceAirportData")
-                .Include("DepartureFlights")
-                .Include("DepartureFlights.FlightOperator")
-                .Include("DepartureFlights.DestinationAirportData")
-                .FirstOrDefault(_ => _.Abbreviation == sourceCity);
-
-            AirportDataModel destinationAirport = _context.AirportData
-                .Include("ArrivalFlights")
-                .Include("ArrivalFlights.FlightOperator")
-                .Include("ArrivalFlights.SourceAirportData")
-                .Include("DepartureFlights")
-                .Include("DepartureFlights.FlightOperator")
-                .Include("DepartureFlights.DestinationAirportData")
-                .FirstOrDefault(_ => _.Abbreviation == destinationCity);
-
-
-            var FlightDetailsToReturn = sourceAirport.DepartureFlights.Where(flight =>
-                    flight.DestinationAirportData.AirportId == destinationAirport.AirportId &&
-                    GetDaysFromEnum(flight.OperatingDays).Contains(date.DayOfWeek.ToString())
-                ).ToList();
-
-            return _mapper
-                 .Map<List<FlightDetails>>(FlightDetailsToReturn);
+            var candidates = _context.FlightDetails.AsNoTracking()
+                .Include(f => f.FlightOperator)
+                .Include(f => f.SourceAirportData)
+                .Include(f => f.DestinationAirportData)
+                .Where(f => f.SourceAirportData.Abbreviation == sourceCity && f.DestinationAirportData.Abbreviation == destinationCity)
+                .ToList();
+            return _mapper.Map<List<FlightDetails>>(candidates.Where(f => GetDaysFromEnum(f.OperatingDays).Contains(date.DayOfWeek.ToString())).ToList());
         }
-
 
 
         private List<string> GetDaysFromEnum(OperatingDaysModel operatingDays)
@@ -125,7 +105,13 @@ namespace Airfare.Data.Repository.User
             Save();
         }
 
+        private List<FlightGraphDataModel> _searchGraph;
         public List<string> GetConnectedAirports(string sourceAirport)
+        {
+            _searchGraph ??= _context.FlightGraph.AsNoTracking().Where(g => g.Weight > 0).ToList();
+            return _searchGraph.Where(g => g.SourceAirport == sourceAirport).Select(g => g.DestinationAirport).ToList();
+        }
+        private List<string> GetConnectedAirportsUncached(string sourceAirport)
         {
             List<string> destinationAirports = _context.FlightGraph
                 .Where(_ => _.SourceAirport == sourceAirport && _.Weight != 0)

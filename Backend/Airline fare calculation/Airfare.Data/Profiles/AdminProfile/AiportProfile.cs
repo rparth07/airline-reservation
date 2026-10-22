@@ -8,8 +8,8 @@ namespace Airfare.Data.Profiles.AdminProfile
     {
         public AiportProfile()
         {
-            CreateMap<Airport, AirportDataModel>();
-            CreateMap<AirportDataModel, Airport>();
+            CreateMap<Airport, AirportDataModel>().MaxDepth(16);
+            CreateMap<AirportDataModel, Airport>().MaxDepth(16);
 
         }
     }

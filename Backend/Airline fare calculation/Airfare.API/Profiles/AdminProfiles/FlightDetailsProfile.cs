@@ -11,7 +11,7 @@ namespace Airfare.API.Profiles.AdminProfiles
         public FlightDetailsProfile()
         {
 
-            CreateMap<FlightDetails, FlightDetailsDto>()
+            CreateMap<FlightDetails, FlightDetailsDto>().MaxDepth(16)
                     .ForMember(
                         dest => dest.FlightOperatorName,
                         opt => opt.MapFrom(src => src.FlightOperator.CompanyName))
@@ -26,17 +26,17 @@ namespace Airfare.API.Profiles.AdminProfiles
                         opt => opt.MapFrom(src => src.DestinationAirportData.AirportName));
 
 
-            CreateMap<FlightDetailsDto, FlightDetails>();
+            CreateMap<FlightDetailsDto, FlightDetails>().MaxDepth(16);
 
 
-            CreateMap<ParsedFlightDetails, FlightDetails>();
+            CreateMap<ParsedFlightDetails, FlightDetails>().MaxDepth(16);
 
 
-            CreateMap<FlightDetails, ParsedFlightDetails>();
+            CreateMap<FlightDetails, ParsedFlightDetails>().MaxDepth(16);
 
 
-            CreateMap<FlightDetails, FlightDetailsToUpdateDto>();
-            CreateMap<FlightDetailsToUpdateDto, FlightDetails>();
+            CreateMap<FlightDetails, FlightDetailsToUpdateDto>().MaxDepth(16);
+            CreateMap<FlightDetailsToUpdateDto, FlightDetails>().MaxDepth(16);
 
         }
     }

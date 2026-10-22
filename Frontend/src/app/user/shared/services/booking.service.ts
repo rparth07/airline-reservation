@@ -16,14 +16,11 @@ export class BookingService {
 
   get getPaxData() {
     if (this.paxData) return this.paxData;
-    else throw Error('passenger data not found');
+    else return null;
   }
 
   savePassengersDetails(bookingDetail: BookingDetails) {
-    return this.http
-      .post(DomainConstants.URL + 'Booking', bookingDetail)
-      .subscribe((res) => {
-        bookingDetail.bookingId = res as string;
-      });
+    // Do not retry POST automatically: the server may have already saved it.
+    return this.http.post<string>(DomainConstants.URL + 'Booking', bookingDetail);
   }
 }

@@ -8,8 +8,8 @@ namespace Airfare.API.Profiles.UserProfiles
     {
         public FlightDetailsSearchProfile()
         {
-            CreateMap<ReservationDetailsDto, OneWayRequest>();
-            CreateMap<ReservationDetailsDto, RoundRequest>();
+            CreateMap<ReservationDetailsDto, OneWayRequest>().MaxDepth(16);
+            CreateMap<ReservationDetailsDto, RoundRequest>().MaxDepth(16);
 
         }
     }

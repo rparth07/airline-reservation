@@ -48,18 +48,17 @@ export class FlightsComponent implements OnInit {
     if (file) {
       const flightsData = new FormData();
       flightsData.append('file', file);
-      this.flightService.addFlightsCSV(flightsData);
+      this.flightService.addFlightsCSV(flightsData).subscribe({ next: () => this.loadFlights(), error: () => {} });
     }
     event.target.value = '';
   }
 
   onDeleteFlight(flightNumber: string) {
-    this.flightService.deleteFlight(flightNumber).subscribe(() => {
-    });
+    this.flightService.deleteFlight(flightNumber).subscribe({ next: () => this.loadFlights(), error: () => {} });
   }
 
   onUpdateFlight(form: NgForm, currentFlight: Flight) {
-    this.flightService.patchFlight(form.value, currentFlight);
+    this.flightService.patchFlight(form.value, currentFlight).subscribe({ next: () => this.loadFlights(), error: () => {} });
   }
 
   onPageChange(pageNumber: number) {
@@ -98,5 +97,6 @@ export class FlightsComponent implements OnInit {
     });
     this.updatableFlight = flight != null ? flight : null;
     modalRef.componentInstance.flight = this.updatableFlight;
+    modalRef.result.then(() => this.loadFlights(), () => {});
   }
 }

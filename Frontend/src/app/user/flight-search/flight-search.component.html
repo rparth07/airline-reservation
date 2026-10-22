@@ -5,9 +5,10 @@
 
 <!--here we need to pass result-->
 <div *ngIf="isEmptyResponse" class="">
-  <h1>Try Again!</h1>
+  <h1>No flights found</h1>
+  <p>No flights are available for this itinerary. Try different airports or dates.</p>
 </div>
-<div *ngIf="!clearResults">
+<div *ngIf="!clearResults && !isEmptyResponse">
   <app-trip-list
     *ngIf="isMulticityTrip"
     [tripList]="multicityResponse"

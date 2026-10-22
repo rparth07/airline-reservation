@@ -22,13 +22,13 @@ export class AddAirportComponent implements OnInit {
 
   addAirport(form: NgForm) {
     if (form.valid) {
-      this.airportService.addAirport(form.value);
+      this.airportService.addAirport(form.value).subscribe({ next: () => this.activeModal.close(), error: () => {} });
     }
   }
 
   updateAirport(airportForm: NgForm, oldAirport: Airport) {
     if (airportForm.valid) {
-      this.airportService.updateAirport(oldAirport, airportForm.value);
+      this.airportService.updateAirport(oldAirport, airportForm.value).subscribe({ next: () => this.activeModal.close(), error: () => {} });
     }
   }
 

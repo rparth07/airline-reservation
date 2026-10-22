@@ -41,9 +41,12 @@
         </div>
       </div>
     </div>
+    <p *ngIf="bookingError" class="alert alert-warning" role="alert">{{ bookingError }}</p>
+    <p *ngIf="bookingId" class="alert alert-success" role="status">Booking confirmed. Reference: {{ bookingId }}</p>
     <div class="modal-footer">
-      <button class="btn btn-primary" [disabled]="!bookingForm.valid">
-        Book Now
+      <button type="button" class="btn btn-secondary" routerLink="/user/home">Back to search</button>
+      <button class="btn btn-primary" [disabled]="!bookingForm.valid || saving || !!bookingId">
+        {{ saving ? 'Saving...' : 'Book Now' }}
       </button>
     </div>
   </form>

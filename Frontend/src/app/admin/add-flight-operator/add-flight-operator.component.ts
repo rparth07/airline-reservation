@@ -22,13 +22,13 @@ export class AddFlightOperatorComponent implements OnInit {
 
   addOperator(bookingForm: NgForm) {
     if (bookingForm.valid)
-      this.flightOperatorService.addFlightOperator(bookingForm.value);
+      this.flightOperatorService.addFlightOperator(bookingForm.value).subscribe({ next: () => this.activeModal.close(), error: () => {} });
   }
 
   onUpdate(operatorUpdate: NgForm, oldOperator: FlightOperator) {
     if (operatorUpdate.valid) {
       const newOperator = operatorUpdate.value;
-      this.flightOperatorService.patchFlightOperator(newOperator, oldOperator);
+      this.flightOperatorService.patchFlightOperator(newOperator, oldOperator).subscribe({ next: () => this.activeModal.close(), error: () => {} });
     }
   }
 

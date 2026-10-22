@@ -44,18 +44,18 @@ export class SearchService {
     if (dates.length === 2) {
       return {
         departureDate: DateFormatService.getFormattedDate(
-          dates[0],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[0]),
           DomainConstants.DateFormat
         )!,
         returnDate: DateFormatService.getFormattedDate(
-          dates[1],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[1]),
           DomainConstants.DateFormat
         )!,
       };
     } else {
       return {
         departureDate: DateFormatService.getFormattedDate(
-          dates[0],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[0]),
           DomainConstants.DateFormat
         )!,
       };

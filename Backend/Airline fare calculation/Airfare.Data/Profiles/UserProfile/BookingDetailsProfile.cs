@@ -9,8 +9,8 @@ namespace Airfare.Data.Profiles.UserProfile
 
     public BookingDetailsProfile()
     {
-      CreateMap<BookingDetails, BookingDataModel>();
-      CreateMap<BookingDataModel, BookingDetails>();
+      CreateMap<BookingDetails, BookingDataModel>().MaxDepth(16);
+      CreateMap<BookingDataModel, BookingDetails>().MaxDepth(16);
     }
          
   }

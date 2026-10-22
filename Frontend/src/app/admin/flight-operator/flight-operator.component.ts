@@ -43,13 +43,13 @@ export class FlightOperatorComponent implements OnInit {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      this.flightOperatorService.addFlightOperatorViaCSV(formData);
+      this.flightOperatorService.addFlightOperatorViaCSV(formData).subscribe({ next: () => this.ngOnInit(), error: () => {} });
     }
     event.target.value = '';
   }
 
   onDelete(operatorName: string) {
-    this.flightOperatorService.deleteFlightOperator(operatorName);
+    this.flightOperatorService.deleteFlightOperator(operatorName).subscribe({ next: () => this.ngOnInit(), error: () => {} });
   }
 
   openModal(operator?: FlightOperator) {
@@ -66,6 +66,7 @@ export class FlightOperatorComponent implements OnInit {
     }
 
     modalRef.componentInstance.operator = this.updatableOperator;
+    modalRef.result.then(() => this.ngOnInit(), () => {});
   }
 
   onPageChange(pageNumber: number) {

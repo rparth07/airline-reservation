@@ -8,8 +8,8 @@ namespace Airfare.Data.Profiles.AdminProfile
     {
         public FlightDetailsProfile()
         {
-            CreateMap<FlightDetailsDataModel, FlightDetails>();
-            CreateMap<FlightDetails, FlightDetailsDataModel>();
+            CreateMap<FlightDetailsDataModel, FlightDetails>().MaxDepth(16);
+            CreateMap<FlightDetails, FlightDetailsDataModel>().MaxDepth(16);
 
         }
     }

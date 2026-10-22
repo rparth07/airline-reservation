@@ -22,6 +22,7 @@ export class FlightsComponent implements OnInit {
   }
 
   sortFlights() {
+    if (!this.flightInfoList) return;
     this.flightInfoList.sort((a, b) =>
       this.calculateChanges(a) < this.calculateChanges(b) ? -1 : 1
     );

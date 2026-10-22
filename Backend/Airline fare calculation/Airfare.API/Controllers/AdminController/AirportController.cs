@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Airfare.API.ActionConstraints;
 using Airfare.API.CSVParserModel;
 using Airfare.API.Dto.Admin;
@@ -28,6 +29,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [RequestHeaderMatchesMediaType("Content-Type",
     "application/json")]
@@ -43,6 +45,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPost, DisableRequestSizeLimit]
     public IActionResult CreateAirport()
     {
@@ -74,6 +77,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{abbreviation}")]
     public IActionResult UpdateAirport(
         string abbreviation,
@@ -102,6 +106,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{abbreviation}")]
     public IActionResult DeleteAirport(string abbreviation)
     {

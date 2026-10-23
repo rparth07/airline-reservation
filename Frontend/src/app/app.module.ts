@@ -1,5 +1,6 @@
+import { ApiErrorInterceptor } from './shared/api-error.interceptor';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
@@ -19,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
     NgxMaskModule.forRoot(),
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

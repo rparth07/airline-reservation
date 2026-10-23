@@ -63,3 +63,10 @@ button:disabled { cursor: not-allowed; opacity: .65; }
  .content-inner .search-box input { min-width: 0; width: 100% !important; }
  .modal-body .input-box { min-width: 0; }
 }
+
+/* NgbModal portals live outside the search component. */
+.multicity-editor-window .modal-dialog { width: calc(100% - 32px); max-width: 920px; margin: 16px auto; min-height: calc(100% - 32px); }
+.multicity-editor-window .modal-content { max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow: hidden; }
+.multicity-editor-window .ng-select .ng-select-container { min-height: 44px; }
+.multicity-editor-window .ng-dropdown-panel { z-index: 1060; }
+.multicity-editor-window .ng-select.ng-select-focused > .ng-select-container { border-color: #2454a5; box-shadow: 0 0 0 2px #dce8fc; }

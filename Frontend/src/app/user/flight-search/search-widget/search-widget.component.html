@@ -46,21 +46,12 @@
         (valueChange)="onValueChanged()"
       ></app-date-selection-input>
 
-      <div
-        *ngIf="selectedTripType === multicity"
-        class="col-7 input-box"
-        (click)="open(content)"
-      >
-        <label for="from-city" class="form-label">From</label>
-        <div class="from-city">
-          <div class="ml-2">
-            <span id="fromCity">{{
-              cityConfig && cityConfig.sourceCity
-                ? cityConfig.sourceCity + "-" + cityConfig.destinationCity
-                : "Select Trip"
-            }}</span>
-          </div>
-        </div>
+      <div *ngIf="selectedTripType === multicity" class="input-box">
+        <label for="edit-itinerary" class="form-label">Itinerary</label>
+        <button type="button" id="edit-itinerary" class="from-city itinerary-trigger" (click)="open(content)">
+          <span>{{ cityConfig?.sourceCity ? cityConfig.sourceCity + ' to ' + cityConfig.destinationCity : 'Choose flights' }}</span>
+          <span class="itinerary-edit">Edit {{ multicityList.length }} flights</span>
+        </button>
       </div>
 
       <div class="col-md-1 input-box">
@@ -95,7 +86,7 @@
           class="btn search-button"
           [disabled]="!form.valid || !validSearch || searching"
         >
-          <span class="text-light">{{ searching ? 'Searching…' : 'Search' }}</span>
+          <span class="text-light">{{ searching ? 'Searching...' : 'Search' }}</span>
         </button>
       </div>
     </div>
@@ -103,95 +94,47 @@
     <!--  -->
     <!--  -->
 
-    <ng-template #content let-modal modal-lg>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Select City</h5>
-      </div>
-      <div class="modal-body">
-        <div class="row mr-ml-0 mt-1 sreach-widget justify-content-center">
-          <div class="col input-box from-city-card">
-            <div class="from-city-card">
-              <form #multicityForm="ngForm">
-                <div class="row mr-ml-m0 p-2">
-                  <!-- add new cities -->
-                  <!--  -->
-
-                  <div class="multicity-section col">
-                    <div
-                      class="row mr-ml-0 justify-content-center"
-                      *ngFor="
-                        let multicityControl of multicityList;
-                        let i = index
-                      "
-                    >
-                      <app-city-search-input
-                        class="col-6 pe-0 ps-0"
-                        [groupName]="'cityForm' + i.toString()"
-                        labelHeadingColor="black"
-                        [citiesToInterchange]="multicityControl"
-                      ></app-city-search-input>
-                      <app-date-selection-input
-                        class="col-4"
-                        [tripType]="selectedTripType"
-                        [multicityControl]="multicityControl"
-                        [groupName]="'dateForm' + i.toString()"
-                        labelHeadingColor="black"
-                        [tripDate]="{
-                          departureDate:
-                            multicityControl.departureDate.toString()
-                        }"
-                      ></app-date-selection-input>
-
-                      <div
-                        class="col-md-1 justify-content-center d-flex flex-column"
-                      >
-                        <button
-                          type="button"
-                          class="btn remove-city-button mt-3"
-                          (click)="onDeleteCity(i)"
-                          [disabled]="!(multicityList.length > 2)"
-                        >
-                          <img src="../../assets/images/cancel.png" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <!--  -->
-                  <!--  -->
-                </div>
-
-                <div class="col d-flex justify-content-center">
-                  <!-- add-city-button -->
-                  <button
-                    class="btn m-2 btn-primary"
-                    [disabled]="!(multicityList.length < 5)"
-                    (click)="onAddCity()"
-                  >
-                    + Add City
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+    <ng-template #content let-modal>
+      <div class="modal-header itinerary-header">
+        <div>
+          <h2 class="modal-title" id="multicity-editor-title">Edit multicity trip</h2>
+          <p id="multicity-editor-description">Choose 2 to 5 flights in travel order.</p>
         </div>
+        <button type="button" class="itinerary-close" aria-label="Close itinerary editor" (click)="modal.dismiss()">&times;</button>
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="modal.close(); setMultiListFromMulticityFormData()"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="modal.close(); saveMulticityList(); onValueChanged()"
-          [disabled]="!multicityForm.valid || multicityForm.pristine"
-        >
-          Save
-        </button>
-      </div>
+      <form #multicityForm="ngForm" class="itinerary-form" (ngSubmit)="applyMulticityEdit() && modal.close()">
+        <div class="modal-body itinerary-body">
+          <section class="itinerary-leg" *ngFor="let leg of draftLegs; let i = index" [attr.aria-labelledby]="'leg-title-' + i">
+            <div class="leg-heading">
+              <h3 [id]="'leg-title-' + i"><span class="leg-number">{{ i + 1 }}</span> Flight {{ i + 1 }}</h3>
+              <button type="button" class="remove-leg" (click)="removeDraftLeg(i)" [disabled]="draftLegs.length <= 2" [attr.aria-label]="'Remove flight ' + (i + 1)" title="A multicity trip needs at least two flights">Remove</button>
+            </div>
+            <div class="leg-fields">
+              <div class="leg-field">
+                <label [for]="'leg-from-' + i">From</label>
+                <ng-select [items]="airports" bindLabel="airportName" bindValue="abbreviation" [(ngModel)]="leg.sourceCity" [name]="'from-' + i" [labelForId]="'leg-from-' + i" [clearable]="false" appendTo=".multicity-editor-window" placeholder="Choose airport" required></ng-select>
+              </div>
+              <div class="leg-field">
+                <label [for]="'leg-to-' + i">To</label>
+                <ng-select [items]="airports" bindLabel="airportName" bindValue="abbreviation" [(ngModel)]="leg.destinationCity" [name]="'to-' + i" [labelForId]="'leg-to-' + i" [clearable]="false" appendTo=".multicity-editor-window" placeholder="Choose airport" required></ng-select>
+              </div>
+              <div class="leg-field leg-date">
+                <label [for]="'leg-date-' + i">Departure</label>
+                <input class="form-control" type="date" [id]="'leg-date-' + i" [name]="'date-' + i" [(ngModel)]="leg.departureDate" [min]="i ? draftLegs[i - 1].departureDate || today : today" required />
+              </div>
+            </div>
+          </section>
+          <div class="add-leg-row">
+            <button type="button" class="btn btn-outline-primary" (click)="addDraftLeg()" [disabled]="draftLegs.length >= 5">+ Add flight</button>
+            <span>{{ draftLegs.length }} of 5 flights</span>
+          </div>
+          <p *ngIf="draftError" class="alert alert-warning mb-0 mt-3" role="alert">{{ draftError }}</p>
+        </div>
+        <div class="modal-footer itinerary-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!multicityForm.valid || !draftValid">Save itinerary</button>
+        </div>
+      </form>
     </ng-template>
   </form>
   <!--  -->

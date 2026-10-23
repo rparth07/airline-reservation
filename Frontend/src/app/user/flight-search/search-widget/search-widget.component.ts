@@ -29,7 +29,7 @@ import { FlightSelectionService } from '../flight-selection.service';
 export class SearchWidgetComponent implements OnInit, OnDestroy {
   searching = false;
   searchError = '';
-  get validationMessage() { return this.validSearch ? '' : 'Choose different airports, valid travel dates, and 1–9 passengers with at least one adult. Multicity dates must be in travel order.'; }
+  get validationMessage() { return this.validSearch ? '' : 'Choose different airports, valid travel dates, and 1-9 passengers with at least one adult. Multicity dates must be in travel order.'; }
   private destroyed = new Subject<void>();
   queryParameters!: Params;
   oneWayRoundFormData!: OneWayRoundSearchWidget;
@@ -37,6 +37,52 @@ export class SearchWidgetComponent implements OnInit, OnDestroy {
   isSearchDisable: boolean = false;
   cityConfig!: CityConfig;
   multicityList: ItineraryDetail[] = [];
+  draftLegs: { sourceCity: string | null; destinationCity: string | null; departureDate: string }[] = [];
+  get airports() { return this.searchService.getCityList(); }
+  readonly today = this.toInputDate(new Date());
+
+  private toInputDate(value: Date): string {
+    const date = new Date(value);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  }
+
+  beginMulticityEdit() {
+    this.draftLegs = this.multicityList.map(leg => ({ ...leg, departureDate: this.toInputDate(leg.departureDate) }));
+  }
+
+  addDraftLeg() {
+    if (this.draftLegs.length >= 5) return;
+    const previous = this.draftLegs[this.draftLegs.length - 1];
+    this.draftLegs.push({ sourceCity: previous?.destinationCity || null, destinationCity: null, departureDate: previous?.departureDate || this.today });
+  }
+
+  removeDraftLeg(index: number) {
+    if (this.draftLegs.length > 2) this.draftLegs.splice(index, 1);
+  }
+
+  get draftError(): string {
+    for (let i = 0; i < this.draftLegs.length; i++) {
+      const leg = this.draftLegs[i];
+      if (leg.sourceCity && leg.sourceCity === leg.destinationCity) return `Flight ${i + 1}: choose different departure and arrival airports.`;
+      if (leg.departureDate && leg.departureDate < this.today) return `Flight ${i + 1}: choose today or a future date.`;
+      if (i && leg.departureDate && leg.departureDate < this.draftLegs[i - 1].departureDate) return `Flight ${i + 1}: departure must be on or after the previous flight.`;
+    }
+    return '';
+  }
+
+  get draftValid(): boolean {
+    return this.draftLegs.length >= 2 && this.draftLegs.length <= 5 && !this.draftError && this.draftLegs.every(leg =>
+      !!leg.sourceCity && !!leg.destinationCity && /^\d{4}-\d{2}-\d{2}$/.test(leg.departureDate) &&
+      this.airports.some(city => city.abbreviation === leg.sourceCity) && this.airports.some(city => city.abbreviation === leg.destinationCity));
+  }
+
+  applyMulticityEdit(): boolean {
+    if (!this.draftValid) return false;
+    this.multicityList = this.draftLegs.map(leg => ({ ...leg, departureDate: new Date(leg.departureDate + 'T00:00:00') }));
+    this.setCityConfig();
+    this.onValueChanged();
+    return true;
+  }
   multicity: string = DomainConstants.TripType.MULTICITY;
   selectedTripType: string = DomainConstants.TripType.ONE_WAY;
   selectedFlightClass: string = DomainConstants.FlightClass.ECONOMY;
@@ -128,11 +174,12 @@ export class SearchWidgetComponent implements OnInit, OnDestroy {
   }
 
   open(content: any) {
+    this.beginMulticityEdit();
     this.modalService.open(content, {
-      modalDialogClass: 'modal-lg modal-dialog-centered',
-      backdrop: 'static',
-      keyboard: false,
-    });
+      size: 'lg', centered: true, windowClass: 'multicity-editor-window',
+      ariaLabelledBy: 'multicity-editor-title', ariaDescribedBy: 'multicity-editor-description',
+      backdrop: 'static', keyboard: true,
+    }).result.catch(() => { /* Dismissal discards the isolated draft. */ });
   }
 
   private isRoundTrip() {

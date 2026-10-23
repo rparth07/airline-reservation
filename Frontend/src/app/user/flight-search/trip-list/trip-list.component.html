@@ -5,7 +5,7 @@
         <ul class="d-flex flex-row mr-ml-0 justify-content trip-list p-0 m-0">
           <li
             *ngFor="let trip of tripList; let i = index"
-            (click)="selectTrip(i)"
+            (click)="selectTrip(i)" role="button" tabindex="0" [attr.aria-pressed]="i === selectedTrip" (keydown.enter)="selectTrip(i)" (keydown.space)="$event.preventDefault(); selectTrip(i)"
             [class.active-trip]="i === selectedTrip"
             class="d-flex flex-column p-4 trip-item"
             #trip

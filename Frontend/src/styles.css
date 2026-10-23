@@ -49,3 +49,17 @@ input.ng-invalid.ng-touched {
   background-color: var(--primary-color);
   border: none;
 }
+
+button:focus-visible, [role="button"]:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #162b70; outline-offset: 3px; }
+button:disabled { cursor: not-allowed; opacity: .65; }
+@media(max-width: 600px) { .flight-info > div { flex-wrap: wrap; } .flight-info > div > div { flex: 1 1 45%; } .trip-list { overflow-x: auto; } .trip-item { min-width: 160px; } .modal-body { padding: 12px; } }
+
+@media (max-width: 600px) {
+ .content-inner > .mt-5 > .row { margin: 0 !important; }
+ .content-inner .card { width: calc(100% - 24px) !important; padding: 8px; }
+ .content-inner .table { display: block; max-width: 100%; overflow-x: auto; }
+ .content-inner .search-box { width: 100%; }
+ .content-inner .row.justify-content-between > div { width: 100%; margin-bottom: 12px; }
+ .content-inner .search-box input { min-width: 0; width: 100% !important; }
+ .modal-body .input-box { min-width: 0; }
+}

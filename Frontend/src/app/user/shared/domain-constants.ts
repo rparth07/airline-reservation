@@ -23,7 +23,7 @@ export const DomainConstants = {
     INFANT: 'infant',
   },
   PassengerAgeRange: {
-    ADULT: { min: 18, max: 70 },
+    ADULT: { min: 18, max: 120 },
     CHILD: { min: 3, max: 17 },
     INFANT: { min: 0, max: 2 },
   },

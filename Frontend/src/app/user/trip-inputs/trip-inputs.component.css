@@ -61,3 +61,8 @@
 .mb-08 {
   margin-bottom: 0.875rem;
 }
+
+@media (max-width: 600px) {
+ :host > .row { margin: 0 !important; padding: 0 !important; gap: 12px; }
+ :host > .row > div { width: 100% !important; margin: 0 !important; }
+}

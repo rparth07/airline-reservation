@@ -23,6 +23,8 @@ export class RidershipComponent implements OnInit {
     this.setPassenger();
   }
 
+  ngOnChanges() { this.setPassenger(); }
+
   setPassenger() {
     this.passengers = this.getpassengerCount();
   }

@@ -34,7 +34,7 @@
     <ul class="p-0 pt-2 scroll" id="style-3">
       <app-flight
         *ngFor="let flightInfo of flightInfoList; let i = index"
-        (click)="selectFlight(i)"
+        (click)="selectFlight(i)" (keydown.enter)="selectFlight(i)" (keydown.space)="selectFlight(i)"
         [isActive]="i === selectedList"
         [flightInfo]="flightInfo"
         [totalCharges]="calculateChanges(flightInfo)"

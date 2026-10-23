@@ -36,3 +36,8 @@
   position: absolute;
   bottom: 10px;
 }
+
+.fare-list { width: min(100%, 960px); }
+.continue-button { height: auto; min-height: 44px; padding: 10px 20px; white-space: normal; }
+.flight-price { position: static; }
+@media (max-width: 600px) { .summary .summary-list, .summary .input-box { width: 100%; } .summary .input-box { justify-content: center; } .summary .continue-button { width: 100%; } }

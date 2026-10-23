@@ -12,6 +12,8 @@ import { SearchService } from '../../shared/services/search.service';
   styleUrls: ['./one-way-round.component.css', '../home-page.component.css'],
 })
 export class OneWayRoundComponent implements OnInit {
+  searching = false;
+  searchError = '';
   isSearchDisable: boolean = false;
 
   @Input('tripType') isOneWay: boolean = true;
@@ -55,16 +57,14 @@ export class OneWayRoundComponent implements OnInit {
     };
   }
 
-  redirect(oneWayRoundSearchForm: NgForm) {
-    let formData = oneWayRoundSearchForm.value;
-    if (this.isOneWay) {
-      this.router.navigate(['user/flights/oneway'], {
-        queryParams: this.getOneWayQueryParamsData(formData),
-      });
-    } else {
-      this.router.navigate(['user/flights/round-trip'], {
-        queryParams: this.getRoundTripQueryParamsData(formData),
-      });
-    }
+  async redirect(form: NgForm) {
+    if (form.invalid || this.searching) return;
+    const queryParams = this.isOneWay ? this.getOneWayQueryParamsData(form.value) : this.getRoundTripQueryParamsData(form.value);
+    if (!this.searchService.validateQuery(queryParams)) { this.searchError='Check airports, passenger counts and travel dates.'; return; }
+    this.searching=true;
+    this.searchError='';
+    try { await this.router.navigate(['user/flights/' + (this.isOneWay ? 'oneway' : 'round-trip')], {queryParams}); }
+    catch { this.searchError='Search could not load. Please try again.'; }
+    finally { this.searching=false; }
   }
 }

@@ -31,7 +31,11 @@ export class FlightComponent implements OnInit {
 
   @Output() onFlightSelect = new EventEmitter<Summary>();
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: any): void {
+    if (!changes.flightInfo && !changes.isFirstFlight) return;
+    if (!this.flightInfo?.length) return;
     for (let flight of this.flightInfo) {
       this.formatFlightData(flight);
     }
@@ -52,7 +56,7 @@ export class FlightComponent implements OnInit {
   setNoOfStopsString(noOfConnectedFlights: number): string {
     return noOfConnectedFlights === 1
       ? 'non-stop'
-      : `${noOfConnectedFlights} stop`;
+      : `${noOfConnectedFlights - 1} stop${noOfConnectedFlights > 2 ? 's' : ''}`;
   }
 
   formatFlightData(flight: FlightInfo) {

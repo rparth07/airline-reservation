@@ -1,0 +1,6 @@
+.netlify/
+.env*
+**/bin/
+**/obj/
+*.secrets.json
+deploy-*.zip

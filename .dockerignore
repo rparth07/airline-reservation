@@ -1,0 +1,10 @@
+**/bin
+**/obj
+**/node_modules
+.git
+.netlify
+**/.env*
+**/*settings-dev.json
+**/*settings-prod.json
+Frontend
+Frontend-js

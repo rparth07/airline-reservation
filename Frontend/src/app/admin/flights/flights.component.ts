@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, shareReplay, catchError, of } from 'rxjs';
 import { FlightService } from '../shared/services/flight.service';
 import { AddFlightComponent } from '../add-flight/add-flight.component';
 
@@ -15,6 +16,9 @@ import { PaginationService } from '../shared/services/pagination.service';
   styleUrls: ['./flights.component.css'],
 })
 export class FlightsComponent implements OnInit {
+  error = '';
+  private filterText = new BehaviorSubject('');
+  onFilter(value: string) { this.filterText.next(value.toLowerCase().trim()); this.onPageChange(0); }
   operatingDay = DomainConstants.OperatingDays;
   apiFlightData$!: Observable<Flight[]>;
   currentPageData$!: Observable<Flight[]>;
@@ -35,7 +39,8 @@ export class FlightsComponent implements OnInit {
   }
 
   loadFlights() {
-    this.apiFlightData$ = this.flightService.fetchFlights().pipe(
+    this.apiFlightData$ = combineLatest([this.flightService.fetchFlights().pipe(catchError(() => { this.error = 'Could not load inventory. Please reload or sign in again.'; return of([]); }), shareReplay(1)), this.filterText]).pipe(
+      map(([records, term]) => records.filter(record => Object.values(record).some(value => String(value).toLowerCase().includes(term)))),
       tap((flights) => {
         this.setTotalPage(flights);
       })
@@ -48,18 +53,18 @@ export class FlightsComponent implements OnInit {
     if (file) {
       const flightsData = new FormData();
       flightsData.append('file', file);
-      this.flightService.addFlightsCSV(flightsData);
+      this.flightService.addFlightsCSV(flightsData).subscribe({ next: () => this.loadFlights(), error: () => { this.error = 'The change could not be saved. Check your session and values, then try again.'; } });
     }
     event.target.value = '';
   }
 
   onDeleteFlight(flightNumber: string) {
-    this.flightService.deleteFlight(flightNumber).subscribe(() => {
-    });
+    if (!window.confirm("Delete " + flightNumber + " and any associated demo inventory? This cannot be undone.")) return;
+    this.flightService.deleteFlight(flightNumber).subscribe({ next: () => this.loadFlights(), error: () => { this.error = 'The change could not be saved. Check your session and values, then try again.'; } });
   }
 
   onUpdateFlight(form: NgForm, currentFlight: Flight) {
-    this.flightService.patchFlight(form.value, currentFlight);
+    this.flightService.patchFlight(form.value, currentFlight).subscribe({ next: () => this.loadFlights(), error: () => { this.error = 'The change could not be saved. Check your session and values, then try again.'; } });
   }
 
   onPageChange(pageNumber: number) {
@@ -73,13 +78,8 @@ export class FlightsComponent implements OnInit {
       )
       .pipe(
         map((flights) => {
-          flights.forEach((flight) => {
-            flight.operatingDays =
-              DomainConstants.OperatingDays[
-              flight.operatingDays as keyof object
-              ];
-          });
-          return flights;
+          return flights.map(flight => ({ ...flight, operatingDaysLabel: DomainConstants.OperatingDays[flight.operatingDays as keyof typeof DomainConstants.OperatingDays] }));
+
         })
       );
   }
@@ -98,5 +98,6 @@ export class FlightsComponent implements OnInit {
     });
     this.updatableFlight = flight != null ? flight : null;
     modalRef.componentInstance.flight = this.updatableFlight;
+    modalRef.result.then(() => this.loadFlights(), () => {});
   }
 }

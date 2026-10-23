@@ -1,3 +1,4 @@
+<p *ngIf="error" role="alert" class="alert alert-danger m-3">{{ error }}</p>
 <div class="modal-header">
   <h2 class="mt-2">{{ operator ? "Update" : "Add" }} Flight Operator</h2>
 </div>
@@ -62,12 +63,11 @@
     <button
       type="submit"
       class="btn btn-primary text-light"
-      [disabled]="!operatorUpdate.valid"
+      [disabled]="saving || !operatorUpdate.valid"
       (click)="
         operator
           ? onUpdate(operatorUpdate, operator)
-          : addOperator(operatorUpdate);
-        closeModal()
+          : addOperator(operatorUpdate)
       "
     >
       {{ operator ? "Update" : "Add" }}

@@ -1,3 +1,4 @@
+<p *ngIf="error" role="alert" class="alert alert-warning m-3">{{ error }}</p>
 <div class="conatiner-fluid content-inner mt-1 py-0">
   <div class="mt-5">
     <div class="row ml-5 mr-5 justify-content-around">
@@ -8,10 +9,10 @@
           </div>
           <div class="row justify-content-between mb-2">
             <div class="col-6 col-md-6">
-              <form class="form-inline search-box d-flex d-inline">
-                <input id="search" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
+              <form (submit)="$event.preventDefault()" class="form-inline search-box d-flex d-inline">
+                <input id="search" (input)="onFilter($any($event.target).value)" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
                   autocomplete="off" />
-                <button type="submit" id="searchButton">
+                <button type="button" id="searchButton" aria-label="Search inventory">
                   <i class="fa fa-search"></i>
                 </button>
               </form>

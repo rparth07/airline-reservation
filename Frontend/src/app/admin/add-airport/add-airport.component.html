@@ -1,5 +1,6 @@
+<p *ngIf="error" role="alert" class="alert alert-danger m-3">{{ error }}</p>
 <div class="modal-header">
-  <h2 class="mt-2">{{ airport ? "Update" : "Add" }} Flight Operator</h2>
+  <h2 class="mt-2">{{ airport ? "Update" : "Add" }} Airport</h2>
 </div>
 <form
   class="form-design ps-4 pe-4 pb-3"
@@ -11,7 +12,7 @@
     <input
       type="text"
       class="form-control"
-      id="aiport-name"
+      id="airport-name"
       placeholder="airportName"
       required
       [ngModel]="airport?.airportName"
@@ -26,6 +27,8 @@
       id="abbreviation"
       placeholder="ABR"
       autocapitalize="characters"
+      pattern="[A-Za-z]{3}"
+      [readonly]="!!airport"
       required
       [ngModel]="airport?.abbreviation"
       name="abbreviation"
@@ -37,9 +40,9 @@
     <button
       type="submit"
       class="btn btn-primary text-light"
-      [disabled]="!form.valid"
+      [disabled]="saving || !form.valid"
       (click)="
-        airport ? updateAirport(form, airport) : addAirport(form); closeModal()
+        airport ? updateAirport(form, airport) : addAirport(form)
       "
     >
       {{ airport ? "Update" : "Add" }}

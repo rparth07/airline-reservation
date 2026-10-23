@@ -11,6 +11,9 @@ import { FlightService } from '../shared/services/flight.service';
   styleUrls: ['./add-flight.component.css'],
 })
 export class AddFlightComponent implements OnInit {
+  saving = false;
+  error = '';
+
   isInUpdateMode: boolean = false;
   @Input() flight!: Flight;
   constructor(
@@ -21,17 +24,23 @@ export class AddFlightComponent implements OnInit {
   ngOnInit(): void { }
 
   addUpdate(bookingForm: NgForm) {
-    if (bookingForm.valid) this.flightService.addFlight(bookingForm.value);
+    if (this.saving) return;
+    this.error = '';
+    if (bookingForm.valid) { this.saving = true; this.flightService.addFlight(bookingForm.value).subscribe({ next: () => { this.saving = false; this.activeModal.close(); }, error: () => { this.saving = false; this.error = 'Could not save. Check the entered values and your admin session, then try again.'; } }); }
   }
 
   onUpdate(operatorUpdate: NgForm, oldFlight: Flight) {
+    if (this.saving) return;
+    this.error = '';
     if (operatorUpdate.valid) {
       const newFlight = operatorUpdate.value;
-      this.flightService.patchFlight(newFlight, oldFlight);
+      this.saving = true;
+      this.flightService.patchFlight(newFlight, oldFlight).subscribe({ next: () => { this.saving = false; this.activeModal.close(); }, error: () => { this.saving = false; this.error = 'Could not save. Check the entered values and your admin session, then try again.'; } });
     }
   }
 
   closeModal() {
+    if (this.saving) return;
     this.activeModal.close();
   }
 }

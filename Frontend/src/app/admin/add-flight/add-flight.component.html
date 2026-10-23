@@ -1,3 +1,4 @@
+<p *ngIf="error" role="alert" class="alert alert-danger m-3">{{ error }}</p>
 <div class="modal-header primary-color text-light">
   <h5 class="modal-title" id="exampleModalLongTitle">
     {{ flight ? "Update" : "Add" }} Flight Details
@@ -61,7 +62,7 @@
                 class="form-select form-select-border"
                 ngModel
                 name="seatingFormatBusiness"
-                [disabled]="!flight"
+                [disabled]="saving || !!flight"
               >
                 <option selected="" value="0">1 x 1</option>
                 <option value="1">2 x 2</option>
@@ -94,7 +95,7 @@
                 class="form-select form-select-border"
                 ngModel
                 name="seatingFormatEconomy"
-                [disabled]="!flight"
+                [disabled]="saving || !!flight"
               >
                 <option selected="" value="0">2 x 2</option>
                 <option value="1">3 x 3</option>
@@ -202,10 +203,9 @@
   <button
     type="submit"
     class="btn primary-color text-light"
-    [disabled]="!flightForm.valid"
+    [disabled]="saving || !flightForm.valid"
     (click)="
-      flight ? onUpdate(flightForm, flight) : addUpdate(flightForm);
-      closeModal()
+      flight ? onUpdate(flightForm, flight) : addUpdate(flightForm)
     "
   >
     Save

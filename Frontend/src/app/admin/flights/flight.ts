@@ -1,7 +1,8 @@
 export interface Flight {
   flightNumber: string;
   flightOperatorName: string;
-  operatingDays: string;
+  operatingDays: number;
+  operatingDaysLabel?: string;
   sourceCity: string;
   destinationCity: string;
   sourceDepartureTime: string;

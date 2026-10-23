@@ -11,6 +11,9 @@ import { FlightOperatorService } from '../shared/services/flight-operator.servic
   providers: [FlightOperatorService],
 })
 export class AddFlightOperatorComponent implements OnInit {
+  saving = false;
+  error = '';
+
   @Input() operator!: FlightOperator | null;
 
   constructor(
@@ -21,18 +24,25 @@ export class AddFlightOperatorComponent implements OnInit {
   ngOnInit(): void { }
 
   addOperator(bookingForm: NgForm) {
-    if (bookingForm.valid)
-      this.flightOperatorService.addFlightOperator(bookingForm.value);
+    if (this.saving) return;
+    this.error = '';
+    if (!bookingForm.valid) return;
+    this.saving = true;
+      this.flightOperatorService.addFlightOperator(bookingForm.value).subscribe({ next: () => { this.saving = false; this.activeModal.close(); }, error: () => { this.saving = false; this.error = 'Could not save. Check the entered values and your admin session, then try again.'; } });
   }
 
   onUpdate(operatorUpdate: NgForm, oldOperator: FlightOperator) {
+    if (this.saving) return;
+    this.error = '';
     if (operatorUpdate.valid) {
       const newOperator = operatorUpdate.value;
-      this.flightOperatorService.patchFlightOperator(newOperator, oldOperator);
+      this.saving = true;
+      this.flightOperatorService.patchFlightOperator(newOperator, oldOperator).subscribe({ next: () => { this.saving = false; this.activeModal.close(); }, error: () => { this.saving = false; this.error = 'Could not save. Check the entered values and your admin session, then try again.'; } });
     }
   }
 
   closeModal() {
+    if (this.saving) return;
     this.activeModal.close();
   }
 }

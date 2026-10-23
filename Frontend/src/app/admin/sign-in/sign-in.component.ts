@@ -11,6 +11,7 @@ import { AuthResponseData, AuthService } from './auth.service';
 })
 export class SignInComponent implements OnInit {
   error!: string;
+  submitting = false;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void { }
@@ -20,9 +21,11 @@ export class SignInComponent implements OnInit {
     //   this.router.navigate(['/admin']);
     // }
 
-    if (!form.valid) {
+    if (!form.valid || this.submitting) {
       return;
     }
+    this.submitting = true;
+    this.error = '';
     const email = form.value.email;
     const password = form.value.password;
 
@@ -30,12 +33,14 @@ export class SignInComponent implements OnInit {
     authenticationObservable = this.authService.login(email, password);
     authenticationObservable.subscribe(
       (userData) => {
+        this.submitting = false;
         this.router.navigate(['../admin']);
       },
       (errorMessage) => {
-        console.log(errorMessage);
+        this.submitting = false;
+        this.error = errorMessage;
       }
     );
-    form.reset();
+
   }
 }

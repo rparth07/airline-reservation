@@ -10,16 +10,16 @@ namespace Airfare.API.Profiles.AdminProfiles
     {
         public AiportProfile()
         {
-            CreateMap<AirportToUpdateDto, AirportDto>();
-            CreateMap<AirportToUpdateDto, Airport>();
-            CreateMap<Airport, AirportToUpdateDto>();
+            CreateMap<AirportToUpdateDto, AirportDto>().MaxDepth(16);
+            CreateMap<AirportToUpdateDto, Airport>().MaxDepth(16);
+            CreateMap<Airport, AirportToUpdateDto>().MaxDepth(16);
 
-            CreateMap<ParsedAirport, Airport>();
+            CreateMap<ParsedAirport, Airport>().MaxDepth(16);
 
-            CreateMap<Airport, AirportDto>()
+            CreateMap<Airport, AirportDto>().MaxDepth(16)
                 .ForMember(dest => dest.DepartureFlights,
                 opt => opt.MapFrom(src => src.DepartureFlights));
-            CreateMap<AirportDto, Airport>();
+            CreateMap<AirportDto, Airport>().MaxDepth(16);
 
         }
     }

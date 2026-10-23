@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: rparth07-airline-api
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: codex/neon-render-migration
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health/ready
+    envVars:
+      - key: ASPNETCORE_HTTP_PORTS
+        value: "10000"
+      - key: AllowedOrigin
+        value: https://rparth07-airline-reservation.netlify.app
+      - key: MigrateOnStartup
+        value: "true"
+      - key: SeedDemoData
+        value: "true"
+      - key: DATABASE_URL
+        sync: false
+      - key: MIGRATION_DATABASE_URL
+        sync: false
+      - key: AdminEmail
+        value: demo-admin@example.com
+      - key: AdminPassword
+        sync: false
+      - key: AdminSigningKey
+        sync: false

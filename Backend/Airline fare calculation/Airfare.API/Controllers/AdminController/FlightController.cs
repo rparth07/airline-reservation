@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Airfare.API.ActionConstraints;
 using Airfare.API.CSVParserModel;
 using Airfare.API.Dto.Admin;
@@ -28,7 +29,8 @@ namespace Airfare.API.Controllers
                 throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpPost("Flight")]
+        [Authorize(Roles = "Admin")]
+    [HttpPost("Flight")]
         [RequestHeaderMatchesMediaType("Content-Type",
         "application/json")]
         [Consumes("application/json")]
@@ -47,14 +49,14 @@ namespace Airfare.API.Controllers
 
             FlightDetailsDto flightToReturn = _mapper.Map<FlightDetailsDto>(_flightDetailsService.AddFlight(flightDetailToAdd));
 
-            return CreatedAtRoute("GetFlight",
-                new { airportAbbrivation = flightToReturn.SourceCity, flightNumber = flightToReturn.FlightNumber },
+            return Created(Url.RouteUrl("GetFlight", new { airportAbbrivation = flightToReturn.SourceCity, flightNumber = flightToReturn.FlightNumber }),
                 flightToReturn);
         }
 
 
 
-        [HttpPost("Flight"), DisableRequestSizeLimit]
+        [Authorize(Roles = "Admin")]
+    [HttpPost("Flight"), DisableRequestSizeLimit]
         public IActionResult CreateFlight()
         {
             IFormFile? file = Request.Form.Files[0];
@@ -106,7 +108,8 @@ namespace Airfare.API.Controllers
 
 
         
-        [HttpPatch("Flight/{flightNumber}")]
+        [Authorize(Roles = "Admin")]
+    [HttpPatch("Flight/{flightNumber}")]
         public IActionResult UpdateFlight(
             string flightNumber,
             JsonPatchDocument<FlightDetailsToUpdateDto> patchDocument
@@ -133,7 +136,8 @@ namespace Airfare.API.Controllers
 
 
 
-        [HttpDelete("Flight/{flightNumber}")]
+        [Authorize(Roles = "Admin")]
+    [HttpDelete("Flight/{flightNumber}")]
         public IActionResult DeleteFlight(string flightNumber)
         {
             _flightDetailsService.DeleteFlight(flightNumber);

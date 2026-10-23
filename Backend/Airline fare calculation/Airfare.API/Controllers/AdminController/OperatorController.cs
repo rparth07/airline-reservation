@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Airfare.API.ActionConstraints;
 using Airfare.API.CSVParserModel;
 using Airfare.API.Dto.Admin;
@@ -30,7 +31,8 @@ namespace Airfare.API.Controllers
 
 
 
-        [HttpPost]
+        [Authorize(Roles = "Admin")]
+    [HttpPost]
         [RequestHeaderMatchesMediaType("Content-Type",
         "application/json")]
         [Consumes("application/json")]
@@ -40,13 +42,13 @@ namespace Airfare.API.Controllers
                 _operatorService.AddOperator(_mapper.Map<FlightOperator>(flightOperator))
             );
 
-            return CreatedAtRoute("GetOperator",
-                new { operatorName = flightOperatorToReturn.CompanyName },
+            return Created(Url.RouteUrl("GetOperator", new { operatorName = flightOperatorToReturn.CompanyName }),
                 flightOperatorToReturn);
         }
 
 
-        [HttpPost, DisableRequestSizeLimit]
+        [Authorize(Roles = "Admin")]
+    [HttpPost, DisableRequestSizeLimit]
         public IActionResult CreateOperator()
         {
             IFormFile postedFile = Request.Form.Files[0];
@@ -81,7 +83,8 @@ namespace Airfare.API.Controllers
 
 
 
-        [HttpPatch("{operatorName}")]
+        [Authorize(Roles = "Admin")]
+    [HttpPatch("{operatorName}")]
         public IActionResult UpdateFlightOperator(string operatorName, JsonPatchDocument<FlightOperatorToUpdateDto> patchDocument)
         {
             if (operatorName == string.Empty)
@@ -117,7 +120,8 @@ namespace Airfare.API.Controllers
 
 
 
-        [HttpDelete("{operatorName}")]
+        [Authorize(Roles = "Admin")]
+    [HttpDelete("{operatorName}")]
         public IActionResult DeleteOperator(string operatorName)
         {
             _operatorService.DeleteOperator(operatorName);

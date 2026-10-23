@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Airfare.API.ActionConstraints;
 using Airfare.API.CSVParserModel;
 using Airfare.API.Dto.Admin;
@@ -28,6 +29,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [RequestHeaderMatchesMediaType("Content-Type",
     "application/json")]
@@ -35,14 +37,14 @@ namespace Airfare.API.Controllers
     public IActionResult CreateAirport(AirportDto airportDto)
     {
       AirportDto airportToReturn = _mapper.Map<AirportDto>(_airportService.AddAirport(_mapper.Map<Airport>(airportDto)));
-      return CreatedAtRoute("GetAirport",
-          new { abbreviation = airportToReturn.Abbreviation },
+      return Created(Url.RouteUrl("GetAirport", new { abbreviation = airportToReturn.Abbreviation }),
           airportToReturn);
 
     }
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPost, DisableRequestSizeLimit]
     public IActionResult CreateAirport()
     {
@@ -74,6 +76,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{abbreviation}")]
     public IActionResult UpdateAirport(
         string abbreviation,
@@ -102,6 +105,7 @@ namespace Airfare.API.Controllers
 
 
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{abbreviation}")]
     public IActionResult DeleteAirport(string abbreviation)
     {

@@ -8,8 +8,8 @@ namespace Airfare.Data.Profiles.UserProfile
     {
         public FlightGraphProfile()
         {
-            CreateMap<FlightGraph, FlightGraphDataModel>();
-            CreateMap<FlightGraphDataModel, FlightGraph>();
+            CreateMap<FlightGraph, FlightGraphDataModel>().MaxDepth(16);
+            CreateMap<FlightGraphDataModel, FlightGraph>().MaxDepth(16);
 
         }
     }

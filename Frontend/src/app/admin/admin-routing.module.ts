@@ -34,7 +34,7 @@ const routes: Routes = [
       },
       {
         path: 'flight-operator/create',
-        component: AddFlightOperatorComponent,
+        redirectTo: 'flight-operator',
       },
 
       {
@@ -43,7 +43,7 @@ const routes: Routes = [
       },
       {
         path: 'flights/add-flights',
-        component: AddFlightComponent,
+        redirectTo: 'flights',
       },
 
       {
@@ -52,7 +52,7 @@ const routes: Routes = [
       },
       {
         path: 'airport/create',
-        component: AddAirportComponent,
+        redirectTo: 'airport',
       },
       {
         path: 'flights',
@@ -60,7 +60,7 @@ const routes: Routes = [
       },
       {
         path: 'flights/add-flights',
-        component: AddFlightComponent,
+        redirectTo: 'flights',
       },
     ],
   },

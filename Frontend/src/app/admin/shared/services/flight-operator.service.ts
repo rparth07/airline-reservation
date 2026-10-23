@@ -1,62 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { compare } from 'fast-json-patch';
 import { DomainConstants } from '../domain-constants';
 import { FlightOperator } from '../../flight-operator/flight-operator';
-import { compare } from 'fast-json-patch';
 @Injectable()
 export class FlightOperatorService {
-  constructor(private http: HttpClient) { }
-
-  fetchFlightOperator() {
-    return this.http.get<FlightOperator[]>(
-      DomainConstants.URL + 'Admin/Operator'
-    );
-  }
-
-  addFlightOperator(flightOperator: FlightOperator) {
-    this.http
-      .post<FlightOperator>(
-        DomainConstants.URL + 'Admin/Operator',
-        flightOperator
-      )
-      .subscribe({
-        next: (val) => console.log(val),
-        error: (err) => {
-          console.log(err);
-        },
-      });
-  }
-
-  addFlightOperatorViaCSV(formData: FormData) {
-    this.http.post(DomainConstants.URL + 'Admin/Operator', formData).subscribe({
-      next: (val) => console.log(val),
-      error: (err) => console.log(err),
-    });
-  }
-
-  deleteFlightOperator(operatorName: string) {
-    this.http
-      .delete(DomainConstants.URL + 'Admin/Operator/' + operatorName)
-      .subscribe({
-        next: (val) => console.log(val),
-        error: (err) => console.log(err),
-      });
-  }
-
-  patchFlightOperator(
-    newOperator: FlightOperator,
-    oldOperator: FlightOperator
-  ) {
-    // const { companyName, ...patchedOperatorFlight } = operatorFlight;
-    const patchedOperatorFlight = compare(oldOperator, newOperator);
-    this.http
-      .patch(
-        DomainConstants.URL + 'Admin/Operator/' + oldOperator.companyName,
-        patchedOperatorFlight
-      )
-      .subscribe({
-        next: (val) => console.log(val),
-        error: (err) => console.log(err),
-      });
+  constructor(private http: HttpClient) {}
+  private url = DomainConstants.URL + 'Admin/Operator';
+  fetchFlightOperator() { return this.http.get<FlightOperator[]>(this.url); }
+  addFlightOperator(operator: FlightOperator) { return this.http.post(this.url, operator); }
+  addFlightOperatorViaCSV(form: FormData) { return this.http.post(this.url, form); }
+  deleteFlightOperator(name: string) { return this.http.delete(this.url + '/' + encodeURIComponent(name)); }
+  patchFlightOperator(updated: FlightOperator, old: FlightOperator) {
+    return this.http.patch(this.url + '/' + encodeURIComponent(old.companyName), ['baseFare', 'tax', 'convenience'].map(key => ({ op: 'replace', path: '/' + key, value: +(updated as any)[key] })));
   }
 }

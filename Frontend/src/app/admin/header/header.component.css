@@ -131,3 +131,9 @@ a:active {
     display: none;
   }
 }
+
+.admin-mobile-nav { display: none; }
+@media (max-width: 1024px) {
+ .admin-mobile-nav { display: flex; gap: 12px; flex-wrap: wrap; padding: 12px 16px; background: #eef2ff; }
+ .admin-mobile-nav a { padding: 8px; color: #173470; }
+}

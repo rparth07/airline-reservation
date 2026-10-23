@@ -14,6 +14,6 @@ export class PaginationService {
   ) {
     const startIndex = selectedPageNumber * pageSize;
     const endIndex = selectedPageNumber * pageSize + pageSize;
-    return apiData$.pipe(map((data) => data.slice(startIndex, endIndex)));
+    return apiData$.pipe(map((data) => data.slice(Math.min(startIndex, Math.max(0, Math.ceil(data.length / pageSize) - 1) * pageSize), Math.min(startIndex, Math.max(0, Math.ceil(data.length / pageSize) - 1) * pageSize) + pageSize)));
   }
 }

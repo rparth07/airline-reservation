@@ -1,3 +1,4 @@
+import { AppSetting } from '../../shared/app-setting';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,7 +27,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDzoiepBqiJPxQEcS0Z0adAXd_Ve2_SvJk',
+        AppSetting.URL + 'Auth/login',
         {
           email: email,
           password: password,
@@ -34,26 +35,8 @@ export class AuthService {
         }
       )
       .pipe(
-        catchError((errorRes) => {
-          {
-            let errorMessage = 'An unknown error occurred!';
-            if (!errorRes.error || !errorRes.error.error) {
-              return throwError(errorMessage);
-            }
-            switch (errorRes.error.error.message) {
-              case 'EMAIL_EXISTS':
-                errorMessage = 'This email exists already';
-                break;
-              case 'EMAIL_NOT_FOUND':
-                errorMessage = 'Email Not Found';
-                break;
-              case 'INVALID_PASSWORD':
-                errorMessage = 'invalid password';
-                break;
-            }
-            return throwError(errorMessage);
-          }
-        }),
+        catchError((errorRes) => throwError(() => errorRes.status === 401
+          ? 'Invalid email or password.' : 'Admin sign-in is unavailable. Please try again.')),
         tap((user) => {
           this.handleAuthentication(
             user.email,
@@ -66,8 +49,14 @@ export class AuthService {
   }
 
   autoLogin() {
-    const admin = JSON.parse(localStorage.getItem('adminData') || '{}');
-    if (!admin) {
+    let admin;
+    try {
+      admin = JSON.parse(localStorage.getItem('adminData') || 'null');
+    } catch {
+      localStorage.removeItem('adminData');
+      return;
+    }
+    if (!admin || !admin._token || !Number.isFinite(Date.parse(admin._tokenExpirationDuration))) {
       return;
     }
 

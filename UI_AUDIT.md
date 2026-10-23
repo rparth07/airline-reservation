@@ -43,3 +43,13 @@ Search loads reference inventory once per request and considers up to 32 shortes
 ## Limits
 
 This demo stores passenger details and confirmation references, not airline tickets, payments or seat reservations. Invalid/same-airport routes remain invalid; coverage applies to the 13 seeded airports. Free-host cold starts remain. Existing AutoMapper advisory (depth mitigation applied), nullability and Angular bundle-size warnings are tracked in MIGRATION_PLAN.md.
+
+## Published verification
+
+Published source commit: 4c26dbf on codex/neon-render-migration.
+Render deployment: dep-dbdiji1srm7s73bsitq0 (live).
+Netlify deployment: 6adb2a622c21d68506c60a13 (ready), uploaded from the refreshed canonical ZIP.
+Public API: all 170 coverage searches passed, followed by airport/operator/flight CRUD with cleanup, admin auth and anonymous-write rejection, and synthetic booking persistence.
+Public browser: homepage search, updated airport search, no-results-to-valid-destination recovery, mixed adult/child/infant business round-trip booking, and multicity selection passed with no application console errors in the checked flows.
+Neon inventory check: 13 airports, 3 operators, 344 flights, 156 graph routes; graph weights sum to 344.
+Frontend suite: 20 checks; backend suite: 14 checks. Production build passes with the existing bundle-size warning.

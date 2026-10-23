@@ -51,3 +51,5 @@ A committed migration and idempotent seeder define the database. No hand-written
 - Final public browser checks passed: homepage airports; round-trip selection; one-way connecting routes; multicity all-leg guard and selection; synthetic booking confirmation. No console errors in tested live flows. Live API checks also passed airport/operator/flight CRUD and cleanup, admin auth and anonymous-write rejection.
 - Verified builds, 12 frontend tests and 11 backend regression checks. Remaining warnings: existing nullable annotations, 619.7 kB initial Angular bundle, and legacy AutoMapper recursion advisory (depth mitigation applied). Render Free cold starts remain a hosting limitation.
 - Canonical manual deploy archive path: H:\Project\airline-reservation\.netlify\airline-frontend-ready.zip.
+
+- UI audit follow-up published on 23 October 2026: source 4c26dbf; Render dep-dbdiji1srm7s73bsitq0; Netlify 6adb2a622c21d68506c60a13. See UI_AUDIT.md for verified bugs, 344 daily schedules, the public test matrix and limits.

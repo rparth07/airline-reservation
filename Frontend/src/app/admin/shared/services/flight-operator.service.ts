@@ -12,6 +12,6 @@ export class FlightOperatorService {
   addFlightOperatorViaCSV(form: FormData) { return this.http.post(this.url, form); }
   deleteFlightOperator(name: string) { return this.http.delete(this.url + '/' + encodeURIComponent(name)); }
   patchFlightOperator(updated: FlightOperator, old: FlightOperator) {
-    return this.http.patch(this.url + '/' + encodeURIComponent(old.companyName), compare(old, updated));
+    return this.http.patch(this.url + '/' + encodeURIComponent(old.companyName), ['baseFare', 'tax', 'convenience'].map(key => ({ op: 'replace', path: '/' + key, value: +(updated as any)[key] })));
   }
 }

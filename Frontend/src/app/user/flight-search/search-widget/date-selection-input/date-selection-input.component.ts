@@ -48,10 +48,16 @@ export class DateSelectionInputComponent implements OnInit {
     this.tripDate.returnDate = this.tripDate.returnDate || this.tripDate.departureDate;
   }
 
+  departureChanged() {
+    if (!this.tripDate.returnDate || this.tripDate.returnDate < this.tripDate.departureDate) {
+      this.tripDate.returnDate = this.tripDate.departureDate;
+    }
+  }
+
   syncDate() {
     if (this.multicityControl) {
       this.multicityControl.departureDate = new Date(
-        this.tripDate.departureDate
+        this.tripDate.departureDate + 'T00:00:00'
       );
     }
   }

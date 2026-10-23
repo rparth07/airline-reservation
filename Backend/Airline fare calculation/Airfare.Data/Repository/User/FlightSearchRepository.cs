@@ -26,14 +26,12 @@ namespace Airfare.Data.Repository.User
 
 
 
+        private List<FlightDetailsDataModel> _flightInventory;
         public List<FlightDetails> GetFlightDetails(DateTime date, string sourceCity, string destinationCity)
         {
-            var candidates = _context.FlightDetails.AsNoTracking()
-                .Include(f => f.FlightOperator)
-                .Include(f => f.SourceAirportData)
-                .Include(f => f.DestinationAirportData)
-                .Where(f => f.SourceAirportData.Abbreviation == sourceCity && f.DestinationAirportData.Abbreviation == destinationCity)
-                .ToList();
+            _flightInventory ??= _context.FlightDetails.AsNoTracking()
+                .Include(f => f.FlightOperator).Include(f => f.SourceAirportData).Include(f => f.DestinationAirportData).ToList();
+            var candidates = _flightInventory.Where(f => f.SourceAirportData.Abbreviation == sourceCity && f.DestinationAirportData.Abbreviation == destinationCity);
             return _mapper.Map<List<FlightDetails>>(candidates.Where(f => GetDaysFromEnum(f.OperatingDays).Contains(date.DayOfWeek.ToString())).ToList());
         }
 
@@ -110,14 +108,6 @@ namespace Airfare.Data.Repository.User
         {
             _searchGraph ??= _context.FlightGraph.AsNoTracking().Where(g => g.Weight > 0).ToList();
             return _searchGraph.Where(g => g.SourceAirport == sourceAirport).Select(g => g.DestinationAirport).ToList();
-        }
-        private List<string> GetConnectedAirportsUncached(string sourceAirport)
-        {
-            List<string> destinationAirports = _context.FlightGraph
-                .Where(_ => _.SourceAirport == sourceAirport && _.Weight != 0)
-                .Select(_ => _.DestinationAirport)
-                .ToList();
-            return destinationAirports;
         }
         private FlightGraphDataModel GetFlightGraph(FlightGraph flightGraph)
         {

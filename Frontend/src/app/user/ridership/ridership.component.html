@@ -3,7 +3,7 @@
   <div
     class="travelers"
     [ngClass]="{ 'mt-2': classToAdd !== 'upside-float' }"
-    (click)="togglePassengerCounter(false)"
+    (click)="togglePassengerCounter(false)" role="button" tabindex="0" aria-label="Choose passengers" [attr.aria-expanded]="!hidePassengerCounter" (keydown.enter)="togglePassengerCounter(false)"
     #passengerBox
   >
     <span id="travelers" class="p-2">{{ passengers }}</span>

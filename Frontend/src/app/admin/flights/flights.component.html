@@ -1,3 +1,4 @@
+<p *ngIf="error" role="alert" class="alert alert-warning m-3">{{ error }}</p>
 <div class="conatiner-fluid content-inner mt-1 py-0">
   <div class="mt-5">
     <div class="row ms-5 justify-content-around">
@@ -6,10 +7,10 @@
           <h2>Flights</h2>
           <div class="row justify-content-between mb-2">
             <div class="col-4 col-md-4 pe-0">
-              <form class="form-inline search-box d-flex d-inline">
-                <input id="search" class="form-control form-inline me-2 w-auto" type="search" placeholder="Search..."
+              <form (submit)="$event.preventDefault()" class="form-inline search-box d-flex d-inline">
+                <input id="search" (input)="onFilter($any($event.target).value)" class="form-control form-inline me-2 w-auto" type="search" placeholder="Search..."
                   aria-label="Search" autocomplete="off" />
-                <button type="submit" id="searchButton">
+                <button type="button" id="searchButton" aria-label="Search inventory">
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -79,7 +80,7 @@
                     <td>{{ flight.sourceDepartureTime }}</td>
                     <td>{{ flight.destinationArrivalTime }}</td>
                     <td>
-                      {{ flight.operatingDays }}
+                      {{ flight.operatingDaysLabel }}
                     </td>
                     <td>{{ flight.flightOperatorName }}</td>
 

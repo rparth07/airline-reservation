@@ -1,3 +1,4 @@
+<p *ngIf="searchError" role="alert" class="alert alert-warning">{{ searchError }}</p>
 <form (ngSubmit)="redirect(form)" #form="ngForm">
   <app-trip-inputs [tripType]="isOneWay"></app-trip-inputs>
   <div
@@ -6,9 +7,9 @@
     <button
       class="btn search mb-1"
       type="submit"
-      [disabled]="!form.valid || isSearchDisable"
+      [disabled]="!form.valid || isSearchDisable || searching"
     >
-      Search
+      {{ searching ? 'Searching...' : 'Search' }}
     </button>
   </div>
 </form>

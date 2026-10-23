@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'flights/:tripType',
     component: FlightSearchComponent,
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+    runGuardsAndResolvers: 'always',
     resolve: {
       airportNames: AirportNameResolve,
       flights: FlightResolver,

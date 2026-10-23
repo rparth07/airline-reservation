@@ -14,7 +14,7 @@ import { AuthService } from '../sign-in/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  isVisible = false;
+  isVisible = window.innerWidth < 1200;
   isAdminVisible = false;
 
   constructor(
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('resize', () => {
-      if (window.screen.width < 1200) {
+      if (window.innerWidth < 1200) {
         this.isVisible = true;
       } else {
         this.isVisible = false;

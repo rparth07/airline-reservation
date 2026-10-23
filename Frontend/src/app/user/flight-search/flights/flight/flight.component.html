@@ -1,6 +1,6 @@
 <li
   class="d-flex justify-content-center row ml-1 flight-details mb-2"
-  (click)="addSelectedFlightToSummaryList()"
+  (click)="addSelectedFlightToSummaryList()" role="button" tabindex="0" [attr.aria-pressed]="isActive" (keydown.enter)="addSelectedFlightToSummaryList()" (keydown.space)="$event.preventDefault(); addSelectedFlightToSummaryList()"
 >
   <div class="col pe-3">
     <div class="card" [class.active-flight]="isActive">

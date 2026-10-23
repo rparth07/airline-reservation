@@ -25,7 +25,7 @@
   <div
     class="col-md-2 col-sm-6 col-xs-12 reverse-icon"
     [ngStyle]="{ color: labelHeadingColor }"
-    (click)="onInterchange()"
+    (click)="onInterchange()" role="button" tabindex="0" aria-label="Swap departure and destination" (keydown.enter)="onInterchange()" (keydown.space)="$event.preventDefault(); onInterchange()"
   >
     <i class="fa fa-exchange" aria-hidden="true"></i>
   </div>

@@ -3,10 +3,11 @@
   (clearResultEvent)="clearResultEvent($event)"
 ></app-search-widget>
 
+<p *ngIf="clearResults" class="alert alert-info mx-3" role="status">Search again to load flights for your updated choices.</p>
 <!--here we need to pass result-->
-<div *ngIf="isEmptyResponse" class="">
-  <h1>No flights found</h1>
-  <p>No flights are available for this itinerary. Try different airports or dates.</p>
+<div *ngIf="isEmptyResponse && !clearResults" class="">
+  <h1>{{ flightService.lastSearchFailed ? 'Search is temporarily unavailable' : 'No flights found' }}</h1>
+  <p>{{ flightService.lastSearchFailed ? 'Your search is saved. Please use Search above to try again.' : 'No flights are available for this itinerary. Try different airports or dates.' }}</p>
 </div>
 <div *ngIf="!clearResults && !isEmptyResponse">
   <app-trip-list
@@ -16,12 +17,12 @@
 
   <div class="row d-flex justify-content-center" *ngIf="!isMulticityTrip">
     <app-flights
-      class="col-6"
+      class="col-12 col-lg-6"
       [flightInfoList]="isRoundTrip ? roundTripResponse[0] : oneWayResponse"
       [selectedFlightIndex]="0"
     ></app-flights>
     <app-flights
-      class="col-6"
+      class="col-12 col-lg-6"
       *ngIf="isRoundTrip"
       [flightInfoList]="roundTripResponse[1]"
       [selectedFlightIndex]="1"

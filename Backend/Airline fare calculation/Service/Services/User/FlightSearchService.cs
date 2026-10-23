@@ -42,7 +42,7 @@ namespace Airfare.Service.Services.User
 
           flightDetail[i].CalculateCharge(HasChanged, oneWayRequest.Adults,
           oneWayRequest.Children,
-          oneWayRequest.Infant);
+          oneWayRequest.Infant, oneWayRequest.FlightClass);
 
         }
       });
@@ -98,7 +98,7 @@ namespace Airfare.Service.Services.User
 
               flight[i].CalculateCharge(HasChanged, roundRequest.Adults,
                     roundRequest.Children,
-                    roundRequest.Infant);
+                    roundRequest.Infant, roundRequest.FlightClass);
 
             }
           }));
@@ -151,7 +151,7 @@ namespace Airfare.Service.Services.User
                         &&
                         flight[i - 1].FlightOperator.CompanyName != flight[i].FlightOperator.CompanyName;
 
-                  flight[i].CalculateCharge(HasChanged, adult, children, infant);
+                  flight[i].CalculateCharge(HasChanged, adult, children, infant, reservationDetail.FlightClass);
 
                 }
               }));
@@ -257,7 +257,7 @@ namespace Airfare.Service.Services.User
       List<List<string>> pathList = new List<List<string>>();
 
       ConnectedFlightPath(pathList, sourceCity, destinationCity, isVisited, new List<string>() { sourceCity }, depth);
-      return pathList;
+      return pathList.OrderBy(path => path.Count).Take(32).ToList();
     }
 
     private void ConnectedFlightPath(

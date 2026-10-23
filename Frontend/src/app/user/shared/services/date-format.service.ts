@@ -5,7 +5,7 @@ import { DomainConstants } from '../domain-constants';
 @Injectable({ providedIn: 'root' })
 export class DateFormatService {
   static padZeroToTime(timeString: string) {
-    const momentTime = moment(timeString, 'hh:mm:ss');
+    const momentTime = moment(timeString, 'HH:mm:ss');
 
     return [
       padTo2Digits(momentTime.hour()),
@@ -28,9 +28,10 @@ export class DateFormatService {
     departureTimeString: string,
     arrivalTimeString: string
   ): string {
-    const departureTime = moment(departureTimeString, 'hh:mm:ss');
-    const arrivalTime = moment(arrivalTimeString, 'hh:mm:ss');
+    const departureTime = moment(departureTimeString, 'HH:mm:ss');
+    const arrivalTime = moment(arrivalTimeString, 'HH:mm:ss');
 
+    if (arrivalTime.isBefore(departureTime)) arrivalTime.add(1, 'day');
     const hour = this.getDifferenceByUnit(departureTime, arrivalTime, 'hours');
     const minute =
       this.getDifferenceByUnit(departureTime, arrivalTime, 'minutes') % 60;

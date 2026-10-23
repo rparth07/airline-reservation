@@ -3,6 +3,7 @@ import { Form, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, shareReplay, catchError, of } from 'rxjs';
 import { AddAirportComponent } from '../add-airport/add-airport.component';
 import { PaginationService } from '../shared/services/pagination.service';
 import { Airport } from './airport';
@@ -14,6 +15,9 @@ import { AirportService } from './airport.service';
   styleUrls: ['./airport.component.css'],
 })
 export class AirportComponent implements OnInit {
+  error = '';
+  private filterText = new BehaviorSubject('');
+  onFilter(value: string) { this.filterText.next(value.toLowerCase().trim()); this.onPageChange(0); }
   airports$!: Observable<Airport[]>;
   currentPageData$!: Observable<Airport[]>;
 
@@ -39,13 +43,14 @@ export class AirportComponent implements OnInit {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      this.airportService.addAirportCsvFile(formData).subscribe({ next: () => this.getAirports(), error: () => {} });
+      this.airportService.addAirportCsvFile(formData).subscribe({ next: () => this.getAirports(), error: () => { this.error = 'The change could not be saved. Check your session and values, then try again.'; } });
     }
     event.target.value = '';
   }
 
   getAirports(): void {
-    this.airports$ = this.airportService.fetchAirports().pipe(
+    this.airports$ = combineLatest([this.airportService.fetchAirports().pipe(catchError(() => { this.error = 'Could not load inventory. Please reload or sign in again.'; return of([]); }), shareReplay(1)), this.filterText]).pipe(
+      map(([records, term]) => records.filter(record => Object.values(record).some(value => String(value).toLowerCase().includes(term)))),
       tap((airport) => {
         this.setTotalPage(airport);
       })
@@ -54,7 +59,8 @@ export class AirportComponent implements OnInit {
   }
 
   deleteAirport(airportAbbreviation: string) {
-    this.airportService.deleteAirport(airportAbbreviation).subscribe({ next: () => this.getAirports(), error: () => {} });
+    if (!window.confirm("Delete " + airportAbbreviation + " and any associated demo inventory? This cannot be undone.")) return;
+    this.airportService.deleteAirport(airportAbbreviation).subscribe({ next: () => this.getAirports(), error: () => { this.error = 'The change could not be saved. Check your session and values, then try again.'; } });
   }
 
   openUpdateAirportModal(airport?: Airport) {

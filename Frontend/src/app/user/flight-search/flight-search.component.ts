@@ -5,6 +5,7 @@ import { SearchService } from '../shared/services/search.service';
 import { OneWayResponse } from '../shared/interfaces/response/one-way';
 import { MulticityResponse } from '../shared/interfaces/response/multicity';
 import { RoundTripResponse } from '../shared/interfaces/response/round-trip';
+import { FlightService } from '../shared/services/flight.service';
 import { FlightSelectionService } from './flight-selection.service';
 @Component({
   selector: 'app-flight-search',
@@ -22,6 +23,7 @@ export class FlightSearchComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
+    public flightService: FlightService,
     private route: ActivatedRoute,
     private flightSelectionService: FlightSelectionService
   ) {
@@ -43,6 +45,7 @@ export class FlightSearchComponent implements OnInit {
   }
 
   getDataFromSnapShot() {
+    this.clearResults = false;
     this.flightSelectionService.selectedFlightSummary = [];
 
     const response = this.route.snapshot.data['flights'];

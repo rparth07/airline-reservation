@@ -1,15 +1,16 @@
+<p *ngIf="error" role="alert" class="alert alert-warning m-3">{{ error }}</p>
 <div class="conatiner-fluid content-inner mt-1 py-0">
   <div class="mt-5">
     <div class="row ms-5 me-5 justify-content-around">
-      <div class="col-7 col-md-10 shadow card mb-5 rounded">
+      <div class="col-12 col-md-10 shadow card mb-5 rounded">
         <div class="mx-2 mt-2">
           <h2>Airport</h2>
           <div class="row justify-content-between mb-2">
             <div class="col-2 col-md-2 pe-0">
-              <form class="form-inline search-box d-flex d-inline">
-                <input id="search" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
+              <form (submit)="$event.preventDefault()" class="form-inline search-box d-flex d-inline">
+                <input id="search" (input)="onFilter($any($event.target).value)" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
                   autocomplete="off" />
-                <button type="submit" id="searchButton">
+                <button type="button" id="searchButton" aria-label="Search inventory">
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -59,9 +60,9 @@
                     <td>{{ airport.airportName }}</td>
                     <td>{{ airport.abbreviation }}</td>
                     <td>
-                      <a class="ms-2" (click)="openUpdateAirportModal(airport)"><i
+                      <a class="ms-2" (click)="openUpdateAirportModal(airport)" role="button" tabindex="0" (keydown.enter)="openUpdateAirportModal(airport)" aria-label="Edit record"><i
                           class="material-icons">border_color</i></a>
-                      <a class="ms-md-2 ms-lg-2 ms-sm-1" (click)="deleteAirport(airport.abbreviation)"><i
+                      <a class="ms-md-2 ms-lg-2 ms-sm-1" (click)="deleteAirport(airport.abbreviation)" role="button" tabindex="0" (keydown.enter)="deleteAirport(airport.abbreviation)" aria-label="Delete record"><i
                           class="material-icons">delete</i></a>
                     </td>
                   </tr>

@@ -16,6 +16,12 @@ public static class DemoSeeder
 
     public static async Task SeedAsync(AirfareContext db)
     {
+        await SeedInitialAsync(db);
+        await ExpandDailySchedulesAsync(db);
+    }
+
+    private static async Task SeedInitialAsync(AirfareContext db)
+    {
         // Seed a new database once; never overwrite subsequent admin edits or bookings.
         if (await db.AirportData.AnyAsync()) return;
         await using var transaction = await db.Database.BeginTransactionAsync();
@@ -73,5 +79,44 @@ public static class DemoSeeder
         }
         await db.SaveChangesAsync();
         await transaction.CommitAsync();
+    }
+
+    // Versioned additions preserve original schedules, bookings and admin edits.
+    private static async Task ExpandDailySchedulesAsync(AirfareContext db)
+    {
+        var coordinates = new Dictionary<string, (double Lat, double Lon)> {
+            ["MAA"]=(13.0,80.2), ["DEL"]=(28.6,77.1), ["BOM"]=(19.1,72.9),
+            ["AMD"]=(23.1,72.6), ["BLR"]=(13.2,77.7), ["HYD"]=(17.2,78.4),
+            ["CCU"]=(22.7,88.4), ["PNQ"]=(18.6,73.9), ["GOI"]=(15.4,73.8),
+            ["JAI"]=(26.8,75.8), ["COK"]=(10.2,76.4), ["LKO"]=(26.8,80.9), ["GAU"]=(26.1,91.6)
+        };
+        var airports = await db.AirportData.Where(a => coordinates.Keys.Contains(a.Abbreviation)).OrderBy(a => a.Abbreviation).ToListAsync();
+        var operators = await db.FlightOperator.Where(o => o.CompanyName.StartsWith("Demo ")).OrderBy(o => o.CompanyName).ToListAsync();
+        if (!operators.Any()) return;
+        var existing = (await db.FlightDetails.Select(f => f.FlightNumber).ToListAsync()).ToHashSet();
+        var graph = await db.FlightGraph.ToListAsync();
+        foreach (var source in airports) foreach (var destination in airports.Where(a => a.AirportId != source.AirportId)) {
+            var a=coordinates[source.Abbreviation]; var b=coordinates[destination.Abbreviation];
+            double radians(double degrees) => degrees * Math.PI / 180;
+            var h=Math.Pow(Math.Sin(radians(b.Lat-a.Lat)/2),2)+Math.Cos(radians(a.Lat))*Math.Cos(radians(b.Lat))*Math.Pow(Math.Sin(radians(b.Lon-a.Lon)/2),2);
+            var distance=Math.Round(6371 * 2 * Math.Asin(Math.Sqrt(h)) / 5)*5;
+            var duration=TimeSpan.FromMinutes(Math.Ceiling((35 + distance / 12)/5)*5);
+            for (var slot=0; slot<2; slot++) {
+                var number=$"DX{source.Abbreviation}{destination.Abbreviation}{slot+1}";
+                if (existing.Contains(number)) continue;
+                var departure=TimeSpan.FromHours(slot == 0 ? 6 : 16);
+                db.FlightDetails.Add(new FlightDetailsDataModel {
+                    FlightId=Id(number), FlightNumber=number, FlightOperator=operators[slot % operators.Count],
+                    SourceAirportData=source, DestinationAirportData=destination,
+                    SourceDepartureTime=departure, DestinationArrivalTime=departure+duration, Distance=distance,
+                    TotalSeatEconomy=180, TotalSeatBusiness=16, SeatingFormatEconomy=SeatingFormatModel._3x3,
+                    SeatingFormatBusiness=SeatingFormatModel._2x2, OperatingDays=OperatingDaysModel.Mon_Sun
+                });
+                var edge=graph.FirstOrDefault(g => g.SourceAirport==source.Abbreviation && g.DestinationAirport==destination.Abbreviation);
+                if(edge==null) { edge=new FlightGraphDataModel { Id=Id("daily-graph-"+source.Abbreviation+destination.Abbreviation), SourceAirport=source.Abbreviation, DestinationAirport=destination.Abbreviation, Weight=0 }; graph.Add(edge); db.FlightGraph.Add(edge); }
+                edge.Weight++;
+            }
+        }
+        await db.SaveChangesAsync();
     }
 }

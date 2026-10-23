@@ -19,11 +19,13 @@
         </div>
 
         <div class="input-box col-10 pb-4">
-          <div class="col-5 input-box">
+          <div class="col-12 col-md-7 input-box">
             <label for="phone_no">Phone Number</label>
             <input
               type="text"
               mask="00000 00000"
+              pattern="[0-9]{10}"
+              inputmode="tel"
               placeholder="Ex: 00000 00000"
               class="form-control search-box-input"
               name="phone_no"

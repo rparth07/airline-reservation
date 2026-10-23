@@ -11,7 +11,7 @@ export class FlightService {
   addFlight(flight: Flight) { return this.http.post(this.url, flight); }
   addFlightsCSV(form: FormData) { return this.http.post(this.url, form); }
   patchFlight(updated: Flight, old: Flight) {
-    return this.http.patch(this.url + '/' + encodeURIComponent(old.flightNumber), compare(old, updated));
+    return this.http.patch(this.url + '/' + encodeURIComponent(old.flightNumber), [{ op: 'replace', path: '/operatingDays', value: +updated.operatingDays }]);
   }
   deleteFlight(number: string) { return this.http.delete(this.url + '/' + encodeURIComponent(number)); }
 }

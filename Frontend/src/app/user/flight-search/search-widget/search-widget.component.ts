@@ -1,11 +1,13 @@
 import {
   Component,
+  OnDestroy,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { DomainConstants } from '../../shared/domain-constants';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, NgForm } from '@angular/forms';
@@ -24,7 +26,11 @@ import { FlightSelectionService } from '../flight-selection.service';
   templateUrl: './search-widget.component.html',
   styleUrls: ['./search-widget.component.css'],
 })
-export class SearchWidgetComponent implements OnInit {
+export class SearchWidgetComponent implements OnInit, OnDestroy {
+  searching = false;
+  searchError = '';
+  get validationMessage() { return this.validSearch ? '' : 'Choose different airports, valid travel dates, and 1–9 passengers with at least one adult. Multicity dates must be in travel order.'; }
+  private destroyed = new Subject<void>();
   queryParameters!: Params;
   oneWayRoundFormData!: OneWayRoundSearchWidget;
   multicityFormData!: MulticitySearchWidget;
@@ -63,33 +69,21 @@ export class SearchWidgetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((queryParams) => {
-      this.queryParameters = queryParams;
+    this.route.data.pipe(takeUntil(this.destroyed)).subscribe(() => {
+      this.queryParameters = this.route.snapshot.queryParams;
+      this.selectedTripType = this.route.snapshot.params['tripType'];
+      this.oneWayRoundFormData = undefined as any;
+      this.multicityFormData = undefined as any;
+      if (this.queryParameters['tripType'] === DomainConstants.QueryParamsTripType.MULTICITY) {
+        this.multicityFormData = this.searchService.getMulticityDataFromQuery(this.queryParameters);
+      } else {
+        this.oneWayRoundFormData = this.searchService.getOneWayRoundDataFromQuery(this.queryParameters);
+      }
+      this.selectedFlightClass = (this.oneWayRoundFormData || this.multicityFormData).flightClass;
+      this.setMultiListFromMulticityFormData();
+      this.setCityConfig();
+      this.clearResultEvent.emit(false);
     });
-
-    this.searchService.disableSearch.subscribe((isSearchDisable: boolean) => {
-      this.isSearchDisable = isSearchDisable;
-    });
-
-    if (
-      this.queryParameters['tripType'] ==
-      DomainConstants.QueryParamsTripType.MULTICITY
-    ) {
-      this.multicityFormData = this.searchService.getMulticityDataFromQuery(
-        this.queryParameters
-      );
-    } else {
-      this.oneWayRoundFormData = this.searchService.getOneWayRoundDataFromQuery(
-        this.queryParameters
-      );
-    }
-
-    this.selectedFlightClass = this.oneWayRoundFormData
-      ? this.oneWayRoundFormData.flightClass
-      : this.multicityFormData.flightClass;
-
-    this.setMultiListFromMulticityFormData();
-    this.setCityConfig();
 
     this.flightSelectionService.selectedFlightSummary = [];
   }
@@ -199,7 +193,24 @@ export class SearchWidgetComponent implements OnInit {
     };
   }
 
-  onSubmit(form: NgForm) {
+  get validSearch(): boolean {
+    const pax = (this.oneWayRoundFormData || this.multicityFormData)?.ridership;
+    if (!pax || pax.adult < 1 || pax.infant > pax.adult || pax.adult + pax.child + pax.infant > 9) return false;
+    if (this.selectedTripType === this.multicity) {
+      return this.multicityList.length >= 2 && this.multicityList.every((leg, i, all) =>
+        !!leg.sourceCity && !!leg.destinationCity && leg.sourceCity !== leg.destinationCity &&
+        (!i || new Date(leg.departureDate) >= new Date(all[i - 1].departureDate)));
+    }
+    const city = this.oneWayRoundFormData?.citySearch;
+    const dates = this.oneWayRoundFormData?.tripDate;
+    return !!city?.sourceCity && !!city.destinationCity && city.sourceCity !== city.destinationCity &&
+      (this.selectedTripType !== DomainConstants.TripType.ROUND_TRIP || !!dates?.returnDate && dates.returnDate >= dates.departureDate);
+  }
+
+  async onSubmit(form: NgForm) {
+    if (form.invalid || !this.validSearch || this.searching) return;
+    this.searching = true;
+    this.searchError = '';
     let queryParams;
     if (DomainConstants.TripType.MULTICITY === this.selectedTripType) {
       queryParams = this.getMulticityQueryParamsData(form.value);
@@ -207,11 +218,12 @@ export class SearchWidgetComponent implements OnInit {
       queryParams = this.getOneWayRoundQueryParamsData(form.value);
     }
 
-    this.router.navigate(['user/flights/' + this.selectedTripType], {
-      queryParams: queryParams,
-    });
-
-    this.clearResultEvent.emit(false);
+    try {
+      await this.router.navigate(['user/flights/' + this.selectedTripType], { queryParams });
+      this.clearResultEvent.emit(false);
+    } catch {
+      this.searchError = 'Search could not load. Your choices are saved; please try again.';
+    } finally { this.searching = false; }
   }
 
   onAddCity() {
@@ -234,7 +246,17 @@ export class SearchWidgetComponent implements OnInit {
     this.setCityConfig();
   }
 
+  ngOnDestroy() { this.destroyed.next(); this.destroyed.complete(); }
+
   onValueChanged() {
+    if (this.selectedTripType !== this.multicity && !this.oneWayRoundFormData) {
+      const first = this.multicityList[0];
+      this.oneWayRoundFormData = {
+        citySearch: { sourceCity: first?.sourceCity || null, destinationCity: first?.destinationCity || null },
+        tripDate: { departureDate: DateFormatService.getFormattedDate(first?.departureDate || new Date(), DomainConstants.DateFormat) },
+        flightClass: this.selectedFlightClass, ridership: this.multicityFormData.ridership, tripType: 'O'
+      };
+    }
     this.clearResultEvent.emit(true);
   }
 }

@@ -12,6 +12,8 @@ import { SearchService } from '../../shared/services/search.service';
   styleUrls: ['./multicity.component.css', '../home-page.component.css'],
 })
 export class MulticityComponent implements OnInit {
+  searching = false;
+  searchError = '';
   tripCount: number = 2;
   isSearchDisable: boolean = false;
 
@@ -74,11 +76,13 @@ export class MulticityComponent implements OnInit {
     };
   }
 
-  redirect(multicitySearchForm: NgForm) {
-    let formData = multicitySearchForm.value;
-
-    this.router.navigate(['user/flights/multicity'], {
-      queryParams: this.getMulticityQueryParamsData(formData),
-    });
+  async redirect(form: NgForm) {
+    if (form.invalid || this.searching) return;
+    const queryParams=this.getMulticityQueryParamsData(form.value);
+    if (!this.searchService.validateQuery(queryParams)) { this.searchError='Use different airports for each leg, travel dates in order, and valid passenger counts.'; return; }
+    this.searching=true; this.searchError='';
+    try { await this.router.navigate(['user/flights/multicity'], {queryParams}); }
+    catch { this.searchError='Search could not load. Please try again.'; }
+    finally { this.searching=false; }
   }
 }

@@ -56,12 +56,7 @@ namespace Airfare.Data.Repository.Admin
 
         public List<Airport> GetAllAirports()
         {
-            var airportsData = _context.AirportData
-                    .Include("ArrivalFlights")
-                    .Include("DepartureFlights")
-                    .Include("ArrivalFlights.FlightOperator")
-                    .Include("DepartureFlights.FlightOperator")
-                    .ToList();
+            var airportsData = _context.AirportData.AsNoTracking().ToList();
 
             return _mapper.Map<List<Airport>>(airportsData);
         }

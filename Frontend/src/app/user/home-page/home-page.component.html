@@ -14,8 +14,8 @@
         <li>
           <a
             class="oneway"
-            [ngClass]="{ active: isOneWay }"
-            (click)="changeToOneWay()"
+            [ngClass]="{ active: !isMulticity && isOneWay }"
+            (click)="changeToOneWay()" role="button" tabindex="0" (keydown.enter)="changeToOneWay()"
             >One-way</a
           >
         </li>
@@ -23,7 +23,7 @@
           <a
             class="round-trip"
             [ngClass]="{ active: !isMulticity && !isOneWay }"
-            (click)="changeToRoundTrip()"
+            (click)="changeToRoundTrip()" role="button" tabindex="0" (keydown.enter)="changeToRoundTrip()"
             >Round-trip</a
           >
         </li>
@@ -31,7 +31,7 @@
           <a
             class="multicity"
             [ngClass]="{ active: isMulticity }"
-            (click)="changeToMulticity()"
+            (click)="changeToMulticity()" role="button" tabindex="0" (keydown.enter)="changeToMulticity()"
             >Multicity</a
           >
         </li>

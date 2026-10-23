@@ -7,7 +7,7 @@ using Airfare.Domain.RepositoryInterfaces.UserInterfaces;
 using Airfare.Domain.UserRequest;
 using Airfare.Service.Services.User;
 
-// Synthetic schedules exist only in these tests; production still uses SQL Server.
+// Synthetic schedules exist only in these tests; application schedules use PostgreSQL.
 var repository = new Schedule();
 var service = new FlightSearchService(repository);
 CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
@@ -15,6 +15,8 @@ void Check(bool condition, string name) { if (!condition) throw new Exception(na
 var direct = service.GetFlightDetailsForOneWay("AAA-BBB-23/11/2026", "A-12_C-0_I-0", "Economy").ToList();
 Check(repository.Dates.All(date => date.Month == 11 && date.Day == 23), "Dates use dd/MM/yyyy on an en-US host");
 Check(direct.Single().Single().Charges == 120, "Multi-digit passenger counts retain all digits");
+var business = service.GetFlightDetailsForOneWay("AAA-BBB-23/11/2026", "A-1_C-0_I-0", "Business").Single().Single().Charges;
+Check(business == 18, "Business demo pricing differs from economy");
 var connections = service.GetFlightDetailsForOneWay("AAA-CCC-23/11/2026", "A-1_C-0_I-0", "Economy").ToList();
 Check(connections.Count == 1 && connections[0].Last().FlightNumber == "valid", "Reject impossible connection and accept exactly 45-minute layover");
 var round = service.GetFlightDetailsForRoundTrip("AAA-BBB-23/11/2026_24/11/2026", "A-1_C-0_I-0", "Economy").ToList();
@@ -26,17 +28,19 @@ var options = new DbContextOptionsBuilder<AirfareContext>().UseInMemoryDatabase(
   .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 using (var db = new AirfareContext(options)) {
   await DemoSeeder.SeedAsync(db);
-  Check(db.AirportData.Count() == 13 && db.FlightOperator.Count() == 3 && db.FlightDetails.Count() == 32, "Seed reference data counts");
+  Check(db.AirportData.Count() == 13 && db.FlightOperator.Count() == 3 && db.FlightDetails.Count() == 344, "Seed reference data counts");
   Check(db.BookingDetails.Count() == 3 && db.Passengers.Count() == 6, "Seed synthetic bookings and passengers");
-  Check(db.FlightGraph.Count() == 30 && db.FlightGraph.Sum(g => g.Weight) == 32, "Graph matches the flight inventory");
+  Check(db.FlightGraph.Count() == 156 && db.FlightGraph.Sum(g => g.Weight) == 344, "Graph matches the flight inventory");
+  Check(db.FlightDetails.Where(f => f.OperatingDays == Airfare.Data.AdminDataModel.OperatingDaysModel.Mon_Sun).Count() == 344, "All demo schedules operate every day");
+  Check(db.FlightDetails.GroupBy(f => new { Source=f.SourceAirportData.AirportId, Destination=f.DestinationAirportData.AirportId }).Count() == 156, "Every distinct demo airport pair has flights");
   await DemoSeeder.SeedAsync(db);
-  Check(db.FlightDetails.Count() == 32 && db.Passengers.Count() == 6, "Seed is repeatable without duplicates");
+  Check(db.FlightDetails.Count() == 344 && db.Passengers.Count() == 6, "Seed is repeatable without duplicates");
 }
 using (var db = new AirfareContext(new DbContextOptionsBuilder<AirfareContext>().UseNpgsql("Host=localhost;Database=design").Options)) {
   var sql = db.Database.GenerateCreateScript();
   Check(sql.Contains("time without time zone") && sql.Contains("uuid") && !sql.Contains("nvarchar"), "Generated schema is PostgreSQL native");
 }
-Console.WriteLine("11 regression checks passed");
+Console.WriteLine("14 regression checks passed");
 
 class Schedule : IFlightSearchRepository {
   public List<DateTime> Dates = new();

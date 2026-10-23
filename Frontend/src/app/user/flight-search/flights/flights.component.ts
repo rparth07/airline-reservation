@@ -17,7 +17,10 @@ export class FlightsComponent implements OnInit {
 
   constructor(private flightSelectionService: FlightSelectionService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    this.selectedList = 0;
     this.sortFlights();
   }
 

@@ -125,6 +125,16 @@ export class SearchService {
     return dateList;
   }
 
+  validateQuery(query: Params): boolean {
+    const pax = this.getRidership(query['paxType']);
+    if (pax.adult < 1 || pax.child < 0 || pax.infant < 0 || pax.infant > pax.adult || pax.adult + pax.child + pax.infant > 9) return false;
+    const itinerary = String(query['itinerary']).split('_');
+    const legs = query['tripType'] === 'R' ? [itinerary[0]] : itinerary;
+    const dates = itinerary.map(item => DateFormatService.convertDateStringToLocalDateFormat(item.split('-').pop()!));
+    return legs.every(leg => { const [source,destination] = leg.split('-'); return !!source && !!destination && source !== destination; }) &&
+      dates.every((date,i) => !isNaN(date.getTime()) && (!i || date >= dates[i-1]));
+  }
+
   getPaxType(ridership: Ridership): string {
     return `A-${ridership.adult == null ? 0 : ridership.adult}_C-${
       ridership.child == null ? 0 : ridership.child

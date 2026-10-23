@@ -1,3 +1,4 @@
+<p *ngIf="searchError" role="alert" class="alert alert-warning">{{ searchError }}</p>
 <form #form="ngForm" (ngSubmit)="redirect(form)">
   <app-trip-inputs [isMultiCity]="true"></app-trip-inputs>
   <div class="d-flex flex-md-wrap align-items-center p-2 row ms-3">
@@ -39,7 +40,7 @@
     <button
       class="btn search mb-1"
       type="submit"
-      [disabled]="!form.valid || isSearchDisable"
+      [disabled]="!form.valid || isSearchDisable || searching"
     >
       Search
     </button>

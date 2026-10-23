@@ -11,6 +11,7 @@ import { SearchService } from '../shared/services/search.service';
 })
 export class TripInputsComponent implements OnInit {
   returnDate!: string;
+  departureDate!: string;
   selectedClass = DomainConstants.FlightClass.ECONOMY;
   classes = [
     DomainConstants.FlightClass.ECONOMY,
@@ -23,7 +24,8 @@ export class TripInputsComponent implements OnInit {
   constructor(private searchService: SearchService) {
     this.isOneWay = true;
     searchService.changeDate.subscribe((date) => {
-      this.returnDate = date;
+      this.departureDate = date;
+      if (!this.returnDate || this.returnDate < date) this.returnDate = date;
     });
   }
 

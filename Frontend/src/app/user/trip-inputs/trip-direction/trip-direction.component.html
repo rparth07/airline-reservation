@@ -18,7 +18,7 @@
       required
     >
     </ng-select>
-    <span class="reverse-icon" (click)="onInterchange()">
+    <span class="reverse-icon" (click)="onInterchange()" role="button" tabindex="0" aria-label="Swap airports" (keydown.enter)="onInterchange()">
       <img src="../../assets/images/swap.png" alt="reverse icon" />
     </span>
   </div>
@@ -58,6 +58,8 @@
     <input
       type="date"
       id="departureDate"
+      required
+      aria-label="Departure date"
       [(ngModel)]="departureDate"
       (ngModelChange)="departureDate = $event"
       (change)="setCurrentDate()"

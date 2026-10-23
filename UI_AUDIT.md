@@ -53,3 +53,14 @@ Public API: all 170 coverage searches passed, followed by airport/operator/fligh
 Public browser: homepage search, updated airport search, no-results-to-valid-destination recovery, mixed adult/child/infant business round-trip booking, and multicity selection passed with no application console errors in the checked flows.
 Neon inventory check: 13 airports, 3 operators, 344 flights, 156 graph routes; graph weights sum to 344.
 Frontend suite: 20 checks; backend suite: 14 checks. Production build passes with the existing bundle-size warning.
+
+
+## Multicity editor refinement (2026-10-23)
+
+The result-page editor now uses a dedicated responsive grid instead of inheriting the search toolbar layout. Airport names stay visible; each numbered flight has its own remove action. The dialog expands at tablet widths, stacks fields on phones, scrolls its body, and keeps its footer visible. The itinerary trigger is keyboard accessible and names the edit action.
+
+Edits use a separate draft. Cancel, close and Escape discard only unsaved edits; reopening retains the last saved itinerary, including changes not yet searched. Added flights inherit the previous destination/date. Two-to-five-flight limits, known airports, different endpoints, future dates and chronological order are validated before Save.
+
+Verification: production build passed; all 23 frontend tests passed, including three new draft-state regressions. Browser checks at 390x844, 726x1532 and 1280x900 covered airport selection, adding five flights, removing, Cancel/reopen, Save, chronological date errors, and searching with an updated airport/date. Updated results loaded with the correct query and no captured console errors. Build warnings: existing initial bundle budget and the editor component stylesheet budget (3.45 kB versus 2 kB warning threshold).
+
+This update is prepared for manual Netlify deployment; public verification is pending upload of the refreshed canonical ZIP.

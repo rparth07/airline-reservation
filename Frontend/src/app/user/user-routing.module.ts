@@ -10,13 +10,11 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: 'home',
     component: HomePageComponent,
-    resolve: {
-      airportNames: AirportNameResolve,
-    },
   },
   {
     path: 'flights/booking',
@@ -25,7 +23,7 @@ const routes: Routes = [
   {
     path: 'flights/:tripType',
     component: FlightSearchComponent,
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+    runGuardsAndResolvers: 'always',
     resolve: {
       airportNames: AirportNameResolve,
       flights: FlightResolver,

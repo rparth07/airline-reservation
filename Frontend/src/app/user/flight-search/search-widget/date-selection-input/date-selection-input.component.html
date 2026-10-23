@@ -3,14 +3,14 @@
     class="input-box date-box col-md-4 d-flex flex-column"
     [ngStyle]="{ color: labelHeadingColor }"
   >
-    <label for="depatureDate" class="form-label">Departure</label>
+    <label for="departureDate" class="form-label">Departure</label>
     <input
       class="mr-2 form-control departureDate"
       type="date"
       id="departureDate"
       required
       [(ngModel)]="tripDate.departureDate"
-      (ngModelChange)="tripDate.returnDate = tripDate.departureDate"
+      (ngModelChange)="departureChanged()"
       (change)="syncDate()"
       name="departureDate"
       [min]="currentDate"
@@ -32,6 +32,7 @@
       name="returnDate"
       [min]="tripDate.departureDate"
       [disabled]="isReturnDateDisable"
+      [required]="!isReturnDateDisable"
       (change)="onValueChanged()"
     />
   </div>

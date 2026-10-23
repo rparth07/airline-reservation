@@ -44,18 +44,18 @@ export class SearchService {
     if (dates.length === 2) {
       return {
         departureDate: DateFormatService.getFormattedDate(
-          dates[0],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[0]),
           DomainConstants.DateFormat
         )!,
         returnDate: DateFormatService.getFormattedDate(
-          dates[1],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[1]),
           DomainConstants.DateFormat
         )!,
       };
     } else {
       return {
         departureDate: DateFormatService.getFormattedDate(
-          dates[0],
+          DateFormatService.convertDateStringToLocalDateFormat(dates[0]),
           DomainConstants.DateFormat
         )!,
       };
@@ -123,6 +123,16 @@ export class SearchService {
       );
     });
     return dateList;
+  }
+
+  validateQuery(query: Params): boolean {
+    const pax = this.getRidership(query['paxType']);
+    if (pax.adult < 1 || pax.child < 0 || pax.infant < 0 || pax.infant > pax.adult || pax.adult + pax.child + pax.infant > 9) return false;
+    const itinerary = String(query['itinerary']).split('_');
+    const legs = query['tripType'] === 'R' ? [itinerary[0]] : itinerary;
+    const dates = itinerary.map(item => DateFormatService.convertDateStringToLocalDateFormat(item.split('-').pop()!));
+    return legs.every(leg => { const [source,destination] = leg.split('-'); return !!source && !!destination && source !== destination; }) &&
+      dates.every((date,i) => !isNaN(date.getTime()) && (!i || date >= dates[i-1]));
   }
 
   getPaxType(ridership: Ridership): string {

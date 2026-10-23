@@ -41,7 +41,10 @@ export class RidershipCounterCardComponent implements OnInit {
     this.valueChange.emit();
   }
 
+  get totalPassengers() { return this.typeOfPassengers.adult + this.typeOfPassengers.child + this.typeOfPassengers.infant; }
+
   onIncrement(riderType: string) {
+    if (this.totalPassengers >= 9) return;
     this.typeOfPassengers[riderType as keyof Ridership]++;
   }
 

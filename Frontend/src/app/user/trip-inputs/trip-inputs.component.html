@@ -15,7 +15,9 @@
       id="returnDate"
       [(ngModel)]="returnDate"
       name="returnDate"
-      [min]="returnDate"
+      [min]="departureDate"
+      required
+      aria-label="Return date"
       class="form-control mt-auto border-bottom departureDate"
     />
     <p *ngIf="isOneWay" class="mb-08">Tap to add a return date</p>

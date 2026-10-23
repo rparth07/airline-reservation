@@ -32,6 +32,8 @@ export class CitySearchInputComponent implements OnInit {
 
   onInterchange() {
     this.searchService.interchange(this.citiesToInterchange);
+    this.isDuplicateCityEntered();
+    this.valueChange.emit();
   }
 
   onValueChanged() {

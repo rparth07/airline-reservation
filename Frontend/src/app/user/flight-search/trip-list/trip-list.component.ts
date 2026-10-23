@@ -21,6 +21,8 @@ export class TripListComponent implements OnInit {
     private searchService: SearchService
   ) {}
 
+  ngOnChanges(): void { this.selectedTrip = 0; this.tripWidth = 100 / (this.tripList?.length || 1); }
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((query: Params) => {
       this.tripDate = this.searchService

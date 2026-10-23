@@ -17,11 +17,15 @@ export class FlightsComponent implements OnInit {
 
   constructor(private flightSelectionService: FlightSelectionService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    this.selectedList = 0;
     this.sortFlights();
   }
 
   sortFlights() {
+    if (!this.flightInfoList) return;
     this.flightInfoList.sort((a, b) =>
       this.calculateChanges(a) < this.calculateChanges(b) ? -1 : 1
     );

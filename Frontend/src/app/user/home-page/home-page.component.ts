@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { DataStorageService } from '../shared/services/data-storage.service';
 import { SearchService } from '../shared/services/search.service';
 
 @Component({
@@ -7,20 +8,46 @@ import { SearchService } from '../shared/services/search.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
+  loading = false;
+  airportsReady = false;
+  airportError = false;
+  private destroyed = new Subject<void>();
   isMulticity: boolean = false;
   isOneWay: boolean = true;
 
   constructor(
     private searchService: SearchService,
-    private route: ActivatedRoute
+    private dataStorage: DataStorageService
   ) {}
 
   ngOnInit(): void {
-    this.searchService.changeTrip.subscribe((isOneWay) => {
+    this.searchService.changeTrip.pipe(takeUntil(this.destroyed)).subscribe((isOneWay) => {
       this.isOneWay = isOneWay;
     });
-    this.searchService.setCityList(this.route.snapshot.data['airportNames']);
+    this.loadAirports();
+  }
+
+  loadAirports() {
+    if (this.loading) return;
+    this.loading = true;
+    this.airportError = false;
+    this.dataStorage.fetchAirports().pipe(takeUntil(this.destroyed)).subscribe({
+      next: (airports) => {
+        this.searchService.setCityList(airports);
+        this.airportsReady = true;
+        this.loading = false;
+      },
+      error: () => {
+        this.airportError = true;
+        this.loading = false;
+      },
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   changeToOneWay() {

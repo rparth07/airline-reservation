@@ -11,7 +11,7 @@
         <div class="counter-div pe-0">
           <button
             type="button"
-            id="decrement-adult"
+            [attr.aria-label]="'Remove ' + passenger.key"
             class="btn"
             type="button"
             (click)="onDecrement(passenger.key); setPassengerValidation()"
@@ -29,11 +29,11 @@
 
           <button
             type="button"
-            id="increment-adult"
+            [attr.aria-label]="'Add ' + passenger.key"
             class="text-light btn"
             type="button"
             (click)="onIncrement(passenger.key); setPassengerValidation()"
-            [disabled]="passenger.value >= 9"
+            [disabled]="totalPassengers >= 9 || (passenger.key === 'infant' && passenger.value >= typeOfPassengers.adult)"
           >
             +
           </button>

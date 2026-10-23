@@ -14,7 +14,8 @@ export class FlightSelectionService {
   }
 
   set selectedFlightSummary(summaryList: Summary[]) {
-    this.summaryList = [];
+    this.summaryList = summaryList;
+    this.onSummaryListChange.emit(this.summaryList);
   }
 
   addFlightInfo(flightInfo: Summary, index: number) {

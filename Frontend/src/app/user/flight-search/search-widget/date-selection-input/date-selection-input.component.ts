@@ -32,11 +32,6 @@ export class DateSelectionInputComponent implements OnInit {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    this.tripDate.departureDate = DateFormatService.getFormattedDate(
-      this.multicityControl ? this.multicityControl.departureDate : new Date(),
-      DomainConstants.DateFormat
-    )!;
-
     this.isReturnDateDisable =
       this.tripType !== DomainConstants.TripType.ROUND_TRIP;
     this.isMultiCity = this.tripType === DomainConstants.TripType.MULTICITY;
@@ -46,14 +41,23 @@ export class DateSelectionInputComponent implements OnInit {
       new Date(),
       DomainConstants.DateFormat
     )!;
-    this.tripDate.departureDate = this.currentDate;
-    this.tripDate.returnDate = this.currentDate;
+    this.tripDate.departureDate = DateFormatService.getFormattedDate(
+      this.multicityControl?.departureDate || this.tripDate.departureDate || new Date(),
+      DomainConstants.DateFormat
+    );
+    this.tripDate.returnDate = this.tripDate.returnDate || this.tripDate.departureDate;
+  }
+
+  departureChanged() {
+    if (!this.tripDate.returnDate || this.tripDate.returnDate < this.tripDate.departureDate) {
+      this.tripDate.returnDate = this.tripDate.departureDate;
+    }
   }
 
   syncDate() {
     if (this.multicityControl) {
       this.multicityControl.departureDate = new Date(
-        this.tripDate.departureDate
+        this.tripDate.departureDate + 'T00:00:00'
       );
     }
   }

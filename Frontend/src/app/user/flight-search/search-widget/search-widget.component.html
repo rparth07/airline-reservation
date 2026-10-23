@@ -1,12 +1,12 @@
 <div class="my-container">
+  <p *ngIf="searchError" role="alert" class="alert alert-danger">{{ searchError }}</p>
+  <p *ngIf="validationMessage" class="alert alert-warning" role="status">{{ validationMessage }}</p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row mr-ml-0 mt-2 sreach-widget">
       <div class="col-md-1 col-sm-6 col-xs-12 input-box">
         <label for="tripType" class="form-label">Trip Type </label>
         <ng-select
           [items]="tripTypes"
-          bindLabel="name"
-          bindValue="id"
           [(ngModel)]="selectedTripType"
           name="tripType"
           [searchable]="false"
@@ -27,7 +27,7 @@
             ? oneWayRoundFormData.citySearch
             : getEmptyTemplate()
         "
-        name="citySearch"
+        groupName="citySearch"
         (valueChange)="onValueChanged()"
       ></app-city-search-input>
 
@@ -42,8 +42,8 @@
                 departureDate: getEmptyTemplate().departureDate.toString()
               }
         "
-        name="tripDate"
-        (valueChanged)="onValueChanged()"
+        groupName="tripDate"
+        (valueChange)="onValueChanged()"
       ></app-date-selection-input>
 
       <div
@@ -67,8 +67,6 @@
         <label for="travelClass" class="form-label">Class</label>
         <ng-select
           [items]="flightClassList"
-          bindLabel="name"
-          bindValue="id"
           [(ngModel)]="selectedFlightClass"
           name="flightClass"
           [searchable]="false"
@@ -95,9 +93,9 @@
         <button
           type="submit"
           class="btn search-button"
-          [disabled]="!form.valid || isSearchDisable"
+          [disabled]="!form.valid || !validSearch || searching"
         >
-          <span class="text-light">Search</span>
+          <span class="text-light">{{ searching ? 'Searching…' : 'Search' }}</span>
         </button>
       </div>
     </div>

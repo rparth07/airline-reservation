@@ -34,8 +34,8 @@
           </div>
 
           <div class="col-3 d-flex align-items-center input-box ms-auto">
-            <button class="btn continue-button" (click)="onSubmit()">
-              <span class="text-light">Continue</span>
+            <button class="btn continue-button" (click)="onSubmit()" [disabled]="!allLegsSelected">
+              <span class="text-light">{{ allLegsSelected ? 'Continue' : 'Select every leg' }}</span>
             </button>
           </div>
         </div>

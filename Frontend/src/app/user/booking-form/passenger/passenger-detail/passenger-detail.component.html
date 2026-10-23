@@ -3,11 +3,12 @@
   [ngModelGroup]="passengerGroupName"
 >
   <div class="col-6 input-box">
-    <div><label for="name">Name</label></div>
+    <div><label [for]="passengerGroupName + '-name'">Name</label></div>
     <input
       class="form-control mt-2 search-box-input"
       name="name"
-      id="name"
+      pattern=".*\S.*"
+      [id]="passengerGroupName + '-name'"
       placeholder="Ex: Chandler Bing"
       ngModel
       required
@@ -20,14 +21,16 @@
     >
   </div>
   <div class="col-3 input-box">
-    <div><label for="name">Age</label></div>
+    <div><label [for]="passengerGroupName + '-age'">Age</label></div>
     <input
       type="number"
       [min]="minAge"
       [max]="maxAge"
       class="form-control mt-2 search-box-input"
       name="age"
-      id="age"
+      step="1"
+      pattern="[0-9]+"
+      [id]="passengerGroupName + '-age'"
       placeholder="Enter Age"
       #age="ngModel"
       ngModel
@@ -40,9 +43,10 @@
     >
   </div>
   <div class="col-3 input-box">
-    <div><label for="name">Gender</label></div>
+    <div><label [for]="passengerGroupName + '-gender'">Gender</label></div>
     <ng-select
       [items]="gender"
+      [labelForId]="passengerGroupName + '-gender'"
       class="mt-2 search-box-input"
       [searchable]="false"
       placeholder="Enter Gender"

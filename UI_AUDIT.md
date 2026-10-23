@@ -63,4 +63,4 @@ Edits use a separate draft. Cancel, close and Escape discard only unsaved edits;
 
 Verification: production build passed; all 23 frontend tests passed, including three new draft-state regressions. Browser checks at 390x844, 726x1532 and 1280x900 covered airport selection, adding five flights, removing, Cancel/reopen, Save, chronological date errors, and searching with an updated airport/date. Updated results loaded with the correct query and no captured console errors. Build warnings: existing initial bundle budget and the editor component stylesheet budget (3.45 kB versus 2 kB warning threshold).
 
-This update is prepared for manual Netlify deployment; public verification is pending upload of the refreshed canonical ZIP.
+Published and verified on 2026-10-23. Netlify deployment 6adb2f68c9628901aa99c28c is ready. The public browser showed the new editor at tablet and phone widths; Save, Cancel/reopen and add/remove worked. A saved change to the second departure date (2026-11-03) appeared in the query, and selecting that leg displayed Delhi-to-Mumbai results. No console errors were captured in the checked flow.

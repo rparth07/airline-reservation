@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 export const AppSetting = {
-    URL: 'https://rparth07-airline-reservation.somee.com/API/',
-}
+  URL: environment.apiUrl,
+};

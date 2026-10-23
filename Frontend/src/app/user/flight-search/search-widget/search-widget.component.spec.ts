@@ -60,4 +60,41 @@ describe('Result-page search form regression', () => {
     c.departureChanged(); expect(c.tripDate.returnDate).toBe('2026-11-02');
     c.tripDate.departureDate='2026-11-05'; c.departureChanged(); expect(c.tripDate.returnDate).toBe('2026-11-05');
   });
+  function prepareDraft() {
+    const c = fixture.componentInstance;
+    c.multicityList = [
+      { sourceCity: 'MAA', destinationCity: 'DEL', departureDate: new Date(2099, 9, 30) },
+      { sourceCity: 'DEL', destinationCity: 'BLR', departureDate: new Date(2099, 10, 2) }
+    ];
+    c.beginMulticityEdit();
+    return c;
+  }
+  it('isolates unsaved edits and reopens the last saved itinerary after cancellation', () => {
+    const c = prepareDraft();
+    c.draftLegs[0].destinationCity = 'AMD';
+    expect(c.multicityList[0].destinationCity).toBe('DEL');
+    expect(c.applyMulticityEdit()).toBeTrue();
+    c.beginMulticityEdit(); c.draftLegs[0].destinationCity = 'BLR'; c.beginMulticityEdit();
+    expect(c.draftLegs[0].destinationCity).toBe('AMD');
+    expect(c.draftLegs[0].departureDate).toBe('2099-10-30');
+  });
+  it('prefills added flights and enforces the two to five flight limits', () => {
+    const c = prepareDraft();
+    c.removeDraftLeg(0); expect(c.draftLegs.length).toBe(2);
+    c.addDraftLeg(); expect(c.draftLegs[2].sourceCity).toBe('BLR');
+    expect(c.draftLegs[2].departureDate).toBe('2099-11-02');
+    for (let i = 0; i < 5; i++) c.addDraftLeg();
+    expect(c.draftLegs.length).toBe(5);
+    c.removeDraftLeg(2); expect(c.draftLegs.length).toBe(4);
+  });
+  it('blocks duplicate airports, incomplete flights and dates out of travel order', () => {
+    const c = prepareDraft();
+    c.draftLegs[1].departureDate = '2099-10-29';
+    expect(c.draftValid).toBeFalse(); expect(c.applyMulticityEdit()).toBeFalse();
+    c.draftLegs[1].departureDate = '2099-11-02';
+    c.draftLegs[1].destinationCity = 'DEL'; expect(c.draftValid).toBeFalse();
+    c.draftLegs[1].destinationCity = null; expect(c.draftValid).toBeFalse();
+    c.draftLegs[1].destinationCity = 'BLR'; expect(c.draftValid).toBeTrue();
+  });
+
 });

@@ -11,14 +11,13 @@ describe('Booking confirmation', () => {
     service = { getPaxData: { adult: 1, child: 0, infant: 0 }, savePassengersDetails: jasmine.createSpy() };
     modal = { open: jasmine.createSpy().and.returnValue({ close: jasmine.createSpy() }) };
     router = { navigate: jasmine.createSpy() };
-    component = new BookingFormComponent(modal, service, router);
+    component = new BookingFormComponent(service, router);
   });
   it('redirects a direct booking URL without passenger state', () => {
     service.getPaxData = null;
     component.ngOnInit();
     expect(router.navigate).toHaveBeenCalledWith(['/user/home']);
     expect(modal.open).not.toHaveBeenCalled();
-    expect(() => component.ngOnDestroy()).not.toThrow();
   });
   it('blocks duplicate submissions while a booking is pending', () => {
     service.savePassengersDetails.and.returnValue(new Subject());

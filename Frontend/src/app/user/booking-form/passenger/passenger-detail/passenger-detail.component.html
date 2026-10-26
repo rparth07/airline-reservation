@@ -1,26 +1,26 @@
 <div
-  class="row pb-4 justify-content-center"
+  class="passenger-fields"
   [ngModelGroup]="passengerGroupName"
 >
-  <div class="col-6 input-box">
+  <div class="passenger-field">
     <div><label [for]="passengerGroupName + '-name'">Name</label></div>
     <input
       class="form-control mt-2 search-box-input"
       name="name"
       pattern=".*\S.*"
       [id]="passengerGroupName + '-name'"
-      placeholder="Ex: Chandler Bing"
+      placeholder="Fictional full name"
       ngModel
       required
       #name="ngModel"
     />
     <span
-      class="position-absolute error-section"
+      class="field-error"
       [hidden]="!name.touched || name.valid"
       >Please enter your name</span
     >
   </div>
-  <div class="col-3 input-box">
+  <div class="passenger-field">
     <div><label [for]="passengerGroupName + '-age'">Age</label></div>
     <input
       type="number"
@@ -37,19 +37,19 @@
       required
     />
     <span
-      class="help-block position-absolute error-section"
+      class="help-block field-error"
       [hidden]="!age.touched || age.valid"
-      >Invalid Age</span
+      >Enter an age from {{ minAge }} to {{ maxAge }}</span
     >
   </div>
-  <div class="col-3 input-box">
+  <div class="passenger-field">
     <div><label [for]="passengerGroupName + '-gender'">Gender</label></div>
     <ng-select
       [items]="gender"
       [labelForId]="passengerGroupName + '-gender'"
       class="mt-2 search-box-input"
       [searchable]="false"
-      placeholder="Enter Gender"
+      placeholder="Choose gender"
       name="gender"
       [(ngModel)]="selectedGender"
       required

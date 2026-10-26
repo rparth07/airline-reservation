@@ -1,56 +1,10 @@
-<li
-  class="d-flex justify-content-center row ml-1 flight-details mb-2"
-  (click)="addSelectedFlightToSummaryList()" role="button" tabindex="0" [attr.aria-pressed]="isActive" (keydown.enter)="addSelectedFlightToSummaryList()" (keydown.space)="$event.preventDefault(); addSelectedFlightToSummaryList()"
->
-  <div class="col pe-3">
-    <div class="card" [class.active-flight]="isActive">
-      <div class="card-body d-flex flex-column justify-content-between p-3">
-        <div class="flight-operator">
-          <span>
-            <span id="operator-icon">✈</span>
-            <span id="operator-name">{{
-              flightInfo[0].flightOperatorName
-            }}</span>
-          </span>
-        </div>
-        <div class="p-1 flight-info">
-          <div class="d-flex flex-row mr-ml-0 justify-content-between">
-            <div class="d-flex flex-column p-2 col-md-3">
-              <span class="d-flex justify-content-center bold-text">{{
-                sourceFlightInfo.sourceDepartureTime
-              }}</span>
-              <span class="d-flex justify-content-center">{{
-                sourceFlightInfo.sourceCity
-              }}</span>
-            </div>
-            <div class="d-flex flex-column p-2 col-md-3">
-              <span class="d-flex justify-content-center">
-                {{ totalDuration }}
-              </span>
-              <span
-                class="time-stop-sperator d-flex justify-content-center"
-              ></span>
-              <span
-                class="flights-layover-info d-flex justify-content-center"
-                >{{ noOfStops }}</span
-              >
-            </div>
-            <div class="d-flex flex-column p-2 col-md-3">
-              <span class="d-flex justify-content-center bold-text">{{
-                destinationFlightInfo.destinationArrivalTime
-              }}</span>
-              <span class="d-flex justify-content-center">{{
-                destinationFlightInfo.destinationCity
-              }}</span>
-            </div>
-            <div class="d-flex justify-content-center p-2 col-md-3">
-              <span class="align-items-center bold-text">
-                {{ totalCharges | decimalFormatter | custom_currency }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<li class="flight-option" [class.active-flight]="isActive">
+<button type="button" class="flight-choice" [attr.aria-pressed]="isActive" (click)="addSelectedFlightToSummaryList()"><div class="flight-option-heading"><span>{{ flightInfo[0].flightOperatorName }}</span><span class="selection-state">{{ isActive ? 'Selected' : 'Select flight' }}</span></div>
+<div class="flight-option-grid">
+<div><span class="field-caption">Departure</span><strong>{{ sourceFlightInfo.sourceDepartureTime }}</strong><span>{{ sourceFlightInfo.sourceCity }}</span></div>
+<div class="flight-duration"><span class="field-caption">Duration</span><strong>{{ totalDuration }}</strong><span>{{ noOfStops }}</span></div>
+<div><span class="field-caption">Arrival</span><strong>{{ destinationFlightInfo.destinationArrivalTime }}</strong><span>{{ destinationFlightInfo.destinationCity }}</span></div>
+<div class="flight-fare"><span class="field-caption">Fare</span><strong>{{ totalCharges | decimalFormatter | custom_currency }}</strong></div>
+</div></button>
+<details *ngIf="flightInfo.length > 1" class="connection-details" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"><summary>View connection details</summary><ol><li *ngFor="let segment of flightInfo"><strong>{{ segment.sourceCity }} to {{ segment.destinationCity }}</strong><span>{{ segment.sourceDepartureTime }} - {{ segment.destinationArrivalTime }} · {{ segment.flightOperatorName }}</span></li></ol></details>
 </li>

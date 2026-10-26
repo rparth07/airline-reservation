@@ -1,3 +1,4 @@
+<header class="results-heading"><h1>Choose your flights</h1><p>Select a flight for each part of your trip, then continue to passenger details.</p></header>
 <!--here we need to pass form-->
 <app-search-widget
   (clearResultEvent)="clearResultEvent($event)"
@@ -5,29 +6,29 @@
 
 <p *ngIf="clearResults" class="alert alert-info mx-3" role="status">Search again to load flights for your updated choices.</p>
 <!--here we need to pass result-->
-<div *ngIf="isEmptyResponse && !clearResults" class="">
-  <h1>{{ flightService.lastSearchFailed ? 'Search is temporarily unavailable' : 'No flights found' }}</h1>
+<div *ngIf="isEmptyResponse && !clearResults" class="empty-results">
+  <h2>{{ flightService.lastSearchFailed ? 'Search is temporarily unavailable' : 'No flights found' }}</h2>
   <p>{{ flightService.lastSearchFailed ? 'Your search is saved. Please use Search above to try again.' : 'No flights are available for this itinerary. Try different airports or dates.' }}</p>
 </div>
-<div *ngIf="!clearResults && !isEmptyResponse">
+<div *ngIf="!clearResults && !isEmptyResponse" class="results-layout"><div class="results-options">
   <app-trip-list
     *ngIf="isMulticityTrip"
     [tripList]="multicityResponse"
   ></app-trip-list>
 
-  <div class="row d-flex justify-content-center" *ngIf="!isMulticityTrip">
+  <div class="flight-columns" *ngIf="!isMulticityTrip">
     <app-flights
-      class="col-12 col-lg-6"
+
       [flightInfoList]="isRoundTrip ? roundTripResponse[0] : oneWayResponse"
       [selectedFlightIndex]="0"
     ></app-flights>
     <app-flights
-      class="col-12 col-lg-6"
+
       *ngIf="isRoundTrip"
       [flightInfoList]="roundTripResponse[1]"
       [selectedFlightIndex]="1"
     ></app-flights>
   </div>
 
-  <app-summary></app-summary>
+  </div><aside class="results-summary"><app-summary></app-summary></aside>
 </div>

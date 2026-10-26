@@ -25,6 +25,7 @@ export class SummaryComponent implements OnInit {
     });
   }
 
+  get totalPrice(): number { return this.summaryList.reduce((sum, flight) => sum + (flight?.price || 0), 0); }
   ngOnInit(): void {}
 
   get allLegsSelected(): boolean {

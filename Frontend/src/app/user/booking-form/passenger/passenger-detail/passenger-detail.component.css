@@ -1,0 +1,20 @@
+.passenger-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+.passenger-field {
+  min-width: 0;
+}
+.passenger-field label {
+  font-size: .9rem;
+  font-weight: 600;
+}
+@media(max-width:600px) {
+  .passenger-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .passenger-field:first-child {
+    grid-column: 1/-1;
+  }
+}

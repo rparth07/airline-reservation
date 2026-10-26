@@ -6,6 +6,10 @@ import { Summary } from './summary/summary.model';
 })
 export class FlightSelectionService {
   private summaryList: Summary[] = [];
+  private selectedIndices = new Map<number, number>();
+
+  selectedIndex(leg: number): number { return this.selectedIndices.get(leg) || 0; }
+  rememberIndex(leg: number, index: number) { this.selectedIndices.set(leg, index); }
 
   @Output() onSummaryListChange = new EventEmitter<Summary[]>();
 
@@ -15,6 +19,7 @@ export class FlightSelectionService {
 
   set selectedFlightSummary(summaryList: Summary[]) {
     this.summaryList = summaryList;
+    if (!summaryList.length) this.selectedIndices.clear();
     this.onSummaryListChange.emit(this.summaryList);
   }
 

@@ -1,17 +1,104 @@
-.time-stop-sperator {
-  border-top: 3px solid #51e2c2;
+.flight-option {
+  list-style: none;
+  padding: 20px;
+  margin: 0 0 12px;
+  border: 1px solid #dce3ee;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
 }
-
-.from-city-date {
-  text-indent: -500px;
-  width: 100px;
+.flight-option:hover {
+  border-color: #7392c1;
 }
-
 .active-flight {
-  border: 2px solid #008cff;
-  border-radius: 0.25rem;
+  border-color: #2454a5;
+  background: #f0f5fd;
 }
-
-.bold-text {
+.flight-option-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: .9rem;
   font-weight: 600;
+}
+.selection-state {
+  color: #2454a5;
+  white-space: nowrap;
+}
+.flight-option-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr)) minmax(100px,1fr);
+  gap: 16px;
+}
+.flight-option-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.field-caption {
+  color: #566477;
+  font-size: .75rem;
+}
+.flight-option-grid strong {
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+.flight-option-grid span:not(.field-caption) {
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+.flight-fare {
+  text-align: right;
+}
+@media(max-width:600px) {
+  .flight-option {
+    padding: 16px;
+  }
+  .flight-option-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 12px;
+  }
+  .flight-fare {
+    grid-column: 1/-1;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #dce3ee;
+    padding-top: 12px;
+  }
+  .flight-option-heading {
+    font-size: .8rem;
+    gap: 8px;
+  }
+}
+.flight-choice {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
+.connection-details {
+  margin-top: 16px;
+  border-top: 1px solid #dce3ee;
+  padding-top: 12px;
+  font-size: .85rem;
+}
+.connection-details summary {
+  color: #2454a5;
+  cursor: pointer;
+  min-height: 32px;
+}
+.connection-details li {
+  margin-top: 12px;
+}
+.connection-details li span {
+  display: block;
+  margin-top: 4px;
+  color: #566477;
 }

@@ -20,7 +20,7 @@ export class FlightsComponent implements OnInit {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    this.selectedList = 0;
+    this.selectedList = this.flightSelectionService.selectedIndex(this.selectedFlightIndex);
     this.sortFlights();
   }
 
@@ -49,5 +49,6 @@ export class FlightsComponent implements OnInit {
 
   selectFlight(index: number) {
     this.selectedList = index;
+    this.flightSelectionService.rememberIndex(this.selectedFlightIndex, index);
   }
 }

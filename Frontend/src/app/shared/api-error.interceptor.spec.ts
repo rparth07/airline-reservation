@@ -54,4 +54,19 @@ describe('API failure handling', () => {
     backend.expectOne('https://example.com/auth').error(new ProgressEvent('error'));
     expect(status.message).toBe('');
   });
+  it('clears a recovered request warning without clearing another request failure', () => {
+    const url = AppSetting.URL + 'Admin/Airport';
+    http.get(url).subscribe({ error: () => {} });
+    backend.expectOne(url).error(new ProgressEvent('error'));
+    http.get(AppSetting.URL + 'Admin/Operator').subscribe();
+    backend.expectOne(AppSetting.URL + 'Admin/Operator').flush([]);
+    expect(status.message).toContain('could not load');
+    http.get(url).subscribe(); backend.expectOne(url).flush([]);
+    expect(status.message).toBe('');
+    http.post(AppSetting.URL + 'Booking', {}).subscribe({error: () => {}});
+    backend.expectOne(AppSetting.URL + 'Booking').error(new ProgressEvent('error'));
+    http.get(url).subscribe(); backend.expectOne(url).flush([]);
+    expect(status.message).toContain('Check whether it was saved');
+  });
+
 });

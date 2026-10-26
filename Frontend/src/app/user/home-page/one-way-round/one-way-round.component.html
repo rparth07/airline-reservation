@@ -7,9 +7,9 @@
     <button
       class="btn search mb-1"
       type="submit"
-      [disabled]="!form.valid || isSearchDisable || searching"
+      [disabled]="!form.valid || searching"
     >
-      {{ searching ? 'Searching...' : 'Search' }}
+      {{ searching ? 'Searching...' : 'Search flights' }}
     </button>
   </div>
 </form>

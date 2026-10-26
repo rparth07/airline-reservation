@@ -18,7 +18,7 @@ export class CitySearchInputComponent implements OnInit {
   cities!: Cities[];
   isDuplicateCity: boolean = false;
 
-  @Input() labelHeadingColor: string = 'white';
+  @Input() labelHeadingColor: string = '#34445c';
   @Input() citiesToInterchange!: CityConfig;
   @Input() groupName!: string;
 

@@ -1,55 +1,14 @@
-<div class="container">
-  <div
-    class="d-flex flex-nowrap flex-column align-items-center justify-content-center"
-  >
-    <h2 class="title">Find Flights</h2>
-    <p *ngIf="loading" role="status">Starting the demo flight service. The first visit can take about a minute...</p>
-    <div *ngIf="airportError" class="alert alert-warning" role="alert">
-      <h3>Flight service is unavailable</h3>
-      <p>We couldn't load airports. Flight search and booking need a connection to the reservation service. Please try again.</p>
-      <button type="button" class="btn btn-primary" (click)="loadAirports()" [disabled]="loading">Try again</button>
-    </div>
-    <div *ngIf="airportsReady" class="container widget">
-      <ul class="nav ms-5">
-        <li>
-          <a
-            class="oneway"
-            [ngClass]="{ active: !isMulticity && isOneWay }"
-            (click)="changeToOneWay()" role="button" tabindex="0" (keydown.enter)="changeToOneWay()"
-            >One-way</a
-          >
-        </li>
-        <li>
-          <a
-            class="round-trip"
-            [ngClass]="{ active: !isMulticity && !isOneWay }"
-            (click)="changeToRoundTrip()" role="button" tabindex="0" (keydown.enter)="changeToRoundTrip()"
-            >Round-trip</a
-          >
-        </li>
-        <li>
-          <a
-            class="multicity"
-            [ngClass]="{ active: isMulticity }"
-            (click)="changeToMulticity()" role="button" tabindex="0" (keydown.enter)="changeToMulticity()"
-            >Multicity</a
-          >
-        </li>
-      </ul>
-
-      <div class="me-3 ms-3 mt-5">
-        <div id="one-way-round" *ngIf="!isMulticity" class="ms-2">
-          <app-one-way-round [tripType]="isOneWay"></app-one-way-round>
-        </div>
-        <div id="multiCity" *ngIf="isMulticity">
-          <app-multicity></app-multicity>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="home-search" aria-labelledby="search-title">
+<header class="page-heading"><h1 id="search-title">Find flights</h1><p>Choose your route, travel dates and passengers.</p></header>
+<p *ngIf="loading" role="status" class="service-status">Starting the demo flight service. The first visit can take about a minute...</p>
+<div *ngIf="airportError" class="alert alert-warning" role="alert"><h2>Flight service is unavailable</h2><p>We couldn't load airports. Search and booking need a connection to the reservation service.</p><button type="button" class="btn btn-primary" (click)="loadAirports()" [disabled]="loading">Try again</button></div>
+<div *ngIf="airportsReady" class="widget">
+<div class="trip-tabs" role="group" aria-label="Trip type">
+<button type="button" [class.active]="!isMulticity && isOneWay" [attr.aria-pressed]="!isMulticity && isOneWay" (click)="changeToOneWay()">One-way</button>
+<button type="button" [class.active]="!isMulticity && !isOneWay" [attr.aria-pressed]="!isMulticity && !isOneWay" (click)="changeToRoundTrip()">Round-trip</button>
+<button type="button" [class.active]="isMulticity" [attr.aria-pressed]="isMulticity" (click)="changeToMulticity()">Multicity</button>
 </div>
-<div
-  class="image-container d-flex align-items-center justify-content-center mt-5"
->
-  <img src="../../assets/images/welcome.png" alt="welcome image" />
+<app-one-way-round *ngIf="!isMulticity" [tripType]="isOneWay"></app-one-way-round>
+<app-multicity *ngIf="isMulticity"></app-multicity>
 </div>
+</section>

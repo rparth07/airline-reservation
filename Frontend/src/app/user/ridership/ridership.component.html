@@ -1,25 +1,6 @@
-<span>
-  <label for="travelers" class="{{ classToAdd }}">Passengers</label>
-  <div
-    class="travelers"
-    [ngClass]="{ 'mt-2': classToAdd !== 'upside-float' }"
-    (click)="togglePassengerCounter(false)" role="button" tabindex="0" aria-label="Choose passengers" [attr.aria-expanded]="!hidePassengerCounter" (keydown.enter)="togglePassengerCounter(false)"
-    #passengerBox
-  >
-    <span id="travelers" class="p-2">{{ passengers }}</span>
-    Travelers
-    <input
-      type="number"
-      name="ridership"
-      [ngModel]="passengerCountByType"
-      hidden
-    />
-  </div>
-  <app-ridership-counter-card
-    (ridershipCountChange)="onRidershipCountChange($event)"
-    (isPassengersValidated)="togglePassengerCounter($event)"
-    [hidden]="hidePassengerCounter"
-    [typeOfPassengers]="passengerCountByType"
-    (valueChange)="onValueChange()"
-  ></app-ridership-counter-card>
-</span>
+<div class="passenger-control" (keydown.escape)="hidePassengerCounter = true">
+<span class="passenger-label">Passengers</span>
+<button type="button" class="travelers" aria-label="Choose passengers" [attr.aria-expanded]="!hidePassengerCounter" (click)="hidePassengerCounter = !hidePassengerCounter" #passengerBox>{{ passengers }} {{ passengers === 1 ? 'traveler' : 'travelers' }}</button>
+<input type="hidden" name="ridership" [ngModel]="passengerCountByType" />
+<app-ridership-counter-card (ridershipCountChange)="onRidershipCountChange($event)" (isPassengersValidated)="togglePassengerCounter($event)" [hidden]="hidePassengerCounter" [typeOfPassengers]="passengerCountByType" (valueChange)="onValueChange()"></app-ridership-counter-card>
+</div>

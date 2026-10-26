@@ -1,7 +1,8 @@
 <div class="row mr-ml-0" [ngModelGroup]="groupName">
   <div class="col-md-5 input-box" [ngStyle]="{ color: labelHeadingColor }">
-    <span>From</span>
+    <label [for]="groupName + '-from'">From</label>
     <ng-select
+      [labelForId]="groupName + '-from'" [clearable]="false"
       [items]="cities"
       bindLabel="airportName"
       bindValue="abbreviation"
@@ -33,8 +34,9 @@
     class="col-md-5 input-box position-relative"
     [ngStyle]="{ color: labelHeadingColor }"
   >
-    <span>To</span>
+    <label [for]="groupName + '-to'">To</label>
     <ng-select
+      [labelForId]="groupName + '-to'" [clearable]="false"
       [items]="cities"
       bindLabel="airportName"
       bindValue="abbreviation"

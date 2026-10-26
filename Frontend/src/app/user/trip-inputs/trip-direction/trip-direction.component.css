@@ -1,39 +1,49 @@
-div {
-  height: fit-content;
+:host {
+  display: block;
+  min-width: 0;
 }
-
-.reverse-icon {
-  box-shadow: #0000001a 0 0 10px;
-  border-radius: 0.8rem;
-  background-color: #fff;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: absolute;
-  right: -1.9rem;
-  top: 1rem;
-  z-index: 1;
+.route-fields {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 28px minmax(0,1fr) minmax(140px,1fr);
+  gap: 8px;
+  align-items: start;
 }
-
-.reverse-icon img {
-  margin: 0.3rem;
-  width: 70%;
+.route-field {
+  min-width: 0;
 }
-
-.is-invalid.input-border {
-  border: 2px solid #f00;
+.route-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: .9rem;
+  color: #34445c;
+  font-weight: 600;
 }
-
-.top-80 {
-  top: 80% !important;
+.swap-airports {
+  padding: 0;
+  width: 28px;
+  height: 44px;
+  margin-top: 30px;
+  background: transparent;
+  border: 0;
+  color: #2454a5;
 }
-
-@media (max-width: 600px) {
- :host { width: 100%; }
- :host > span { display: grid !important; grid-template-columns: minmax(0, 1fr); gap: 12px; }
- :host > span > div { width: 100%; margin: 0 !important; min-height: 72px; }
- .reverse-icon { right: 12px; }
+.field-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #a52c3a;
+  font-size: .875rem;
+}
+@media(max-width: 600px) {
+  .route-fields {
+    grid-template-columns: minmax(0,1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .swap-airports {
+    position: absolute;
+    right: 0;
+    top: -32px;
+    margin: 0;
+    width: 44px;
+  }
 }

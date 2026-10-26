@@ -1,48 +1,11 @@
 <p *ngIf="searchError" role="alert" class="alert alert-warning">{{ searchError }}</p>
 <form #form="ngForm" (ngSubmit)="redirect(form)">
-  <app-trip-inputs [isMultiCity]="true"></app-trip-inputs>
-  <div class="d-flex flex-md-wrap align-items-center p-2 row ms-3">
-    <div
-      class="d-flex flex-nowrap col-lg-6 col-md-12 row ps-0 mb-md-3 mb-sm-3 mb-xs-3 me-3"
-      *ngFor="let multicityControl of multicityList; let i = index"
-    >
-      <app-trip-direction
-        class="d-flex flex-nowrap me-1 mb-4"
-        [citiesToInterchange]="multicityControl"
-        [groupName]="'tripDirection' + i.toString()"
-      >
-      </app-trip-direction>
-      <div
-        class="col-lg-2 col-md-3 col-sm-3 me-4 ms-2 p-2 d-flex flex-column justify-content-center rounded"
-        *ngIf="i >= 1"
-      >
-        <button class="btn remove-city-button" (click)="removeTrip(i)">
-          <img src="../../assets/images/cancel.png" alt="cancel" />
-        </button>
-      </div>
-
-      <div class="d-flex flex-column p-2 rounded w-50 ms-4" *ngIf="i < 1">
-        <button
-          id="addAnotherCity"
-          type="button"
-          class="bg-light border border-primary btnAddCity p-1 p-2 pb-3 pt-2 pt-3 rounded text-primary"
-          (click)="addTrip()"
-          [hidden]="tripCount >= 5"
-        >
-          + Add Another Flight
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    class="d-flex align-items-center justify-content-center search-container"
-  >
-    <button
-      class="btn search mb-1"
-      type="submit"
-      [disabled]="!form.valid || isSearchDisable || searching"
-    >
-      Search
-    </button>
-  </div>
+<h2 class="multi-heading">Flight 1</h2>
+<app-trip-inputs [isMultiCity]="true"></app-trip-inputs>
+<section class="home-leg" *ngFor="let leg of multicityList; let i = index">
+<div class="home-leg-heading"><h2>Flight {{ i + 2 }}</h2><button type="button" class="btn btn-outline-secondary" (click)="removeTrip(i)" [disabled]="tripCount <= 2" [attr.aria-label]="'Remove flight ' + (i + 2)">Remove</button></div>
+<app-trip-direction [citiesToInterchange]="leg" [groupName]="'tripDirection' + i"></app-trip-direction>
+</section>
+<div class="multi-actions"><button type="button" class="btn btn-outline-primary" (click)="addTrip()" [disabled]="tripCount >= 5">Add another flight</button><span>{{ tripCount }} of 5 flights</span></div>
+<div class="search-container"><button class="btn search" type="submit" [disabled]="!form.valid || searching">{{ searching ? 'Searching...' : 'Search flights' }}</button></div>
 </form>

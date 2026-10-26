@@ -1,71 +1,7 @@
-<span class="d-flex w-100" *ngIf="isDataAvailable" [ngModelGroup]="groupName">
-  <div
-    class="me-2 col-4 p-2 d-flex flex-column input-border rounded position-relative"
-    [ngClass]="{ 'is-invalid': sourceCity.touched && !sourceCity.valid }"
-  >
-    <span class="upside-float">From</span>
-    <ng-select
-      id="sourceCity"
-      class="common-input trip-input border-bottom hide-arrow"
-      [items]="cities"
-      bindLabel="airportName"
-      bindValue="abbreviation"
-      [(ngModel)]="citiesToInterchange.sourceCity"
-      (change)="isDuplicateCityEntered()"
-      name="sourceCity"
-      placeholder="Select Source"
-      #sourceCity="ngModel"
-      required
-    >
-    </ng-select>
-    <span class="reverse-icon" (click)="onInterchange()" role="button" tabindex="0" aria-label="Swap airports" (keydown.enter)="onInterchange()">
-      <img src="../../assets/images/swap.png" alt="reverse icon" />
-    </span>
-  </div>
-  <div
-    class="ms-2 col-4 p-2 d-flex flex-column input-border rounded position-relative"
-    [ngClass]="{
-      'is-invalid': destinationCity.touched && !destinationCity.valid
-    }"
-  >
-    <span class="upside-float">To</span>
-    <ng-select
-      id="destinationCity"
-      class="common-input trip-input border-bottom hide-arrow"
-      [items]="cities"
-      bindLabel="airportName"
-      bindValue="abbreviation"
-      [(ngModel)]="citiesToInterchange.destinationCity"
-      (change)="isDuplicateCityEntered()"
-      name="destinationCity"
-      placeholder="Select Destination"
-      #destinationCity="ngModel"
-      required
-    >
-    </ng-select>
-
-    <div *ngIf="isDuplicateCity" class="error-section d-flex top-80">
-      <span class="red-text error-msg-text"
-        >From &amp; To airports cannot be the same</span
-      >
-    </div>
-  </div>
-
-  <div
-    class="col-4 h-100 me-2 ms-3 p-2 d-flex flex-column input-border rounded"
-  >
-    <span class="upside-float">Departure</span>
-    <input
-      type="date"
-      id="departureDate"
-      required
-      aria-label="Departure date"
-      [(ngModel)]="departureDate"
-      (ngModelChange)="departureDate = $event"
-      (change)="setCurrentDate()"
-      name="departureDate"
-      [min]="currentDate"
-      class="form-control mt-auto border-bottom departureDate"
-    />
-  </div>
-</span>
+<div class="route-fields" *ngIf="isDataAvailable" [ngModelGroup]="groupName">
+<div class="route-field"><label [for]="groupName + '-from'">From</label><ng-select [labelForId]="groupName + '-from'" [items]="cities" bindLabel="airportName" bindValue="abbreviation" [(ngModel)]="citiesToInterchange.sourceCity" (change)="isDuplicateCityEntered()" name="sourceCity" placeholder="Choose airport" [clearable]="false" #sourceCity="ngModel" required></ng-select></div>
+<button type="button" class="swap-airports" aria-label="Swap airports" (click)="onInterchange()"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"/></svg></button>
+<div class="route-field"><label [for]="groupName + '-to'">To</label><ng-select [labelForId]="groupName + '-to'" [items]="cities" bindLabel="airportName" bindValue="abbreviation" [(ngModel)]="citiesToInterchange.destinationCity" (change)="isDuplicateCityEntered()" name="destinationCity" placeholder="Choose airport" [clearable]="false" #destinationCity="ngModel" required></ng-select></div>
+<div class="route-field"><label [for]="groupName + '-departure'">Departure</label><input type="date" [id]="groupName + '-departure'" [(ngModel)]="departureDate" (change)="setCurrentDate()" name="departureDate" [min]="currentDate" class="form-control" required /></div>
+<p *ngIf="isDuplicateCity" class="field-error" role="alert">Choose different departure and arrival airports.</p>
+</div>

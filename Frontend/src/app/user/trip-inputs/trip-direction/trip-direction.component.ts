@@ -50,9 +50,11 @@ export class TripCityComponent implements OnInit {
 
   onInterchange() {
     this.searchService.interchange(this.citiesToInterchange);
+    this.isDuplicateCityEntered();
   }
 
   setCurrentDate() {
+    this.citiesToInterchange.departureDate = new Date(this.departureDate + 'T00:00:00');
     this.searchService.changeDate.emit(this.departureDate);
   }
 

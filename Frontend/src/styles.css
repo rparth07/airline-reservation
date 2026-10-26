@@ -1,10 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
 :root {
   --primary-color: #3a57e8;
 }
-
 /* ng-select height and border override */
 .ng-select.search-box-input .ng-select-container {
   height: 38px;
@@ -19,24 +17,10 @@
   display: none;
 }
 /* ---- */
-
-body div {
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* remove focus border globally */
-.btn:focus {
-  outline: 0;
-  box-shadow: none;
-}
-
 /* error border on invalid select */
 .ng-select.is-invalid .ng-select-container {
   border: 2px solid #f00;
 }
-
 /* override border behavior after ng-select once opened*/
 .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
   border-color: none;
@@ -49,24 +33,265 @@ input.ng-invalid.ng-touched {
   background-color: var(--primary-color);
   border: none;
 }
-
-button:focus-visible, [role="button"]:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #162b70; outline-offset: 3px; }
-button:disabled { cursor: not-allowed; opacity: .65; }
-@media(max-width: 600px) { .flight-info > div { flex-wrap: wrap; } .flight-info > div > div { flex: 1 1 45%; } .trip-list { overflow-x: auto; } .trip-item { min-width: 160px; } .modal-body { padding: 12px; } }
-
-@media (max-width: 600px) {
- .content-inner > .mt-5 > .row { margin: 0 !important; }
- .content-inner .card { width: calc(100% - 24px) !important; padding: 8px; }
- .content-inner .table { display: block; max-width: 100%; overflow-x: auto; }
- .content-inner .search-box { width: 100%; }
- .content-inner .row.justify-content-between > div { width: 100%; margin-bottom: 12px; }
- .content-inner .search-box input { min-width: 0; width: 100% !important; }
- .modal-body .input-box { min-width: 0; }
+button:focus-visible, [role="button"]:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid #162b70;
+  outline-offset: 3px;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+/* NgbModal portals live outside the search component. */
+.multicity-editor-window .modal-dialog {
+  width: calc(100% - 32px);
+  max-width: 920px;
+  margin: 16px auto;
+  min-height: calc(100% - 32px);
+}
+.multicity-editor-window .modal-content {
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+}
+.multicity-editor-window .ng-select .ng-select-container {
+  min-height: 44px;
+}
+.multicity-editor-window .ng-dropdown-panel {
+  z-index: 1060;
+}
+.multicity-editor-window .ng-select.ng-select-focused > .ng-select-container {
+  border-color: #2454a5;
+  box-shadow: 0 0 0 2px #dce8fc;
+}
+:root {
+  --primary-color: #2454a5;
+  --ink: #24344b;
+  --muted: #566477;
+  --line: #dce3ee;
+}
+body {
+  color: var(--ink);
+  background: #f5f7fb;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+::selection {
+  background: #dbe8fc;
+  color: #17396f;
+}
+input, textarea {
+  caret-color: #2454a5;
+}
+a {
+  text-underline-offset: 3px;
+}
+.btn {
+  min-height: 44px;
+  border-radius: 6px;
+}
+.btn-primary {
+  background: #2454a5;
+  border-color: #2454a5;
+}
+.btn-primary:hover {
+  background: #193e82;
+  border-color: #193e82;
+}
+.form-control, .form-select, .ng-select .ng-select-container {
+  min-height: 44px;
+  border-color: #bfcbdc;
+  border-radius: 6px;
+}
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+  color: #566477;
+}
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  border-color: #2454a5;
+  box-shadow: 0 0 0 2px #dce8fc;
+}
+.form-control:focus, .form-select:focus {
+  border-color: #2454a5;
+  box-shadow: 0 0 0 2px #dce8fc;
+}
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #17396f !important;
+  outline-offset: 3px;
+}
+.demo-notice {
+  padding: 10px 24px;
+  font-size: .8rem;
+  background: #eaf1fc;
+  color: #344e76;
+  text-align: center;
+  border-bottom: 1px solid #dce3ee;
+}
+/* Scope legacy inventory containers, avoiding Bootstrap width conflicts. */
+.admin-main .content-inner > .mt-5 {
+  margin-top: 0 !important;
+}
+.admin-main .content-inner > .mt-5 > .row {
+  margin: 0 !important;
+}
+.admin-main .content-inner .card {
+  width: 100%;
+  padding: 16px;
+  margin: 0 !important;
+  border: 1px solid #dce3ee;
+  box-shadow: none !important;
+  border-radius: 12px !important;
+}
+.admin-main .content-inner h2 {
+  font-size: 1.5rem;
+  color: #18386e;
+  margin: 4px 0 24px;
+}
+.admin-main .content-inner .row.justify-content-between {
+  gap: 16px;
+  align-items: center;
+}
+.admin-main .content-inner .row.justify-content-between > div {
+  width: auto;
+  flex: 1 1 240px;
+}
+.admin-main .search-box input {
+  width: 100% !important;
+  min-width: 0;
+}
+.inventory-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 16px 0;
+}
+.inventory-table-wrap table {
+  min-width: 680px;
+  margin: 0 !important;
+  font-size: .875rem;
+}
+.inventory-table-wrap .table-dark {
+  --bs-table-bg: #eef2f8;
+  --bs-table-color: #34445c;
+  border-color: #dce3ee;
+}
+.inventory-table-wrap td, .inventory-table-wrap th {
+  vertical-align: middle;
+  padding: 12px !important;
+}
+.inventory-table-wrap td:last-child {
+  white-space: nowrap;
+}
+.inventory-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 0;
+}
+.inventory-pagination label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: .875rem;
+}
+.inventory-pagination select {
+  width: 75px;
+}
+.modal-dialog {
+  margin: 16px auto;
+  max-width: min(920px, calc(100% - 32px));
+}
+.modal-content {
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  border-radius: 12px;
+}
+.modal-body .form-design {
+  padding: 0 8px 16px !important;
+}
+@media(max-width:600px) {
+  .modal-body .form-design .row > div {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .admin-main .content-inner .card {
+    padding: 8px;
+  }
+  .inventory-pagination {
+    gap: 8px;
+  }
+  .inventory-pagination .btn {
+    padding: 8px;
+  }
+  .demo-notice {
+    padding: 10px 16px;
+  }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+.inventory-table-wrap thead th {
+  color: #34445c !important;
+}
+.inventory-table-wrap .btn + .btn {
+  margin-left: 8px;
+}
+.admin-main .search-box {
+  display: flex !important;
+  width: 100%;
+}
+.table-scroll-hint {
+  display: none;
+}
+.admin-editor-window .modal-body > .row {
+  display: block;
+  margin: 0;
+}
+.admin-editor-window .modal-body .col.input-box {
+  padding: 0;
+}
+.admin-editor-window .form-design {
+  border: 0;
+  margin: 0;
+}
+.admin-editor-window .form-design .row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 16px;
+  margin: 16px 0 0;
+}
+.admin-editor-window .form-design .row > div {
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+.admin-editor-window .form-design .form-control, .admin-editor-window .form-design .form-select {
+  width: 100% !important;
+}
+.admin-editor-window .modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  z-index: 2;
+}
+@media(max-width:600px) {
+  .admin-editor-window .form-design .row {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .table-scroll-hint {
+    display: block;
+    color: #566477;
+    font-size: .8rem;
+    margin: 12px 0 0;
+  }
+  .admin-main .content-inner .row.justify-content-between > div {
+    flex-basis: 100%;
+  }
 }
 
-/* NgbModal portals live outside the search component. */
-.multicity-editor-window .modal-dialog { width: calc(100% - 32px); max-width: 920px; margin: 16px auto; min-height: calc(100% - 32px); }
-.multicity-editor-window .modal-content { max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow: hidden; }
-.multicity-editor-window .ng-select .ng-select-container { min-height: 44px; }
-.multicity-editor-window .ng-dropdown-panel { z-index: 1060; }
-.multicity-editor-window .ng-select.ng-select-focused > .ng-select-container { border-color: #2454a5; box-shadow: 0 0 0 2px #dce8fc; }
+.inventory-table-wrap.airport-table table { min-width: 100%; }

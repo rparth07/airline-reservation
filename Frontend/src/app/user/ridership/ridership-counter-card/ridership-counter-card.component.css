@@ -1,28 +1,29 @@
 .travelers-card {
-  position: absolute;
-  width: 20rem;
-  border: 1px solid #000;
-  z-index: 1;
+  border: 1px solid #bfcbdc;
+  border-radius: 12px;
+  background: #fff;
+  color: #24344b;
+}
+.card-body {
+  padding: 16px;
+}
+.counter-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 .counter-div button {
-  margin: 0px 8px;
+  min-width: 40px;
+  min-height: 44px;
+  padding: 4px;
+  margin: 0;
   background: var(--primary-color);
   color: #fff;
 }
-
-.counter-div button:hover,
-.counter-div button:focus {
-  outline: none;
-  color: #fff;
-  background-color: #364aad;
-  outline: none;
-  box-shadow: none;
-}
-
 span {
   text-transform: capitalize;
 }
-
-.button-container > button {
-  background: var(--primary-color);
+.button-container button {
+  min-height: 44px;
 }

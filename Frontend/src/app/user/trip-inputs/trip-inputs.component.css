@@ -1,68 +1,49 @@
-.title {
-  color: #fff;
-  line-height: 2.8rem;
-  font-weight: 700;
-  font-size: 2.2rem;
-  margin: 2rem 0;
+:host {
+  display: block;
+  min-width: 0;
 }
-
-.widget {
-  background-color: #fff;
-  border-radius: 1rem;
-  margin: 1rem;
-  padding: 5rem 0rem;
-  box-shadow: #00000026 0px 0px 15px;
+.trip-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) repeat(3, minmax(135px, 1fr));
+  align-items: start;
+  gap: 16px;
 }
-
-.upside-float {
-  font-size: 0.8rem;
-  display: inline-flex;
-  font-weight: 700;
-  color: #777777;
-  position: relative;
-  padding: 0px 4px;
-  left: 1.5rem;
-  top: -1.2rem;
-  background-color: #fff;
-  max-width: fit-content;
-  height: fit-content;
+.field {
+  min-width: 0;
 }
-
-:focus-visible {
-  outline: none;
+.field label {
+  display: block;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #34445c;
+  margin-bottom: 8px;
 }
-
-.input-border {
-  border: 1px solid #dee2e6;
+.return-trigger {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #bfcbdc;
+  border-radius: 6px;
+  color: #2454a5;
+  background: #fff;
+  text-align: left;
+  padding: 8px 12px;
 }
-.input-border:focus-within {
-  border: 1px solid black;
+.multicity-options {
+  grid-template-columns: minmax(0, 3fr) repeat(2, minmax(135px, 1fr));
 }
-.input-border:focus {
-  border: 1px solid black;
+@media(max-width: 1100px) {
+  .trip-fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .trip-fields > app-trip-direction {
+    grid-column: 1 / -1;
+  }
+  .multicity-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-
-.passenger-count {
-  margin-top: -5px;
-}
-
-.form-control:focus {
-  color: #212529;
-  background-color: #fff;
-  border-color: #dee2e6;
-  outline: 0;
-  box-shadow: none;
-}
-
-.remove-city-button {
-  width: fit-content;
-}
-
-.mb-08 {
-  margin-bottom: 0.875rem;
-}
-
-@media (max-width: 600px) {
- :host > .row { margin: 0 !important; padding: 0 !important; gap: 12px; }
- :host > .row > div { width: 100% !important; margin: 0 !important; }
+@media(max-width: 600px) {
+  .trip-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

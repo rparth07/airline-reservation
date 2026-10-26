@@ -1,0 +1,42 @@
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px max(24px, calc((100vw - 1192px)/2));
+  background: #fff;
+  border-bottom: 1px solid #dce3ee;
+}
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #18386e;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.admin-link {
+  color: #2454a5;
+  padding: 10px 0 10px 12px;
+  white-space: nowrap;
+  font-size: .9rem;
+}
+@media(max-width: 480px) {
+  .app-nav {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+  .brand {
+    font-size: .95rem;
+    gap: 8px;
+  }
+  .brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .admin-link {
+    font-size: .8rem;
+    padding-left: 4px;
+  }
+}

@@ -22,7 +22,7 @@ export class DateSelectionInputComponent implements OnInit {
   @Input('tripType') tripType!: string;
   @Input() multicityControl!: ItineraryDetail;
   @Input() groupName!: string;
-  @Input() labelHeadingColor: string = 'white';
+  @Input() labelHeadingColor: string = '#34445c';
   @Input() tripDate!: DateSelection;
 
   @Output() valueChange = new EventEmitter();

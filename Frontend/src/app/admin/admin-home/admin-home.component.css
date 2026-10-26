@@ -1,25 +1,38 @@
-.operation-card {
-  margin-top: 15rem;
+.admin-home {
+  max-width: 860px;
+  margin: 16px auto;
 }
-.upside-float {
-  font-size: 1rem;
-  display: inline;
-  font-weight: 700;
-  color: #777777;
-  position: relative;
-  padding: 0px 4px;
-  left: 3.5rem;
-  top: -0.9em;
-  margin-left: 1em;
-  background-color: transparent;
+h1 {
+  font-size: 1.75rem;
+  color: #18386e;
 }
-li {
-  list-style-type: none;
+p {
+  color: #566477;
+  margin: 12px 0 28px;
 }
-a,
-a:visited,
-a:hover,
-a:active {
-  color: inherit;
+nav {
+  border-top: 1px solid #dce3ee;
+}
+nav a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid #dce3ee;
+  color: #2454a5;
   text-decoration: none;
+}
+nav span {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+nav small {
+  color: #566477;
+}
+@media(max-width:600px) {
+  nav a {
+    flex-direction: column;
+    gap: 8px;
+  }
 }

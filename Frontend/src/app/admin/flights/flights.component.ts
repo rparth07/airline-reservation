@@ -92,7 +92,7 @@ export class FlightsComponent implements OnInit {
 
   openModal(flight?: Flight) {
     const modalRef = this.modalService.open(AddFlightComponent, {
-      modalDialogClass: 'modal-lg modal-dialog-centered',
+      size: 'lg', centered: true, windowClass: 'admin-editor-window',
       backdrop: 'static',
       keyboard: false,
     });

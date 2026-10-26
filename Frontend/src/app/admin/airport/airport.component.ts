@@ -65,7 +65,7 @@ export class AirportComponent implements OnInit {
 
   openUpdateAirportModal(airport?: Airport) {
     const modalRef = this.modalService.open(AddAirportComponent, {
-      modalDialogClass: 'modal-lg modal-dialog-centered',
+      size: 'lg', centered: true, windowClass: 'admin-editor-window',
       backdrop: 'static',
       keyboard: false,
     });

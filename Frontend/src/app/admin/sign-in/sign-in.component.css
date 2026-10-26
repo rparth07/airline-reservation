@@ -1,55 +1,33 @@
-:root {
-  --primary-color: #3a57e8;
+.sign-in {
+  max-width: 460px;
+  margin: 32px auto;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #dce3ee;
+  border-radius: 14px;
 }
-
-body {
-  background: radial-gradient(#b3b5d8, #4b6a98);
-  min-height: 100vh;
+h1 {
+  color: #18386e;
+  font-size: 1.65rem;
+  margin-top: 24px;
 }
-
-main {
-  min-height: inherit;
+p {
+  color: #566477;
+  margin: 12px 0 24px;
 }
-
-.login-card {
-  border: 0;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
-  overflow: hidden;
+label {
+  display: block;
+  margin: 20px 0 8px;
+  font-size: .9rem;
+  font-weight: 600;
 }
-
-.login-card-img {
-  border-radius: 0;
+button {
   width: 100%;
+  margin-top: 24px;
 }
-
-.card-body {
-  padding: 151px 70px 60px;
-}
-
-.login-card-description {
-  font-size: 25px;
-  color: #000;
-  font-weight: normal;
-  margin-bottom: 23px;
-}
-
-.login-btn {
-  border: none;
-  padding: 0.5rem 3rem;
-  border-radius: 8px;
-  background: var(--primary-color);
-  color: #fff;
-  font-weight: bold;
-}
-
-.login-btn:hover {
-  background-color: #3a57e8de;
-  color: #fff;
-}
-
-@media (max-width: 422px) {
-  .card-body {
-    padding: 35px 24px;
+@media(max-width:600px) {
+  .sign-in {
+    padding: 24px 20px;
+    margin: 0 auto;
   }
 }

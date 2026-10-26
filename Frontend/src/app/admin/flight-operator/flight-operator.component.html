@@ -10,11 +10,9 @@
           <div class="row justify-content-between mb-2">
             <div class="col-6 col-md-6">
               <form (submit)="$event.preventDefault()" class="form-inline search-box d-flex d-inline">
-                <input id="search" (input)="onFilter($any($event.target).value)" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
+                <input id="search" #inventoryFilter (input)="onFilter($any($event.target).value)" class="form-control w-auto" type="search" placeholder="Search..." aria-label="Search"
                   autocomplete="off" />
-                <button type="button" id="searchButton" aria-label="Search inventory">
-                  <i class="fa fa-search"></i>
-                </button>
+
               </form>
               <div class="suggestions scrollable"></div>
             </div>
@@ -36,7 +34,7 @@
           </div>
           <div class="row justify-content-around">
             <div class="col">
-              <table id="myTable" class="table table-hover mx-auto caption-top table-responsive-md table-responsive-sm">
+              <p class="table-scroll-hint">Scroll the table to see all columns and actions.</p><div class="inventory-table-wrap" tabindex="0" role="region" aria-label="Inventory table"><table id="myTable" class="table table-hover mx-auto caption-top table-responsive-md table-responsive-sm">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col" class="table-header">#</th>
@@ -59,6 +57,7 @@
                 </thead>
 
                 <tbody id="operatorData">
+<tr *ngIf="inventoryFilter.value && !totalPages.length"><td colspan="10">No matching records. Try another search.</td></tr>
                   <tr *ngFor="
                       let operator of currentPageData$ | async;
                       let i = index
@@ -81,42 +80,19 @@
                     </td>
                     <td>{{ operator.tax | decimalFormatter }}</td>
                     <td>
-                      <i class="material-icons" (click)="openModal(operator)">border_color</i>
-                      <i class="material-icons" (click)="onDelete(operator.companyName)">delete</i>
+                      <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModal(operator)">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete(operator.companyName)">Delete</button>
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table></div>
             </div>
           </div>
 
           <!-- pagination section -->
           <div class="row justify-content-center">
             <div class="col-9">
-              <nav aria-label=" navigation example mx-auto">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item page-list" (click)="
-                      selectedPageNumber > 0 &&
-                        onPageChange(selectedPageNumber - 1)
-                    ">
-                    <a class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">&laquo; Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item list-item" *ngFor="let page of totalPages"
-                    [ngClass]="page == selectedPageNumber ? 'active' : ''" (click)="onPageChange(page)">
-                    <a class="page-link"> {{ page + 1 }}</a>
-                  </li>
-                  <li class="page-item" (click)="
-                      selectedPageNumber < totalPages.length - 1 &&
-                        onPageChange(selectedPageNumber + 1)
-                    ">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">Next &raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <nav class="inventory-pagination" aria-label="Inventory pages"><button type="button" class="btn btn-outline-secondary" [disabled]="selectedPageNumber <= 0" (click)="onPageChange(selectedPageNumber - 1)">Previous</button><label>Page <select class="form-select" [ngModel]="selectedPageNumber" (ngModelChange)="onPageChange(+$event)" [ngModelOptions]="{standalone: true}" [disabled]="!totalPages.length"><option *ngFor="let page of totalPages" [ngValue]="page">{{ page + 1 }}</option></select> of {{ totalPages.length || 1 }}</label><button type="button" class="btn btn-outline-secondary" [disabled]="selectedPageNumber >= totalPages.length - 1" (click)="onPageChange(selectedPageNumber + 1)">Next</button></nav>
             </div>
           </div>
           <!-- //// -->

@@ -60,7 +60,7 @@ export class FlightOperatorComponent implements OnInit {
 
   openModal(operator?: FlightOperator) {
     const modalRef = this.modalService.open(AddFlightOperatorComponent, {
-      modalDialogClass: 'modal-lg modal-dialog-centered',
+      size: 'lg', centered: true, windowClass: 'admin-editor-window',
       backdrop: 'static',
       keyboard: false,
     });

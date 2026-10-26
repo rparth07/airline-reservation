@@ -1,7 +1,1 @@
-<app-sidebar *ngIf="isSidebarHidden"></app-sidebar>
-<main [ngClass]="toggle">
-  <div class="position-relative">
-    <app-header *ngIf="isHeaderHidden"></app-header>
-  </div>
-  <router-outlet></router-outlet>
-</main>
+<app-header *ngIf="isHeaderHidden"></app-header><main class="admin-main" id="main-content"><router-outlet></router-outlet></main>
